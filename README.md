@@ -1,1 +1,1 @@
-# bsnlp
+# BSNLP shared repository
