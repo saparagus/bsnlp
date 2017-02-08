@@ -1,0 +1,409 @@
+%
+% File eacl2017.tex
+%
+%% Based on the style files for ACL-2016
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn, 
+%% based on the style files for ACL-2010, which were, in turn, 
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt]{article}
+\usepackage{eacl2017}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+
+
+
+
+%\eaclfinalcopy % Uncomment this line for the final submission
+%\def\eaclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\newcommand\BibTeX{B{\sc ib}\TeX}
+
+\title{Shared Task on Multilingual Named Entity Recognition, Normalisation and Cross-language Matching for Slavic Languages}
+
+
+\author{First Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  {\tt email@domain} \\\And
+  Second Author \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  {\tt email@domain} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  This paper describes the shared task on multilingual
+  named entity recognition that aimed at recognizing mentions of named
+  entities in web documents in Slavic languages, their
+  normalization or lemmatization, and cross-language matching. The task was
+  organized in the context of the Sixth Balto-Slavic Natural Language
+  Processing Workshop co-located with the EACL 2017 conference.
+	
+  \textbf{TODO: amend once we know the results}
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Due to rich inflection, derivation, free word order, and other phenomena
+exhibited by Slavic languages, the detection of names and their
+lemmatization poses a challenging task.  Fostering research and
+development on this problem---and the closely related problem of entity
+linking---is of paramount importance for enabling effective multilingual
+and cross-lingual information access in these languages.
+
+\textbf{TODO:}
+
+\begin{itemize}
+
+\item motivation
+
+\item aim and the task
+
+\item related shared tasks
+
+\end{itemize}
+
+The remainder of this paper is organized as follows.
+%
+Section~\ref{sec:task} introduces the task.  
+%
+Section~\ref{sec:protocol} describes the system response protocol.
+%
+The characteristics of the test datasets are provided in
+Section~\ref{sec:annotation}.
+%
+The evaluation methodology is introduced in
+Section~\ref{sec:evaluation}.
+%
+Descriptions of the participants' systems is provided in
+Section~\ref{sec:participants} and the results obtained by these systems
+in Section~\ref{sec:results}.
+%
+Lessons learned and the main conclusions are discussed in
+Section~\ref{sec:conclusions}.
+
+\section{Task Description}
+\label{sec:task}
+
+We are given a collection of text documents in several Slavic languages
+extracted from the Web and focusing around a certain entity---e.g., a
+person or an organisation.  The task is to recognize, classify, and
+``normalize'' all named-entity mentions in each of the documents, and to
+link together across languages all named mentions referring to the same
+real-world entity.  By ``normalization'' we mean lemmatization, return to
+a basic, dictionary form.  The document collection is obtained by posing
+a query to a search engine, and parsing the HTML of returned documents.
+More formally, the Multilingual Named Entity Recognition task is
+subdivided into three subtasks:
+
+\begin{enumerate}
+  
+\item \textbf{Named Entity Mention Detection and Classification}:
+  recognizing all unique named mentions of entities of four types:
+  \begin{itemize}
+  \item persons (PER), 
+  \item organizations (ORG),
+  \item locations (LOC),
+  \item miscellaneous (MISC),
+  \end{itemize}
+
+  where the last category covers mentions of all other types of named
+  entities, e.g., products, events, etc.
+
+\item \textbf{Name Normalization}: computing for each detected named
+  mention of an entity its corresponding base form, or ``lemma,'' and
+
+\item \textbf{Entity Matching}: assigning an identifier to each detected
+  named mention of an entity, in such a way that mentions of entities
+  referring to the same real-world entity should be assigned the same
+  identifier, which is referred to as cross-lingual ID.
+
+\end{enumerate}
+
+\noindent The task does not include returning positional information of name entity mentions. Consequently,
+for all occurrences of the same form of a mention (e.g., inflected variant, acronym or abbreviation) of a named entity 
+within the same document not more than one annotation should be returned, unless the different occurrences thereof have 
+different entity types (different readings) assigned to them. Furthermore, distinguishing case information is not relevant
+since the evaluation is case-insensitive. In particular, if the text includes lowercase, uppercase and/or mixed-letter 
+named mention variants of the same entity, the system response should include only one annotation for all of these mentions. 
+For instance, for `\textit{ISIS}', `\textit{isis}', and `\textit{Isis}' (provided that they refer to the same named-entity type), 
+only one annotation should be returned (e.g., `\textit{Isis}').
+
+It is important to emphasize that the recognition of nominal or pronominal mentions of entities is not part of the task. 
+
+As regards language coverage the shared task covered recognition of names in seven Slavic languages, namely, Croatian, 
+Czech, Polish, Russian, Slovak, Slovene, Ukrainian. It is envisioned to extend the task to cover additional Slavic 
+languages at a later stage, which goes beyond the scope of the task defined for the 2017 edition of BSNLP workshop.
+
+As regards recognition of particular types of named-entity the following rules were imposed:
+
+\begin{itemize}
+
+\item \textbf{Person names (PER)}:
+
+a) Person names should not include titles, honorifics, and functions/positions. For example, in the text fragment `\textit{CEO Dr. Jan Kowalski}', only `\textit{Jan Kowalski"}' should be recognized as a person name. However, initials and pseudonyms are considered named mentions of person names and should be recognized. Similarly, named references to groups of people (that do not have a formal organization unifying them) should also be recognized, e.g., `\textit{Ukrainians}'.
+
+b) Personal possessives derived from a named mention of a person should be classified as a person, and the base form of the corresponding person name should be extracted. For instance, for `\textit{Piskorskijev mejl}' (Croatian) it is expected to recognize `\textit{Piskorskijev}', classified with PER and extract the base form: `\textit{Piskorski}'.
+
+c) Fictive persons and characters are considered as persons.
+
+\item \textbf{Locations (LOC)}:
+
+\begin{itemize}
+
+\item This category includes all toponyms and geopolitical entities (e.g., cities, counties, provinces, countries, regions, bodies of water, land formations, etc.) and named mentions of facilities (e.g., stadiums, parks, museums, theaters, hotels, hospitals, transportation hubs, churches, railroads, bridges, and other similar urban and non-urban facilities).
+
+\item Even in case of named mentions of facilities that refer to an organization, the LOC tag should be used. For example, from the text phrase `\textit{The Schipol airport has acquired new electronic gates}' the mention `\textit{The Schipol airport}' should be extracted and classified as LOC.
+
+\end{itemize}
+
+\item \textbf{Organizations (ORG)}:
+
+\begin{itemize}
+
+\item This category covers all kind of organizations such as: political parties, public institutions, international organizations, companies, religious organizations, sport organizations, education and research institutions, etc.
+
+\item Organization designators and potential mentions of the seat of the organization are considered to be part of the organization name. For instance, from the text fragment `\textit{Citi Handlowy w Poznaniu}' (a bank in Poznań), the full phrase `\textit{Citi Handlowy w Poznaniu}' should be extracted.
+
+\end{itemize}
+
+\item \textbf{Miscellaneous (MISC)}:
+
+\begin{itemize}
+
+\item This category covers all other named mentions of entities, e.g., product names (e.g., `\textit{Motorola Moto X}'), events (conferences, concerts, natural disasters, holidays, e.g., `\textit{Święta Bożego Narodzenia}', etc.).
+
+\item This category does not include the recognition of temporal and numerical expressions, as well as recognition of identifiers such as email addresses, URLs, postal addresses, etc.
+
+\end{itemize}
+
+\item \textbf{Other aspects}:
+
+\begin{itemize}
+
+\item In case of complex named entities, consisting of nested named entities, only the top-most entity should be recognized. For example, from the text fragment `\textit{George Washington University}' one should not extract `\textit{George Washington}, but the entire name, namely, `\textit{George Washington University}. 
+
+\item In case a same form (e.g., `\textit{Washington}') in two different contexts in the same document is used to refer to two different real-world entities (e.g. a person and a location) the system should return two annotations respectively, where each of them associates the mention with a different cross-language ID resp.
+
+\end{itemize}
+
+\end{itemize}
+
+The registered participants were provided access to two trial datasets related to: (a) Beata Szydło, the current prime minister of Poland, and (b) ISIS, the so-called “Islamic State of Iraq and Syria” terror group. Theses datasets consisted of 187 and 186 documents respectively, with equal distribution of documents across the seven languages of interest.
+
+\section{System Input and Response Protocol}
+\label{sec:protocol}
+
+\subsection{Input Document Format}
+\label{subsec:input}
+
+Documents in trial and test datasets are represented in the following format, where the first 5 lines 
+contain metadata, whereas the core text to be processed is available from the 6th line till the 
+end of the file. 
+
+\begin{small}
+\begin{verbatim}
+<DOCUMENT-ID>
+<LANGUAGE>
+<CREATION-DATE>
+<URL>
+<TITLE>
+<TEXT>
+\end{verbatim}
+\end{small}
+
+\noindent The \verb+<URL>+ field was used to store information on the origin from which 
+the text document was created. The values of the metadata fields were computed automatically 
+(see~\ref{sec:annotation} for details). In particular, the values of the \verb+<CREATION-DATE>+ 
+and \verb+<TITLE>+ fields were not provided for all documents either due to unavailability 
+of such data or due to web page parsing errors during the creation process. 
+
+\subsection{System Response}
+\label{subsec:input}
+
+For each input document the systems should return a corresponding file in the following format.
+The first line should contain only the \verb+<DOCUMENT-ID>+ field that corresponds to the input file,
+whereas each subsequent line should be of the format:
+
+\begin{small}
+\begin{verbatim}
+<MENTION> TAB <BASE> TAB <CAT> TAB <ID>
+\end{verbatim}
+\end{small}
+
+\noindent The value of the \verb+<MENTION>+ field should contain the named-entity mention as it 
+appears in text. The value of the \verb+<BASE>+ field should contain the base form of the
+entity. Finally, the \verb+<CAT>+ and \verb+<ID>+ fields are used to store information
+on the category of the entity (ORG, PER, LOC or MISC) and cross-lingual identifier resp. 
+The cross-lingual identifiers may consist of an arbitrary sequence of alphanumeric characters.
+An example of system response (for a document in Polish) is given below.
+
+\begin{small}
+\begin{verbatim}
+16
+Podlascy Czeczeni Podlascy Czeczeni PER 1
+ISIS ISIS ORG 2
+Rosji Rosja LOC 3
+Polsce Polska LOC 4
+Warszawie Warszawa LOC 5
+Rosja Rosja LOC 3
+Magazynu Kuriera Porannego Magazyn Kuriera Porannego ORG 6
+\end{verbatim}	    
+\end{small}
+
+\section{Task Dataset}
+\label{sec:annotation}
+
+Two datasets were prepared for evaluation, each consisting of documents
+extracted from the Web and revolving around a given entity.
+Specifically, the first dataset contains documents related to Donald
+Trump, the recently elected President of United States (which will be
+referred to as {\sc Trump}), whereas the second dataset contains
+documents related to the European Commission (which will be referred to
+as {\sc ECommission}).
+
+The test datasets were created in the following manner.  For each entity
+of interest we have posed a separate search query to Google, in each of
+the seven target languages.  The query was configured to return links to
+documents only in the language of interest.  Next, we extracted the first
+100 links\footnote{Or fewer, in case the search engine did not return 100
+  links.} returned by the search engine, removed duplicate links and
+downloaded the corresponding HTML pages---mainly news articles or
+fragments thereof---and converted them into pure text, using a hybrid
+HTML parser.  This process was done semi-automatically using the tool
+described in~\cite{Crawley:ea:2010}.  In particular, some of the metadata
+fields (i.e., creation date, title, URL) were automatically computed
+using the aforementioned tool.
+
+The HTML parsing resulted in extracting texts that may include not only
+the core text of a Web page, but also some additional pieces of text,
+e.g., a list of labels from a menu, user comments, etc., which might not
+necessarily constitute well-formed utterances in the target language.
+This occurred in a small fraction of texts in the test datasets.  Some of
+these texts were included in the test dataset in order to maintain the
+flavour of “real-data”.  However, obvious HTML parser failure, e.g.,
+extraction of Javascript code, extraction of empty texts, etc. were removed
+from the data sets.  Additionally, some of the downloaded documents were
+additionally polished through removing erroneously extracted boilerplate
+content. The resulting set of partially `cleaned' documents were used to
+select for each language and topic circa 20-25 documents for the
+preparation of the final test datasets. The annotation for Croatian,
+Czech, Polish, Russian and Slovene were done by native speakers, whereas
+annotation for Slovak and Ukrainian were made by native speakers of Czech
+and Russian resp.  capable of understanding with the former
+languages. The cross-language alignment of the entity identifiers were
+done by two annotators.  Table~\ref{tab:datasets} provides more detailed
+quantitative data about the test annotated datasets.
+
+\begin{table}[htbp]
+\begin{center}
+\begin{footnotesize}
+%\begin{tabular}{|l|c|c|c|c|c|c|}
+\begin{tabular}{|l||c|c||c|c||}
+\hline\hline  
+Language & \multicolumn{2}{c||}{\textbf{{\sc Trump}}} & \multicolumn{2}{c||}{\textbf{{\sc ECommission}}} \\ \cline{2-5}
+          &  \#docs & \#men & \#docs & \#men \\ \hline\hline
+Croatian & x & x & x & x \\
+Czech & x & x & x & x \\
+Polish & x & x & x & x \\
+Russian & x & x & x & x \\
+Slovak  & x & x & x & x \\
+Slovene & x & x & x & x \\
+Ukrainian & x & x & x & x \\
+\hline\hline
+Total & x & x & x & x  \\
+\hline\hline
+\end{tabular}
+\end{footnotesize}
+\end{center}
+\caption{Quantitative data about the test datasets. \#doc+ and \#men refer to the number of documents and named-entity mention annotations respectively.}
+\label{tab:datasets}
+\end{table}
+
+\textbf{TODO: provide some figures on the fraction of ORGS, PER, LOCs etc. in the datasets}
+
+\section{Evaluation Methodology}
+\label{sec:evaluation}
+
+Named entity recognition (exact case-insensitive matching) and  Name Normalization (sometimes called “lemmatization”) tasks were evaluated in terms of precision, recall, and F1 scores. In particular, as regards named entity recognition, two types of evaluations were carried out:
+
+\begin{itemize}
+
+\item \textbf{Relaxed evaluation}: an entity mentioned in a given document is considered to be extracted correctly if the system response includes at least one annotation of a named mention of this entity (regardless whether the extracted mention is base form);
+
+\item \textbf{Strict evaluation}: the system response should include exactly one annotation for each unique form of a named mention of an entity that is referred to in a given document, i.e., capturing and listing all variants of an entity is required.
+
+\end{itemize}
+
+In the context of the evaluation we considered various level of granularity, i.e., the performance for: 
+(a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for each language,
+and (d) each particular NE type per language. 
+
+As regards the evaluation of document-level and cross-language entity matching task we have adapted the 
+Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016}.
+
+The evaluation was carried out in `case-insensitive' mode, all named mentions in system response and test corpora were 
+lowercased.
+
+\textbf{TODO: extend, in particular on LEA}
+
+\section{Participant Systems}
+\label{sec:participants}
+
+\begin{itemize}
+
+\item how many teams registered, submitted results, which sub tasks they covered, etc.
+
+\item short summary on what technique(s) each of the participating system is based
+
+\end{itemize}
+
+\section{Evaluation Results}
+\label{sec:results}
+
+\textbf{TODO: content and presentation yet to be elaborated}
+
+\section{Conclusions}
+\label{sec:conclusions}
+
+\textbf{TODO:}
+
+\section*{Acknowledgments}
+
+We would like to thank following persons, who contributed one way or another to the shared task:
+
+\bibliographystyle{eacl2017}
+\bibliography{sharedBSNLP2017}
+
+
+
+
+\end{document}
