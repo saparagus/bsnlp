@@ -21,13 +21,10 @@
 \usepackage{times}
 \usepackage{url}
 \usepackage{latexsym}
-\usepackage{polski}
+%\usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-
-
-
-
+\usepackage{booktabs}
 
 %\eaclfinalcopy % Uncomment this line for the final submission
 %\def\eaclpaperid{***} %  Enter the acl Paper ID here
@@ -40,7 +37,7 @@
 
 \newcommand\BibTeX{B{\sc ib}\TeX}
 
-\title{Shared Task on Multilingual Named Entity Recognition, Normalisation and Cross-language Matching for Slavic Languages}
+\title{Shared Task on Multilingual Named Entity Recognition, Normalisation, and Cross-Language Matching for Slavic Languages}
 
 
 \author{First Author \\
@@ -59,14 +56,12 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  This paper describes the shared task on multilingual
-  named entity recognition that aimed at recognizing mentions of named
-  entities in web documents in Slavic languages, their
-  normalization or lemmatization, and cross-language matching. The task was
-  organized in the context of the Sixth Balto-Slavic Natural Language
-  Processing Workshop co-located with the EACL 2017 conference.
-	
-  \textbf{TODO: amend once we know the results}
+This paper describes the outcomes of the shared task on multilingual named entity recognition 
+that aimed at recognizing mentions of named entities in web documents in Slavic languages, 
+their normalization/lemmatization, and cross-language matching. The task was organised in 
+the context of the 6-th Balto-Slavic Natural Language Processing Workshop co-located with 
+EACL 2017 conference. 
+\textbf{TODO: amend once we know the results}
 \end{abstract}
 
 \section{Introduction}
@@ -91,62 +86,51 @@ and cross-lingual information access in these languages.
 
 \end{itemize}
 
-The remainder of this paper is organized as follows.
-%
-Section~\ref{sec:task} introduces the task.  
-%
-Section~\ref{sec:protocol} describes the system response protocol.
-%
-The characteristics of the test datasets are provided in
-Section~\ref{sec:annotation}.
-%
-The evaluation methodology is introduced in
-Section~\ref{sec:evaluation}.
-%
-Descriptions of the participants' systems is provided in
-Section~\ref{sec:participants} and the results obtained by these systems
-in Section~\ref{sec:results}.
-%
-Lessons learned and the main conclusions are discussed in
+The remainder of this paper is organised as follows. In Section~\ref{sec:task},
+the task is introduced. Next, in Section~\ref{sec:protocol} the system response
+protocol is described.  Subsequently, the characteristics of the test datasets
+are provided in Section~\ref{sec:annotation}. The evaluation methodology is
+introduced in Section~\ref{sec:evaluation}.  Next, the description of
+participant systems is provided in Section~\ref{sec:participants} and the
+results obtained by these systems are presented in Section~\ref{sec:results}.
+Finally, lessons learnt and main conclusions are discussed in
 Section~\ref{sec:conclusions}.
 
 \section{Task Description}
 \label{sec:task}
 
-We are given a collection of text documents in several Slavic languages
-extracted from the Web and focusing around a certain entity---e.g., a
-person or an organisation.  The task is to recognize, classify, and
-``normalize'' all named-entity mentions in each of the documents, and to
-link together across languages all named mentions referring to the same
-real-world entity.  By ``normalization'' we mean lemmatization, return to
-a basic, dictionary form.  The document collection is obtained by posing
-a query to a search engine, and parsing the HTML of returned documents.
-More formally, the Multilingual Named Entity Recognition task is
-subdivided into three subtasks:
+Given a collection of text documents in Slavic languages extracted from the Web
+and revolving around a certain entity (e.g., person or organisation) the task
+is to recognize, classify, and normalise (lemmatise) all named-entity mentions
+in each of the documents and to link together across languages all named
+mentions referring to the same real-world entity.  The collection is obtained
+by posing a query to a search engine and parsing the HTML of relevant
+documents. More precisely, the Multilingual Named Entity Recognition task is
+formally subdivided into three subtasks:
 
-\begin{enumerate}
-  
-\item \textbf{Named Entity Mention Detection and Classification}:
-  recognizing all unique named mentions of entities of four types:
-  \begin{itemize}
-  \item persons (PER), 
-  \item organizations (ORG),
-  \item locations (LOC),
-  \item miscellaneous (MISC),
-  \end{itemize}
+%We are given a collection of text documents in several Slavic languages
+%extracted from the Web and focusing around a certain entity---e.g., a
+%person or an organisation.  The task is to recognize, classify, and
+%``normalize'' all named-entity mentions in each of the documents, and to
+%link together across languages all named mentions referring to the same
+%real-world entity.  By ``normalization'' we mean lemmatization, return to
+%a basic, dictionary form.  The document collection is obtained by posing
+%a query to a search engine, and parsing the HTML of returned documents.
+%More formally, the Multilingual Named Entity Recognition task is
+%subdivided into three subtasks:
 
-  where the last category covers mentions of all other types of named
-  entities, e.g., products, events, etc.
+\begin{itemize}
 
-\item \textbf{Name Normalization}: computing for each detected named
-  mention of an entity its corresponding base form, or ``lemma,'' and
+\item \textbf{Named Entity Mention Detection and Classification}: recognizing all unique named mentions of entities of four types:
+> persons (PER), organizations (ORG), locations (LOC), miscellaneous (MISC), the latter covering mentions of all other types of named entities, e.g., products, events, etc.
 
-\item \textbf{Entity Matching}: assigning an identifier to each detected
-  named mention of an entity, in such a way that mentions of entities
-  referring to the same real-world entity should be assigned the same
-  identifier, which is referred to as cross-lingual ID.
+\item \textbf{Name Normalization}: computing for each detected named mention of an entity its corresponding base form/lemma, and
 
-\end{enumerate}
+\item \textbf{Entity Matching}: assigning to each detected named mention of an entity an identifier in such a way that detected 
+mentions of entities referring to the same real-world entity should be assigned the same identifier, which is referred to as 
+cross-lingual ID.
+
+\end{itemize}
 
 \noindent The task does not include returning positional information of name entity mentions. Consequently,
 for all occurrences of the same form of a mention (e.g., inflected variant, acronym or abbreviation) of a named entity 
@@ -290,6 +274,13 @@ referred to as {\sc Trump}), whereas the second dataset contains
 documents related to the European Commission (which will be referred to
 as {\sc ECommission}).
 
+%Two datasets were prepared for evaluation purposes, each consisting of
+%documents extracted from the Web and revolving around a given entity. To be
+%more precise, the first dataset contains documents on Donald Trump, the
+%recently elected president of United States (which will be referred to with
+%{\sc Trump}), whereas the second dataset contains documents on the European
+%Commission (which will be referred to with {\sc ECommission}).
+
 The test datasets were created in the following manner.  For each entity
 of interest we have posed a separate search query to Google, in each of
 the seven target languages.  The query was configured to return links to
@@ -302,6 +293,18 @@ HTML parser.  This process was done semi-automatically using the tool
 described in~\cite{Crawley:ea:2010}.  In particular, some of the metadata
 fields (i.e., creation date, title, URL) were automatically computed
 using the aforementioned tool.
+
+%The test datasets were created in the following manner. For each entity of
+%interest we have posed for each of the seven languages a separate search query
+%to Google (configured to return links to documents only in the language of
+%interest). Next, we extracted the first 100 links\footnote{or less in case the
+%search engine did not return at least 100 links} returned by the search engine,
+%removed duplicate links and downloaded corresponding HTML pages (mainly news
+%articles or fragments thereof) and converted them into pure text using a hybrid
+%HTML parser. This process was done semi-automatically using the tool described
+%in~\cite{Crawley:ea:2010}. In particular, some of the metadata fields (i.e.,
+%creation date, title, url) were automatically computed using the aforementioned
+%tool.
 
 The HTML parsing resulted in extracting texts that may include not only
 the core text of a Web page, but also some additional pieces of text,
@@ -323,14 +326,36 @@ languages. The cross-language alignment of the entity identifiers were
 done by two annotators.  Table~\ref{tab:datasets} provides more detailed
 quantitative data about the test annotated datasets.
 
-\begin{table}[htbp]
+%The HTML parsing have resulted in extracting texts that not only include the
+%core body text of a Web page, but also some additional pieces of text (e.g., a
+%list of labels from a menu, user comments, etc.) that might not necessarily
+%constitute well-formed utterances in a given language. This phenomenon applies
+%to a small fraction of texts in the test datasets. Some of such texts were
+%included in the test dataset in order to maintain the flavour of “real-data”.
+%However, obvious HTML parser failure, e.g., extraction of javascript code,
+%extraction of empty texts, were removed from the data sets. Additionally, some
+%of the downloaded documents were additionally polished through removing
+%erroneously extracted boilerplate content. The resulting set of partially
+%`cleaned' documents were used to select for each language and topic circa 20-25
+%documents for the preparation of the final test datasets. The annotation for
+%Croatian, Czech, Polish, Russian and Slovene were done by native speakers,
+%whereas annotation for Slovak and Ukrainian were made by native speakers of
+%Czech and Russian resp.  capable of understanding with the former languages.
+%The cross-language alignment of the entity identifiers were done by two
+%annotators.  Table~\ref{tab:datasets} provides more detailed quantitative data
+%about the test annotated datasets. 
+
+\begin{table}
 \begin{center}
 \begin{footnotesize}
 %\begin{tabular}{|l|c|c|c|c|c|c|}
-\begin{tabular}{|l||c|c||c|c||}
-\hline\hline  
-Language & \multicolumn{2}{c||}{\textbf{{\sc Trump}}} & \multicolumn{2}{c||}{\textbf{{\sc ECommission}}} \\ \cline{2-5}
-          &  \#docs & \#men & \#docs & \#men \\ \hline\hline
+\begin{tabular}{lcccc}
+\toprule 
+ & \multicolumn{2}{c}{\textbf{{\sc Trump}}} & \multicolumn{2}{c}{\textbf{{\sc ECommission}}} \\
+\cmidrule(lr){2-3}
+\cmidrule(lr){4-5}
+Language &  \#\,docs & \#\,men & \#\,docs & \#\,men \\
+\midrule
 Croatian & x & x & x & x \\
 Czech & x & x & x & x \\
 Polish & x & x & x & x \\
@@ -338,9 +363,9 @@ Russian & x & x & x & x \\
 Slovak  & x & x & x & x \\
 Slovene & x & x & x & x \\
 Ukrainian & x & x & x & x \\
-\hline\hline
+\midrule
 Total & x & x & x & x  \\
-\hline\hline
+\bottomrule
 \end{tabular}
 \end{footnotesize}
 \end{center}
