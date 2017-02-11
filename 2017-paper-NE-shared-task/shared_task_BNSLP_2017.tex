@@ -42,7 +42,7 @@
 
 
 
-%\eaclfinalcopy % Uncomment this line for the final submission
+\eaclfinalcopy % Uncomment this line for the final submission
 %\def\eaclpaperid{***} %  Enter the acl Paper ID here
 
 %\setlength\titlebox{5cm}
@@ -53,19 +53,36 @@
 
 \newcommand\BibTeX{B{\sc ib}\TeX}
 
-\title{Shared Task on Multilingual Named Entity Recognition, Normalisation, and Cross-Language Matching for Slavic Languages}
+\title{Shared Task on Multilingual Named Entity Recognition, Normalisation and Cross-language Matching for Slavic Languages}
 
 
-\author{First Author \\
+\author{Jakub Piskorski \\
+  Joint Research Centre \\
+	Via Enrico Fermi 2749 \\
+  21027 Ispra (VA), Italy \\
+  {\tt firstname.lastname} \\
+	{\tt @jrc.ec.europa.eu} \\\And
+  Lidia Pivovarova \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  {\tt email@domain} \\\And 
+	Jan Šnajder \\
+  Affiliation / Address line 1 \\
+  Affiliation / Address line 2 \\
+  Affiliation / Address line 3 \\
+  {\tt email@domain} \\\And	
+	Josef Steinberger \\
   Affiliation / Address line 1 \\
   Affiliation / Address line 2 \\
   Affiliation / Address line 3 \\
   {\tt email@domain} \\\And
-  Second Author \\
+	Roman Yangarber \\
   Affiliation / Address line 1 \\
   Affiliation / Address line 2 \\
   Affiliation / Address line 3 \\
-  {\tt email@domain} \\}
+  {\tt email@domain} 
+	\\}
 
 \date{}
 
@@ -343,7 +360,7 @@ The HTML parsing resulted in extracting texts that may include not only
 the core text of a Web page, but also some additional pieces of text,
 e.g., a list of labels from a menu, user comments, etc., which might not
 necessarily constitute well-formed utterances in the target language.
-This occurred in a small fraction of texts in the test datasets.  Some of
+This occurred in a small fraction of texts processed.  Some of
 these texts were included in the test dataset in order to maintain the
 flavour of ``real-data.''  However, obvious HTML parser failure, e.g.,
 extraction of JavaScript code, extraction of empty texts, etc., were removed
@@ -351,14 +368,13 @@ from the data sets.  Some of the downloaded documents were
 additionally polished by removing erroneously extracted boilerplate
 content.  The resulting set of partially ``cleaned'' documents were used to
 select for each language and topic circa 20-25 documents for the
-preparation of the final test datasets.  The annotation for Croatian,
+preparation of the final test datasets. The annotation for Croatian,
 Czech, Polish, Russian and Slovene were done by native speakers, whereas
 annotation for Slovak and Ukrainian were made by native speakers of Czech
 and Russian, respectively, capable of understanding the former
 languages.  The cross-language alignment of the entity identifiers was
 done by two annotators.  Table~\ref{tab:datasets} provides more detailed
 quantitative data about the test annotated datasets.
-
 
 \begin{table}
 \begin{center}
@@ -371,15 +387,17 @@ quantitative data about the test annotated datasets.
 \cmidrule(lr){4-5}
 Language &  \#\,docs & \#\,ment & \#\,docs & \#\,ment \\
 \midrule
-Croatian & x & x & x & x \\
-Czech & x & x & x & x \\
-Polish & x & x & x & x \\
-Russian & x & x & x & x \\
-Slovak  & x & x & x & x \\
-Slovene & x & x & x & x \\
-Ukrainian & x & x & x & x \\
+Croatian & 522 & 25 & x & x \\
+Czech & 479 & 25 & x & x \\
+Polish & 692 & 25 & x & x \\
+Russian & 331 & 26 & x & x \\
+Slovak  & 453 & 24 & x & x \\
+Slovene & 474 & 24 & x & x \\
+Ukrainian & 337 & 28 & x & x \\
 \midrule
-Total & x & x & x & x  \\
+Total & 3288 & 177 & x & x  \\
+
+
 \bottomrule
 \end{tabular}
 \end{footnotesize}
@@ -427,6 +445,25 @@ lowercased.
 
 \end{itemize}
 
+11 teams signed up for the evaluation task and received the trial datasets and 
+only 3 (\textbf{AS OF NOW} teams) submitted results. A total of \textbf{XX} 
+unique runs were submitted: ...
+
+The {\sc DeepNLP} team~\footnote{https://github.com/tindzk/bsnlp} learns entities and their base forms from 
+Wikipedia data dumps.~\footnote{https://dumps.wikimedia.org/} A character-level recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} 
+is trained to predict which characters belong to an entity. A second neural network is trained on inflected entities and predicts their base forms.
+
+JHU/APL team only attempted the NER and Entity Matching sub-tasks. They employed a statistical tagger called 
+SVMLattice~\cite{Mayfield:2003:LTU:956863.956921}, with NER labels inferred by projecting English tags across bitext. 
+The Illinois tagger~\cite{Ratinov:2009:DCM:1596374.1596399} was used for English. A rule-based entity clusterer 
+called "kripke" was used for Entity Matching~\cite{DBLP:conf/tac/McNameeMFL13}.
+
+{\sc G4.19 Research Group} adapted Liner2~\cite{series/sci/MarcinczukKJ13} - a generic framework 
+which can be used to solve various tasks based on sequence labeling, which is equipped
+with a set of modules (based on statistical models, dictionaries, rules and heuristics) 
+which recognize and annotate certain types of phrases. The details of tuning Liner2 to
+tackle the shared task is described in~\cite{marcinczuk:2017}.
+
 \section{Evaluation Results}
 \label{sec:results}
 
@@ -439,7 +476,16 @@ lowercased.
 
 \section*{Acknowledgments}
 
-We would like to thank following persons, who contributed one way or another to the shared task:
+
+We would like to thank Katja Zupan from the Department of Knowledge Technologies from
+Jožef Stefan Institute in Slovenia, Anastasia Stepanova from the State University of New York at Buffalo, 
+and Olga Kanishcheva, Kateryna Klymenkova, Ekaterina Yurieva from the National Technical University 
+(Kharkiv Polytechnic Institute), who contributed to preparation of the Slovenian, Russian and Ukrainian test 
+datasets. We are also indebted to Tomaž Erjavec from the Department of Knowledge Technologies from Jožef Stefan 
+Institute in Slovenia, who contributed with various ideas.
+
+
+
 
 \bibliographystyle{eacl2017}
 \bibliography{sharedBSNLP2017}
