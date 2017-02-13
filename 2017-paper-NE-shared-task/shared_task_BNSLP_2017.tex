@@ -102,22 +102,23 @@ EACL 2017 conference.
 
 Due to rich inflection, derivation, free word order, and other phenomena
 exhibited by Slavic languages, the detection of names and their
-lemmatization poses a challenging task. Fostering research and
-development on this problem---and the closely related problem of entity
+lemmatization poses a challenging task.~\cite{Przepiorkowski:2007:SIE:1567545.1567547,journals/ir/PiskorskiWS09} 
+Fostering research and development on this problem---and the closely related problem of entity
 linking---is of paramount importance for enabling effective multilingual
 and cross-lingual information access in these languages.
 
-\URGENT{TODO:}
-
-\begin{itemize}
-
-\item motivation
-
-\item aim and the task
-
-\item related shared tasks
-
-\end{itemize}
+This paper describes the outcomes of the shared task on multilingual named 
+entity recognition that aimed at recognizing mentions of named entities in web documents 
+in Slavic languages, their normalization/lemmatization, and cross-language matching.
+The task initially covers seven languages and focuses on recognition of four types of 
+named entities including: persons, locations, organizations, and miscellaneous,
+where the last category covers mentions of all other types of named entities, e.g., events and products.
+The input text collection consists of sets of documents in various languages from the 
+Web, each collection revolving around a certain entity. The main rationale of such a 
+set-up is to foster development of ``allrounder'' named-entity recognition and 
+cross-language entity matching solutions that are not tailored to specific domains.
+The shared task was organised in the context of the 6-th Balto-Slavic Natural Language Processing 
+Workshop co-located with EACL 2017 conference. 
 
 Several related shared tasks were organised in the past. While the first non-English monolingual 
 NER evaluation campaigns (covering Chinese, Japanese, Spanish and Arabic) were carried out in the 
@@ -126,11 +127,11 @@ the first shared task focusing on multilingual named entity recognition, which c
 some European languages, including e.g., Spanish, German Dutch, etc. were organised in the context of
 CoNLL 2002~\cite{TjongKimSang:2002:ICS:1118853.1118877} and 2003 conferences~\cite{TjongKimSang:2002:ICS:1118853.1118877}.
 The NE types covered in the aforementioned campaigns were similar to NE types covered in our
-shared task. Somewhat related to our task is the Entity Discovery and Linking (EDL) track 
-which has been part of the The Text Analysis Conferences (TAC) that aims to extract entity mentions 
+shared task. Somewhat related to our task is the Entity Discovery and Linking (EDL) track~\cite{ji:ea:2014,ji:ea:2015} 
+which has been part of the NIST Text Analysis Conferences (TAC) that aims to extract entity mentions 
 from a source collection of textual documents in multiple languages (English, Chinese, and Spanish), 
-and creating cross-document entity equivalence classes by either linking each mention to a knowledge base or
-directly clustering them.~\cite{ji:ea:2014,ji:ea:2015} The fundamental difference between EDL and our task
+and to create cross-document entity equivalence classes by either linking each mention to a knowledge base or
+directly clustering them. The fundamental difference between EDL and our task
 is that the latter does not include the sub-task of linking entities to a knowledge base. 
 To our best knowledge the shared task described in this paper is a first attempt on multilingual
 name recognition, their normalization and cross-language entity matching that covers Slavic
@@ -198,14 +199,15 @@ As regards recognition of particular types of named-entity the following rules w
 
 \item \textbf{Person names (PER)}:
 
-  a) Person names should not include titles, honorifics, and functions/positions. For example, in the text fragment ``\textit{CEO Dr. Jan Kowalski}'', only ``\textit{Jan Kowalski"}''' should be recognized as a person name. However, initials and pseudonyms are considered named mentions of person names and should be recognized. Similarly, named references to groups of people (that do not have a formal organization unifying them) should also be recognized, e.g., ``\textit{Ukrainians}.''
+  a) Person names should not include titles, honorifics, and functions/positions. For example, in the text fragment ``\textit{CEO Dr. Jan Kowalski}'', only ``\textit{Jan Kowalski"}'' should be recognized as a person name. However, initials and pseudonyms are considered named mentions of person names and should be recognized. Similarly, named references to groups of people (that do not have a formal organization unifying them) should also be recognized, e.g., ``\textit{Ukrainians}''. In this context, mentions of a single member belonging to such groups, e.g. ``\textit{Ukrainian}'', should be assigned the same cross-language ID as plural mentions, i.e., ``\textit{Ukrainians}'' and
+``\textit{Ukrainian}'' when referring to the nation should be assigned the same cross-language ID.	
 
   b) Personal possessives derived from a named mention of a person should
   be classified as a person, and the base form of the corresponding
   person name should be extracted. For instance, for
   ``\textit{Piskorskijev mejl}'' (Croatian) it is expected to recognize
   ``\textit{Piskorskijev}'', classified with PER and extract the base
-  form: ``\textit{Piskorski}.''
+  form: ``\textit{Piskorski}''.
 
   c) Fictive persons and characters are considered as persons.
 
@@ -242,6 +244,12 @@ As regards recognition of particular types of named-entity the following rules w
     name. For instance, from the text fragment ``\textit{Citi Handlowy w
       Poznaniu}'' (a bank in Poznań), the full phrase ``\textit{Citi
       Handlowy w Poznaniu}'' should be extracted.
+			
+  \item When a company name is used to refer to a service (e.g., ``\textit{na
+Twiterze}'' (Polish) - on Twitter) the mention of ``\textit{Twitter}'' is considered to 
+refer to a service/product and should be tagged as MISC. However, when a company name 
+is referring to a service which expresses the opinion of the company, e.g. ``\textit{Fox News}'', 
+it should be tagged as ORG.			
 
   \end{itemize}
 
@@ -386,12 +394,16 @@ additionally polished by removing erroneously extracted boilerplate
 content.  The resulting set of partially ``cleaned'' documents were used to
 select for each language and topic circa 20-25 documents for the
 preparation of the final test datasets. The annotation for Croatian,
-Czech, Polish, Russian and Slovene were done by native speakers, whereas
-annotation for Slovak and Ukrainian were made by native speakers of Czech
-and Russian, respectively, capable of understanding the former
-languages.  The cross-language alignment of the entity identifiers was
-done by two annotators.  Table~\ref{tab:datasets} provides more detailed
-quantitative data about the test annotated datasets.
+Czech, Polish, Russian, Slovene and Ukrainian were done by native speakers, whereas
+annotation for Slovak and Ukrainian were made by native speakers of Czech, capable 
+of understanding the former language. The cross-language alignment of the entity identifiers was
+done by two annotators. Table~\ref{tab:datasets} provides more detailed
+quantitative data about the test annotated datasets. It is worthwhile mentioning 
+that for the sake of compliance with the named-entity recognition guidelines described
+in~\ref{sec:task} documents that included hard-to-decide entity mention annotations 
+were excluded from the test datasets, e.g., ``\textit{Zagrebačke, Sisačko-Moslavačke i Karlovačke županije}'', 
+being a conflated versions of 3 named entities, namely, ``\textit{Zagrebačke županije}'',
+``\textit{Sisačko-Moslavačke županije}'' and ``\textit{Karlovačke županije}''.
 
 \begin{table}
 \begin{center}
@@ -404,15 +416,15 @@ quantitative data about the test annotated datasets.
 \cmidrule(lr){4-5}
 Language &  \#\,docs & \#\,ment & \#\,docs & \#\,ment \\
 \midrule
-Croatian & 522 & 25 & x & x \\
-Czech & 479 & 25 & x & x \\
-Polish & 692 & 25 & x & x \\
-Russian & 331 & 26 & x & x \\
-Slovak  & 453 & 24 & x & x \\
-Slovene & 474 & 24 & x & x \\
-Ukrainian & 337 & 28 & x & x \\
+Croatian & 25 & 522 & 25 & x \\
+Czech & 25 & 479  & 25 & x \\
+Polish & 25 & 692  & 24 & x \\
+Russian & 26 & 331  & 24 & x \\
+Slovak  & 24 & 453  & 25 & x \\
+Slovene & 24 & 474  & 26 & x \\
+Ukrainian & 28 & 337  & 54 & x \\
 \midrule
-Total & 3288 & 177 & x & x  \\
+Total & 177 & 3288  & 203 & x  \\
 
 
 \bottomrule
@@ -453,15 +465,7 @@ lowercased.
 
 \section{Participant Systems}
 \label{sec:participants}
-
-\begin{itemize}
-
-\item how many teams registered, submitted results, which sub tasks they covered, etc.
-
-\item short summary on what technique(s) each of the participating system is based
-
-\end{itemize}
-
+ 
 11 teams signed up for the evaluation task and received the trial datasets and 
 only 3 (\textbf{AS OF NOW} teams) submitted results. A total of \textbf{XX} 
 unique runs were submitted: ...
@@ -490,6 +494,19 @@ tackle the shared task is described in~\cite{marcinczuk:2017}.
 \label{sec:conclusions}
 
 \todo{TODO:}
+
+\begin{itemize}
+
+\item write something about the availability of the data for further use (remember copyright issues). e.g.,
+available via SIGSLAV 
+
+\item future task extensions, more corpora, more languages, improving the guidelines (we have some inaccuracies
+in the gudielines on how to deal with certain phenomena, etc., bla bla
+
+\item emphasize that this shared task was to kick-off research in this area for Slavic languages
+
+\end{itemize}
+
 
 \section*{Acknowledgments}
 
