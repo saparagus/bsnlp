@@ -102,7 +102,7 @@ EACL 2017 conference.
 
 Due to rich inflection, derivation, free word order, and other phenomena
 exhibited by Slavic languages, the detection of names and their
-lemmatization poses a challenging task.  Fostering research and
+lemmatization poses a challenging task. Fostering research and
 development on this problem---and the closely related problem of entity
 linking---is of paramount importance for enabling effective multilingual
 and cross-lingual information access in these languages.
@@ -119,7 +119,24 @@ and cross-lingual information access in these languages.
 
 \end{itemize}
 
-The paper is organised as follows. In Section~\ref{sec:task}, the task is
+Several related shared tasks were organised in the past. While the first non-English monolingual 
+NER evaluation campaigns (covering Chinese, Japanese, Spanish and Arabic) were carried out in the 
+context of MUC conferences~\cite{chinchor:98} and ACE Programme~\cite{conf/lrec/DoddingtonMPRSW04},
+the first shared task focusing on multilingual named entity recognition, which covered evaluation of
+some European languages, including e.g., Spanish, German Dutch, etc. were organised in the context of
+CoNLL 2002~\cite{TjongKimSang:2002:ICS:1118853.1118877} and 2003 conferences~\cite{TjongKimSang:2002:ICS:1118853.1118877}.
+The NE types covered in the aforementioned campaigns were similar to NE types covered in our
+shared task. Somewhat related to our task is the Entity Discovery and Linking (EDL) track 
+which has been part of the The Text Analysis Conferences (TAC) that aims to extract entity mentions 
+from a source collection of textual documents in multiple languages (English, Chinese, and Spanish), 
+and creating cross-document entity equivalence classes by either linking each mention to a knowledge base or
+directly clustering them.~\cite{ji:ea:2014,ji:ea:2015} The fundamental difference between EDL and our task
+is that the latter does not include the sub-task of linking entities to a knowledge base. 
+To our best knowledge the shared task described in this paper is a first attempt on multilingual
+name recognition, their normalization and cross-language entity matching that covers Slavic
+languages in particular.
+
+The rest of this paper is organised as follows. In Section~\ref{sec:task}, the task is
 introduced.  Next, in Section~\ref{sec:protocol} the system response
 protocol is described.  Subsequently, the characteristics of the test
 datasets are provided in Section~\ref{sec:annotation}.  The evaluation
