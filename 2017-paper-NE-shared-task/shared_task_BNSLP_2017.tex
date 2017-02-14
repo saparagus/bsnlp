@@ -21,6 +21,7 @@
 \usepackage{times}
 \usepackage{url}
 \usepackage{latexsym}
+\usepackage{amsmath}
 %\usepackage{polski}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -435,6 +436,8 @@ Total & 177 & 3288  & 203 & x  \\
 \label{tab:datasets}
 \end{table}
 
+\todo{the figures in the table might need to be adapted since some errors were corrected. PLZ check withj Lidia/Josef for the stats of the master corpus}
+
 \todo{provide some figures on the fraction of ORGS, PER, LOCs
   etc. in the datasets}
 
@@ -452,23 +455,54 @@ Named entity recognition (exact case-insensitive matching) and  Name Normalizati
 \end{itemize}
 
 In the context of the evaluation we considered various level of granularity, i.e., the performance for: 
-(a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for each language,
-and (d) each particular NE type per language. 
+(a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for 
+each language, and (d) each particular NE type per language. 
 
 As regards the evaluation of document-level and cross-language entity matching task we have adapted the 
-Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016}.
+Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which considers how important the entity is and how well it is resolved. LEA is defined as follows. Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{k_1,k_2,\ldots,k_{|K|} \}$ denote the key entity set and the response entity set respectively, i.e., $k_i \in K$ ($r_i \in R$) stand for set of mentions
+of the same entity in the key entity set (response entity set). LEA recall and precision are then defined as follows:
 
-The evaluation was carried out in ``case-insensitive'' mode, all named mentions in system response and test corpora were 
-lowercased.
+\begin{equation*}
+Recall = \frac{\sum_{k_{i} \in K} (imp(k_i) \times res(k_{i}))}
+              {\sum_{k_{z} \in K} imp(k_{z})}
+\end{equation*}
 
-\todo{extend, in particular on LEA}
+\begin{equation*}
+Precision = \frac{\sum_{r_{i} \in R} (imp(r_i) \times res(r_{i}))}
+              {\sum_{r_{z} \in R} imp(r_{z})}
+\end{equation*}
+
+\noindent where $imp$ and $res$ denote measure of importance and resolution score for an entity respectively.
+In our setting we define $imp(e) = |e|$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
+an entity has the more important it is. The resolution score of key entity $k_i$
+is computed as the fraction of correctly resolved co-reference links of $k_i$:
+\todo{Maybe defining imp(e) as log|e| would be better in order not to boost too much the main entity of the corpus}
+
+\begin{equation*}
+res(k_i) = \sum_{r_{j} \in R} \frac{link(k_{i} \cap r_{j})}{link(k_{i})}
+\end{equation*}
+
+\noindent where $link(e) = (|e| \times (|e|-1))/2$ stands for the number of unique 
+co-reference links in $e$. For each $k_i$, LEA checks all response entities to check whether 
+they are partial matches for $k_i$. Analogously, the resolution score of response entity $r_i$ is
+computed as fraction of co-reference links in $r_i$ that are extracted correctly:
+
+\begin{equation*}
+res(r_i) = \sum_{k_{j} \in K} \frac{link(r_{i} \cap k_{j})}{link(r_{i})}
+\end{equation*}
+
+There are various benefits of using LEA, e.g., LEA considers resolved co-reference relations 
+instead of resolved mentions and has more discriminative power than other metrics used
+for co-reference resolution evaluation~\cite{DBLP:conf-acl-Moosavi016}.
+
+It is important to stress at this stage that the evaluation was carried out in ``case-insensitive'' 
+mode, all named mentions in system response and test corpora were lowercased.
 
 \section{Participant Systems}
 \label{sec:participants}
  
-11 teams signed up for the evaluation task and received the trial datasets and 
-only 3 (\textbf{AS OF NOW} teams) submitted results. A total of \textbf{XX} 
-unique runs were submitted: ...
+11 teams from 7 different countries (Czech Republic, Germany, India, Poland, Russia, Slovenia and USA) signed up for the evaluation task and received the trial datasets. However, presumably due to the complexity of the task and relatively short
+time available for elaborating a solution, only 3 (\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 14.02}) teams submitted results. A total of \textbf{XX} unique runs were submitted: \todo{ammend once we know}
 
 The {\sc DeepNLP} team~\footnote{https://github.com/tindzk/bsnlp} learns entities and their base forms from 
 Wikipedia data dumps.~\footnote{https://dumps.wikimedia.org/} A character-level recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} 
