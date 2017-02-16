@@ -126,7 +126,7 @@ NER evaluation campaigns (covering Chinese, Japanese, Spanish and Arabic) were c
 context of MUC conferences~\cite{chinchor:98} and ACE Programme~\cite{conf/lrec/DoddingtonMPRSW04},
 the first shared task focusing on multilingual named entity recognition, which covered evaluation of
 some European languages, including e.g., Spanish, German Dutch, etc. were organised in the context of
-CoNLL 2002~\cite{TjongKimSang:2002:ICS:1118853.1118877} and 2003 conferences~\cite{TjongKimSang:2002:ICS:1118853.1118877}.
+CoNLL 2002~\cite{TjongKimSang:2002:ICS:1118853.1118877} and 2003 conferences~\cite{TjongKimSang:2003:ICS:1119176.1119195}.
 The NE types covered in the aforementioned campaigns were similar to NE types covered in our
 shared task. Somewhat related to our task is the Entity Discovery and Linking (EDL) track~\cite{ji:ea:2014,ji:ea:2015} 
 which has been part of the NIST Text Analysis Conferences (TAC) that aims to extract entity mentions 
@@ -398,13 +398,15 @@ preparation of the final test datasets. The annotation for Croatian,
 Czech, Polish, Russian, Slovene and Ukrainian were done by native speakers, whereas
 annotation for Slovak and Ukrainian were made by native speakers of Czech, capable 
 of understanding the former language. The cross-language alignment of the entity identifiers was
-done by two annotators. Table~\ref{tab:datasets} provides more detailed
-quantitative data about the test annotated datasets. It is worthwhile mentioning 
-that for the sake of compliance with the named-entity recognition guidelines described
-in~\ref{sec:task} documents that included hard-to-decide entity mention annotations 
-were excluded from the test datasets, e.g., ``\textit{Zagrebačke, Sisačko-Moslavačke i Karlovačke županije}'', 
-being a conflated versions of 3 named entities, namely, ``\textit{Zagrebačke županije}'',
-``\textit{Sisačko-Moslavačke županije}'' and ``\textit{Karlovačke županije}''.
+done by two annotators. 
+
+Table~\ref{tab:datasets} provides more detailed quantitative data about the test annotated datasets. A breakdown 
+of the entity mention figures with respect to entity type is given in Table~\ref{tab:datasets-2}. 
+
+It is worthwhile mentioning that for the sake of compliance with the named-entity recognition guidelines described
+in~\ref{sec:task} documents that included hard-to-decide entity mention annotations were excluded from the test 
+datasets, e.g., ``\textit{Zagrebačke, Sisačko-Moslavačke i Karlovačke županije}'', being a conflated versions of 3 
+named entities, namely, ``\textit{Zagrebačke županije}'', ``\textit{Sisačko-Moslavačke županije}'' and ``\textit{Karlovačke županije}''.
 
 \begin{table}
 \begin{center}
@@ -417,15 +419,15 @@ being a conflated versions of 3 named entities, namely, ``\textit{Zagrebačke ž
 \cmidrule(lr){4-5}
 Language &  \#\,docs & \#\,ment & \#\,docs & \#\,ment \\
 \midrule
-Croatian & 25 & 522 & 25 & x \\
-Czech & 25 & 479  & 25 & x \\
-Polish & 25 & 692  & 24 & x \\
-Russian & 26 & 331  & 24 & x \\
-Slovak  & 24 & 453  & 25 & x \\
-Slovene & 24 & 474  & 26 & x \\
-Ukrainian & 28 & 337  & 54 & x \\
+Croatian & 25 & 525 & 25 & 436 \\
+Czech & 25 & 479  & 25 & 417 \\
+Polish & 25 & 692  & 24 & 466 \\
+Russian & 26 & 331  & 24 & 385 \\
+Slovak  & 24 & 453  & 25 & 374 \\
+Slovene & 24 & 474  & 26 & 434 \\
+Ukrainian & 28 & 337  & 54 & ??? \\
 \midrule
-Total & 177 & 3288  & 203 & x  \\
+Total & 177 & 3291  & 203 & ???  \\
 
 
 \bottomrule
@@ -436,10 +438,27 @@ Total & 177 & 3288  & 203 & x  \\
 \label{tab:datasets}
 \end{table}
 
-\todo{the figures in the table might need to be adapted since some errors were corrected. PLZ check withj Lidia/Josef for the stats of the master corpus}
+\todo{Ukrainian figures in the table need to be updated since some errors were corrected. The total number of documents is 54 for Ukrainian - not subject to change.}
 
-\todo{provide some figures on the fraction of ORGS, PER, LOCs
-  etc. in the datasets}
+\begin{table}
+\begin{center}
+\begin{footnotesize}
+%\begin{tabular}{|l|c|c|c|c|c|c|}
+\begin{tabular}{lcc}
+\toprule 
+ Entity type & {\textbf{{\sc Trump}}} & {\textbf{{\sc ECommission}}} \\
+\midrule
+ORG & 18.3\% & 48.9\% \\
+LOC & 26.9\% & 29.4\% \\
+PER & 48.4\% & 12.2\% \\
+MISC & 6.4\% & 9.5\% \\
+\bottomrule
+\end{tabular}
+\end{footnotesize}
+\end{center}
+\caption{Breakdown of the annotations according to the entity type.}
+\label{tab:datasets-2}
+\end{table}
 
 \section{Evaluation Methodology}
 \label{sec:evaluation}
@@ -459,7 +478,7 @@ In the context of the evaluation we considered various level of granularity, i.e
 each language, and (d) each particular NE type per language. 
 
 As regards the evaluation of document-level and cross-language entity matching task we have adapted the 
-Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which considers how important the entity is and how well it is resolved. LEA is defined as follows. Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{k_1,k_2,\ldots,k_{|K|} \}$ denote the key entity set and the response entity set respectively, i.e., $k_i \in K$ ($r_i \in R$) stand for set of mentions
+Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which considers how important the entity is and how well it is resolved. LEA is defined as follows. Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{r_1,r_2,\ldots,r_{|R|} \}$ denote the key entity set and the response entity set respectively, i.e., $k_i \in K$ ($r_i \in R$) stand for set of mentions
 of the same entity in the key entity set (response entity set). LEA recall and precision are then defined as follows:
 
 \begin{equation*}
@@ -473,10 +492,10 @@ Precision = \frac{\sum_{r_{i} \in R} (imp(r_i) \times res(r_{i}))}
 \end{equation*}
 
 \noindent where $imp$ and $res$ denote measure of importance and resolution score for an entity respectively.
-In our setting we define $imp(e) = |e|$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
-an entity has the more important it is. The resolution score of key entity $k_i$
-is computed as the fraction of correctly resolved co-reference links of $k_i$:
-\todo{Maybe defining imp(e) as log|e| would be better in order not to boost too much the main entity of the corpus}
+In our setting we define $imp(e) = log|e|+1$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
+an entity has the more important it is. However, in order not to bias the importance of the more frequent entities $log$ 
+is used. The resolution score of key entity $k_i$ is computed as the fraction of correctly resolved co-reference 
+links of $k_i$: 
 
 \begin{equation*}
 res(k_i) = \sum_{r_{j} \in R} \frac{link(k_{i} \cap r_{j})}{link(k_{i})}
@@ -502,11 +521,13 @@ mode, all named mentions in system response and test corpora were lowercased.
 \label{sec:participants}
  
 11 teams from 7 different countries (Czech Republic, Germany, India, Poland, Russia, Slovenia and USA) signed up for the evaluation task and received the trial datasets. However, presumably due to the complexity of the task and relatively short
-time available for elaborating a solution, only 3 (\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 14.02}) teams submitted results. A total of \textbf{XX} unique runs were submitted: \todo{ammend once we know}
+time available for elaborating a solution, only 3 (\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 16.02}) teams submitted results. A total of \textbf{XX} unique runs were submitted: \todo{ammend once we know}
 
 The {\sc DeepNLP} team~\footnote{https://github.com/tindzk/bsnlp} learns entities and their base forms from 
 Wikipedia data dumps.~\footnote{https://dumps.wikimedia.org/} A character-level recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} 
 is trained to predict which characters belong to an entity. A second neural network is trained on inflected entities and predicts their base forms.
+
+\todo{DeepNLP team needs to be contacted to confirm the description since they mentioned they might change the strategy slightly.}
 
 JHU/APL team only attempted the NER and Entity Matching sub-tasks. They employed a statistical tagger called 
 SVMLattice~\cite{Mayfield:2003:LTU:956863.956921}, with NER labels inferred by projecting English tags across bitext. 
