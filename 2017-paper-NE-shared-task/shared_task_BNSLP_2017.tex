@@ -26,9 +26,12 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{booktabs}
+\usepackage{color}
 
 %\usepackage{todonotes}%remove this when all todos are gone
 \usepackage{todonotes}
+
+\newcommand{\alert}[1]{\textcolor{red}{#1}}
 
 \newcommand{\comment}[1]{}
 \newcommand{\COMMENT}[1]{\comment{#1}}
@@ -58,29 +61,30 @@
 % Shared Task on Multilingual Named Entity Recognition, Normalisation and
 % Cross-language Matching for Slavic Languages
 
-\title{The 1\textsuperscript{st} Cross-Lingual Challenge on Recognition,
-  Normalization 
+\title{The First Cross-Lingual Challenge on Recognition,
+  Normalization,  
   \\ and Matching of Named Entities in Slavic Languages}
 
 
-\author{Jakub Piskorski\textsuperscript{$\dagger$},
-  Lidia Pivovarova\textsuperscript{$\ddagger$},
-  Jan Šnajder\textsuperscript{*},
-  Josef Steinberger\textsuperscript{\S},
-  Roman Yangarber\textsuperscript{$\ddagger$} \\
+  \author{Jakub Piskorski\textsuperscript{1},
+  Lidia Pivovarova\textsuperscript{2},
+  Jan Šnajder\textsuperscript{3},
+  Josef Steinberger\textsuperscript{4},
+  Roman Yangarber\textsuperscript{2} \\
   %
-  \textsuperscript{$\dagger$}Joint Research Centre,
+  \textsuperscript{1}Joint Research Centre,
   \comment{Via Enrico Fermi 2749, 21027}Ispra\comment{ (VA)}, Italy,
-  {\small \tt first.last@jrc.ec.europa.eu} \\
+  {\small \tt jakub.piskorski@jrc.ec.europa.eu} \\
   %
-  \textsuperscript{*}University of Zagreb, Croatia, {\small \tt
-    first.last@fer.hr} \\
+  \textsuperscript{2}University of Helsinki, Finland, {\small \tt
+  \{roman.yangarber,lidia.pivovara\}@cs.helsinki.fi}\\
   %
-  \textsuperscript{\S}University of West Bohemia, Czech Republic, 
-  {\small \tt first.last@kiv.zcu.cz} \\
+    \textsuperscript{2}University of Zagreb, Croatia, {\small \tt
+    jan.snajder@fer.hr} \\
   %
-  \textsuperscript{$\ddagger$}University of Helsinki, Finland, {\small \tt
-    first.last@cs.helsinki.fi}
+  \textsuperscript{3}University of West Bohemia, Czech Republic, 
+  {\small \tt first.last@kiv.zcu.cz} 
+  %
   }
 
 \comment{author 
@@ -119,7 +123,7 @@
 This paper describes the outcomes of the shared task on multilingual named entity recognition 
 that aimed at recognizing mentions of named entities in web documents in Slavic languages, 
 their normalization/lemmatization, and cross-language matching. The task was organised in 
-the context of the 6-th Balto-Slavic Natural Language Processing Workshop co-located with 
+the context of the 6th Balto-Slavic Natural Language Processing Workshop, co-located with the 
 EACL 2017 conference. 
 \todo{amend once we know the results}
 \end{abstract}
@@ -129,45 +133,43 @@ EACL 2017 conference.
 
 Due to rich inflection, derivation, free word order, and other phenomena
 exhibited by Slavic languages, the detection of names and their
-lemmatization poses a challenging task.~\cite{Przepiorkowski:2007:SIE:1567545.1567547,journals/ir/PiskorskiWS09} 
+lemmatization poses a challenging task~\cite{Przepiorkowski:2007:SIE:1567545.1567547,journals/ir/PiskorskiWS09}. 
 Fostering research and development on this problem---and the closely related problem of entity
 linking---is of paramount importance for enabling effective multilingual
 and cross-lingual information access in these languages.
 
 This paper describes the outcomes of the shared task on multilingual named 
-entity recognition that aimed at recognizing mentions of named entities in web documents 
+entity recognition \alert{(NER)} that aimed at recognizing mentions of named entities in web documents 
 in Slavic languages, their normalization/lemmatization, and cross-language matching.
 The task initially covers seven languages and focuses on recognition of four types of 
-named entities including: persons, locations, organizations, and miscellaneous,
+named entities (\alert{NEs}): persons, locations, organizations, and miscellaneous,
 where the last category covers mentions of all other types of named entities, e.g., events and products.
-The input text collection consists of sets of documents in various languages from the 
-Web, each collection revolving around a certain entity. The main rationale of such a 
+The input text collection consists of sets of documents in \alert{seven Slavic languages} collected from the 
+web, each collection revolving around a certain entity. The main rationale of such a 
 set-up is to foster development of ``allrounder'' named-entity recognition and 
 cross-language entity matching solutions that are not tailored to specific domains.
-The shared task was organised in the context of the 6-th Balto-Slavic Natural Language Processing 
-Workshop co-located with EACL 2017 conference. 
+The shared task was organised in the context of the 6th Balto-Slavic Natural Language Processing 
+Workshop co-located with the EACL 2017 conference. 
 
-Several related shared tasks were organised in the past. While the first non-English monolingual 
-NER evaluation campaigns (covering Chinese, Japanese, Spanish and Arabic) were carried out in the 
-context of MUC conferences~\cite{chinchor:98} and ACE Programme~\cite{conf/lrec/DoddingtonMPRSW04},
-the first shared task focusing on multilingual named entity recognition, which covered evaluation of
-some European languages, including e.g., Spanish, German Dutch, etc. were organised in the context of
+Several related shared tasks were organised in the past. The first non-English monolingual
+NER evaluation campaigns (covering Chinese, Japanese, Spanish, and Arabic) were carried out in the 
+context of MUC conferences~\cite{chinchor:98} and the ACE Programme~\cite{conf/lrec/DoddingtonMPRSW04}
+The first shared task focusing on \emph{multilingual} named entity recognition, which covered evaluation of
+some European languages, including Spanish, German, and Dutch, were organised in the context of
 CoNLL 2002~\cite{TjongKimSang:2002:ICS:1118853.1118877} and 2003 conferences~\cite{TjongKimSang:2003:ICS:1119176.1119195}.
 The NE types covered in the aforementioned campaigns were similar to NE types covered in our
-shared task. Somewhat related to our task is the Entity Discovery and Linking (EDL) track~\cite{ji:ea:2014,ji:ea:2015} 
-which has been part of the NIST Text Analysis Conferences (TAC) that aims to extract entity mentions 
+shared task. Somewhat related to our task is the Entity Discovery and Linking (EDL) track~\cite{ji:ea:2014,ji:ea:2015}, which has been part of the NIST Text Analysis Conferences (TAC). EDL aimed to extract entity mentions 
 from a source collection of textual documents in multiple languages (English, Chinese, and Spanish), 
 and to create cross-document entity equivalence classes by either linking each mention to a knowledge base or
 directly clustering them. The fundamental difference between EDL and our task
 is that the latter does not include the sub-task of linking entities to a knowledge base. 
 
-Another task related to cross-lingual NE recognition is a NE
-transliteration, i.e. cross-lingual linking of NE across different
-scripts. The series of NE Transliteration Shared Tasks as a part of
-NEWS (Named Entity Workshops)~\cite{duan2016report}. These workshops
-mostly focus on Indian and Asian languages. In 2010 NEWS Workshop
+Another task related to cross-lingual NE recognition is the NE
+transliteration, i.e., cross-lingual linking of NEs across different
+scripts. A series of NE Transliteration Shared Tasks were organized as a part of
+NEWS (Named Entity Workshops)~\cite{duan2016report}, focusing mostly on the Indian and Asian languages. In 2010, NEWS Workshop
 included a shared task on Transliteration
-Mining~\cite{kumaran2010report}, i.e. mining of names from parallel
+Mining~\cite{kumaran2010report}, i.e., mining of names from parallel
 corpora. This task included corpora in English, Chinese, Tamil,
 Russian, and Arabic.
 
@@ -249,9 +251,9 @@ As regards recognition of particular types of named-entity the following rules w
   b) Personal possessives derived from a named mention of a person should
   be classified as a person, and the base form of the corresponding
   person name should be extracted. For instance, for
-  ``\textit{Piskorskijev mejl}'' (Croatian) it is expected to recognize
-  ``\textit{Piskorskijev}'', classified with PER and extract the base
-  form: ``\textit{Piskorski}''.
+  ``\textit{Trumpov tweet}'' (Croatian) it is expected to recognize
+  ``\textit{Trumpov}'', classified with PER and extract the base
+  form ``\textit{Trump}''.
 
   c) Fictive persons and characters are considered as persons.
 
@@ -523,32 +525,32 @@ Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which consi
 of the same entity in the key entity set (response entity set). LEA recall and precision are then defined as follows:
 
 \begin{equation*}
-Recall = \frac{\sum_{k_{i} \in K} (imp(k_i) \times res(k_{i}))}
+	\mathit{Recall} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
               {\sum_{k_{z} \in K} imp(k_{z})}
 \end{equation*}
 
 \begin{equation*}
-Precision = \frac{\sum_{r_{i} \in R} (imp(r_i) \times res(r_{i}))}
+	\mathit{Precision} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
               {\sum_{r_{z} \in R} imp(r_{z})}
 \end{equation*}
 
-\noindent where $imp$ and $res$ denote measure of importance and resolution score for an entity respectively.
-In our setting we define $imp(e) = log|e|+1$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
-an entity has the more important it is. However, in order not to bias the importance of the more frequent entities $log$ 
+\noindent where $\mathit{imp}$ and $\mathit{res}$ denote measure of importance and resolution score for an entity respectively.
+In our setting we define $\mathit{imp}(e) = \log|e|+1$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
+an entity has the more important it is. However, in order not to bias the importance of the more frequent entities $\log$ 
 is used. The resolution score of key entity $k_i$ is computed as the fraction of correctly resolved co-reference 
 links of $k_i$: 
 
 \begin{equation*}
-res(k_i) = \sum_{r_{j} \in R} \frac{link(k_{i} \cap r_{j})}{link(k_{i})}
+	\mathit{res}(k_i) = \sum_{r_{j} \in R} \frac{\mathit{link}(k_{i} \cap r_{j})}{\mathit{link}(k_{i})}
 \end{equation*}
 
-\noindent where $link(e) = (|e| \times (|e|-1))/2$ stands for the number of unique 
+\noindent where $\mathit{link}(e) = (|e| \times (|e|-1))/2$ stands for the number of unique 
 co-reference links in $e$. For each $k_i$, LEA checks all response entities to check whether 
 they are partial matches for $k_i$. Analogously, the resolution score of response entity $r_i$ is
 computed as fraction of co-reference links in $r_i$ that are extracted correctly:
 
 \begin{equation*}
-res(r_i) = \sum_{k_{j} \in K} \frac{link(r_{i} \cap k_{j})}{link(r_{i})}
+	\mathit{res}(r_i) = \sum_{k_{j} \in K} \frac{\mathit{link}(r_{i} \cap k_{j})}{\mathit{link}(r_{i})}
 \end{equation*}
 
 There are various benefits of using LEA, e.g., LEA considers resolved co-reference relations 
@@ -564,8 +566,8 @@ mode, all named mentions in system response and test corpora were lowercased.
 11 teams from 7 different countries (Czech Republic, Germany, India, Poland, Russia, Slovenia and USA) signed up for the evaluation task and received the trial datasets. However, presumably due to the complexity of the task and relatively short
 time available for elaborating a solution, only 3 (\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 16.02}) teams submitted results. A total of \textbf{XX} unique runs were submitted: \todo{ammend once we know}
 
-The {\sc DeepNLP} team~\footnote{https://github.com/tindzk/bsnlp} learns entities and their base forms from 
-Wikipedia data dumps.~\footnote{https://dumps.wikimedia.org/} A character-level recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} 
+The {\sc DeepNLP} team~\footnote{\tt https://github.com/tindzk/bsnlp} learns entities and their base forms from 
+Wikipedia data dumps.~\footnote{\tt https://dumps.wikimedia.org/} A character-level recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} 
 is trained to predict which characters belong to an entity. A second neural network is trained on inflected entities and predicts their base forms.
 
 \todo{DeepNLP team needs to be contacted to confirm the description since they mentioned they might change the strategy slightly.}
@@ -607,12 +609,15 @@ in the gudielines on how to deal with certain phenomena, etc., bla bla
 \section*{Acknowledgments}
 
 
-We would like to thank Katja Zupan from the Department of Knowledge Technologies from
-Jožef Stefan Institute in Slovenia, Anastasia Stepanova from the State University of New York at Buffalo, 
-and Olga Kanishcheva, Kateryna Klymenkova, Ekaterina Yurieva from the National Technical University 
-(Kharkiv Polytechnic Institute), who contributed to preparation of the Slovenian, Russian and Ukrainian test 
-datasets. We are also indebted to Tomaž Erjavec from the Department of Knowledge Technologies from Jožef Stefan 
-Institute in Slovenia, who contributed with various ideas.
+We would like to thank Katja Zupan from the Department of Knowledge
+Technologies from Jožef Stefan Institute in Slovenia, Anastasia Stepanova from
+the State University of New York at Buffalo, Domagoj Alagić from TakeLab,
+University of Zagreb, and Olga Kanishcheva, Kateryna Klymenkova, Ekaterina
+Yurieva from the National Technical University (Kharkiv Polytechnic Institute),
+who contributed to preparation of the Slovenian, Russian, Croatian, and
+Ukrainian test datasets. We are also indebted to Tomaž Erjavec from the
+Department of Knowledge Technologies from Jožef Stefan Institute in Slovenia,
+who contributed with various ideas.
 
 
 
