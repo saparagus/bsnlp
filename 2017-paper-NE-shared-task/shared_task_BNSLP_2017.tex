@@ -173,182 +173,173 @@ Mining~\cite{kumaran2010report}, i.e., mining of names from parallel
 corpora. This task included corpora in English, Chinese, Tamil,
 Russian, and Arabic.
 
-There were some interest in NE for Slavic languages. A corpus with
-annotated 11 thousand manualy annotated NEs was built for the Czech
+\todo{add RW for other languages?}There were some interest in NE for Slavic languages. A corpus with
+11 thousand manualy annotated NEs was built for the Czech
 language~\cite{vsevvcikova2007named}. A shared task on Russian NE
 Recognition has been organized recently~\cite{alexeeva2016factrueval}.
 
-To our best knowledge the shared task described in this paper is a
-first attempt on multilingual name recognition, their normalization
+To our best knowledge, the shared task described in this paper is a
+first attempt on multilingual name recognition, their normalization, 
 and cross-language entity matching that covers Slavic languages in
 particular.
 
-The rest of this paper is organised as follows. In Section~\ref{sec:task}, the task is
-introduced.  Next, in Section~\ref{sec:protocol} the system response
-protocol is described.  Subsequently, the characteristics of the test
-datasets are provided in Section~\ref{sec:annotation}.  The evaluation
-methodology is introduced in Section~\ref{sec:evaluation}.  Next, the
-description of participant systems is provided in
-Section~\ref{sec:participants} and the results obtained by these systems
-are presented in Section~\ref{sec:results}.  Finally, lessons learnt and
-main conclusions are discussed in Section~\ref{sec:conclusions}.
+The rest of this paper is organised as follows. Section~\ref{sec:task}
+describes the shared task, while Section~\ref{sec:annotation} describes the
+annotation of the dataset.  The evaluation methodology is
+introduced in Section~\ref{sec:evaluation}.  The description of participant
+systems is provided in Section~\ref{sec:participants} and the results obtained
+by these systems are presented in Section~\ref{sec:results}.  Finally, lessons
+learnt and main conclusions are discussed in Section~\ref{sec:conclusions}.
 
 \section{Task Description}
 \label{sec:task}
 
 
-We are given a collection of text documents in several Slavic languages
-extracted from the Web and focusing around a certain entity---e.g., a
-person or an organization.  The task is to recognize, classify, and
-``normalize'' all named-entity mentions in each of the documents, and to
-link together across languages all named mentions referring to the same
-real-world entity.  By ``normalization'' we mean lemmatization, return to
-a basic, dictionary form.  The document collection is obtained by posing
-a query to a search engine, and parsing the HTML of returned documents.
-Formally, the Multilingual Named Entity Recognition task is
-subdivided into three sub-tasks:
+The data for the shared task consists of a collection of text documents
+\alert{in seven Slavic languages: Croatian, Czech, Polish, Russian, Slovak,
+	Slovene, and Ukrainian. The documents focus around a certain
+	entity---e.g., a person or an organization. The documents were obtained
+from the web, by posing a query to a search engine and parsing the HTML of
+returned documents.}
+
+The task \alert{was} to recognize, classify, and ``normalize'' all named-entity mentions
+in each of the documents, and to link together across languages all named
+mentions referring to the same real-world entity.
+
+Formally, the Multilingual Named Entity
+Recognition task is subdivided into three sub-tasks:
 
 \begin{itemize}
 
 \item \textbf{Named Entity Mention Detection and Classification}:
-  recognizing all unique named mentions of entities of four types:
-  persons (PER), organizations (ORG), locations (LOC), miscellaneous
-  (MISC), the last covering mentions of all other types of named
-  entities, e.g., products, events, etc.
+  Recognizing all unique named mentions of entities of four types:
+  persons (\textsc{Per}), organizations (\textsc{Org}), locations (\textsc{Loc}), miscellaneous
+  (\textsc{Misc}), the last covering mentions of all other types of named
+  entities, e.g., products, events, etc.;
 
-\item \textbf{Name Normalization}: computing for each detected named mention of an entity its corresponding base form/lemma, and
+\item \textbf{Name Normalization}: \alert{Mapping each detected named mention
+	of an entity to its corresponding base form. By ``base form'' we
+	generally mean the lemma (the dictionary form) of the inflected
+	word-form, though in some cases normalization should go beyond
+	inflection and transform a derived word into a base word's lemma, e.g., in case of person possessives (cf.~below). Multiword names should be normalized to the cannonical
+multiword expression, rather than a sequence of lemmas making up the multiword
+expression.}
 
-\item \textbf{Entity Matching}: assigning to each detected named mention of an entity an identifier in such a way that detected 
+\item \textbf{Entity Matching}: Assigning to each detected named mention of an entity an identifier in such a way that detected 
   mentions of entities referring to the same real-world entity should be assigned the same identifier, which is referred to as 
   cross-lingual ID.
 
 \end{itemize}
 
-\noindent The task does not include returning positional information of name entity mentions. Consequently,
-for all occurrences of the same form of a mention (e.g., inflected variant, acronym or abbreviation) of a named entity 
-within the same document not more than one annotation should be returned, unless the different occurrences thereof have 
-different entity types (different readings) assigned to them. Furthermore, distinguishing case information is not relevant
-since the evaluation is case-insensitive. In particular, if the text includes lowercase, uppercase and/or mixed-letter 
-named mention variants of the same entity, the system response should include only one annotation for all of these mentions. 
-For instance, for ``\textit{ISIS}'', ``\textit{isis}'', and ``\textit{Isis}'' (provided that they refer to the same named-entity type), 
-only one annotation should be returned (e.g., ``\textit{Isis}'').
+\noindent The task does not include returning positional information of name
+entity mentions. Consequently, for all occurrences of the same form of a
+mention (e.g., inflected variant, acronym, or abbreviation) of a named entity
+within the same document not more than one annotation should be returned,
+unless the different occurrences thereof have different entity types (different
+readings) assigned to them. Furthermore, distinguishing case information is not
+relevant since the evaluation is case-insensitive. In particular, if the text
+includes lowercase, uppercase and/or mixed-letter named mention variants of the
+same entity, the system response should include only one annotation for all of
+these mentions.  For instance, for ``\textit{ISIS}'', ``\textit{isis}'', and
+``\textit{Isis}'' (provided that they refer to the same named-entity type),
+only one annotation should be returned (e.g., ``\textit{Isis}''). Note that the
+recognition of nominal or pronominal mentions of entities is not part of the
+task. 
 
-It is important to emphasize that the recognition of nominal or pronominal mentions of entities is not part of the task. 
+\subsection{Named Enttity Classes}
 
-As regards language coverage the shared task covered recognition of names in seven Slavic languages, namely, Croatian, 
-Czech, Polish, Russian, Slovak, Slovene, Ukrainian. It is envisioned to extend the task to cover additional Slavic 
-languages at a later stage, which goes beyond the scope of the task defined for the 2017 edition of BSNLP workshop.
+\alert{The task considered four NE categories, defined as follows.}
 
-As regards recognition of particular types of named-entity the following rules were imposed:
+\begin{description}
 
-\begin{itemize}
+\item[Person names (\textsc{Per}).] \alert{This class includes names of
+real and fictional persons and characters.} Person names should not include
+titles, honorifics, and functions/positions. For example, in the text fragment
+``\textit{CEO Dr. Jan Kowalski}'', only ``\textit{Jan Kowalski"}'' should be
+recognized as a person name. However, initials and pseudonyms are considered
+named mentions of person names and should be recognized.  Similarly, named
+references to groups of people (that do not have a formal organization unifying
+them) should also be recognized, e.g., ``\textit{Ukrainians}''. In this
+context, mentions of a single member belonging to such groups, e.g.
+``\textit{Ukrainian}'', should be assigned the same cross-language ID as plural
+mentions, i.e., ``\textit{Ukrainians}'' and ``\textit{Ukrainian}'' when
+referring to the nation should be assigned the same cross-language ID.	
 
-\item \textbf{Person names (PER)}:
-
-  a) Person names should not include titles, honorifics, and functions/positions. For example, in the text fragment ``\textit{CEO Dr. Jan Kowalski}'', only ``\textit{Jan Kowalski"}'' should be recognized as a person name. However, initials and pseudonyms are considered named mentions of person names and should be recognized. Similarly, named references to groups of people (that do not have a formal organization unifying them) should also be recognized, e.g., ``\textit{Ukrainians}''. In this context, mentions of a single member belonging to such groups, e.g. ``\textit{Ukrainian}'', should be assigned the same cross-language ID as plural mentions, i.e., ``\textit{Ukrainians}'' and
-``\textit{Ukrainian}'' when referring to the nation should be assigned the same cross-language ID.	
-
-  b) Personal possessives derived from a named mention of a person should
+  Furthemore, personal possessives derived from a named mention of a person should
   be classified as a person, and the base form of the corresponding
   person name should be extracted. For instance, for
   ``\textit{Trumpov tweet}'' (Croatian) it is expected to recognize
   ``\textit{Trumpov}'', classified with PER and extract the base
   form ``\textit{Trump}''.
 
-  c) Fictive persons and characters are considered as persons.
 
-\item \textbf{Locations (LOC)}:
+\item[Locations (\textsc{Loc}).]
 
-  \begin{itemize}
+This category includes all toponyms and geopolitical entities (e.g., cities,
+counties, provinces, countries, regions, bodies of water, land formations,
+etc.) and named mentions of facilities (e.g., stadiums, parks, museums,
+theaters, hotels, hospitals, transportation hubs, churches, railroads, bridges,
+and other similar urban and non-urban facilities).
 
-  \item This category includes all toponyms and geopolitical entities
-    (e.g., cities, counties, provinces, countries, regions, bodies of
-    water, land formations, etc.) and named mentions of facilities (e.g.,
-    stadiums, parks, museums, theaters, hotels, hospitals, transportation
-    hubs, churches, railroads, bridges, and other similar urban and
-    non-urban facilities).
+Even in case of named mentions of facilities that refer to an organization, the
+\textsc{Loc} tag should be used. For example, from the text phrase
+``\textit{The Schipol airport has acquired new electronic gates}'' the mention
+``\textit{The Schipol airport}'' should be extracted and classified as
+\textsc{Loc}.
 
-  \item Even in case of named mentions of facilities that refer to an
-    organization, the LOC tag should be used. For example, from the text
-    phrase ``\textit{The Schipol airport has acquired new electronic
-      gates}'' the mention ``\textit{The Schipol airport}'' should be
-    extracted and classified as LOC.
+\item[Organizations (\textsc{Org}).]
 
-  \end{itemize}
+This category covers all kind of organizations such as political parties,
+public institutions, international organizations, companies, religious
+organizations, sport organizations, education and research institutions, etc.
 
-\item \textbf{Organizations (ORG)}:
-
-  \begin{itemize}
-
-  \item This category covers all kind of organizations such as: political
-    parties, public institutions, international organizations, companies,
-    religious organizations, sport organizations, education and research
-    institutions, etc.
-
-  \item Organization designators and potential mentions of the seat of
-    the organization are considered to be part of the organization
-    name. For instance, from the text fragment ``\textit{Citi Handlowy w
-      Poznaniu}'' (a bank in Poznań), the full phrase ``\textit{Citi
-      Handlowy w Poznaniu}'' should be extracted.
+Organization designators and potential mentions of the seat of the organization
+are considered to be part of the organization name. For instance, from the text
+fragment ``\textit{Citi Handlowy w Poznaniu}'' (a bank in Poznań), the full
+phrase ``\textit{Citi Handlowy w Poznaniu}'' should be extracted.
 			
-  \item When a company name is used to refer to a service (e.g., ``\textit{na
-Twiterze}'' (Polish) - on Twitter) the mention of ``\textit{Twitter}'' is considered to 
-refer to a service/product and should be tagged as MISC. However, when a company name 
-is referring to a service which expresses the opinion of the company, e.g. ``\textit{Fox News}'', 
-it should be tagged as ORG.			
+When a company name is used to refer to a service (e.g., ``\textit{na
+Twiterze}'' (Polish for ``on Twitter'') the mention of ``\textit{Twitter}'' is
+considered to refer to a service/product and should be tagged as \textsc{Misc}.
+However, when a company name is referring to a service which expresses the
+opinion of the company, e.g., ``\textit{Fox News}'', it should be tagged as
+\textsc{Org}.			
 
-  \end{itemize}
+\item[Miscellaneous (\textsc{Misc}).]
 
-\item \textbf{Miscellaneous (MISC)}:
+This category covers all other named mentions of entities, e.g., product names
+(e.g., ``\textit{Motorola Moto X}''), events (conferences, concerts, natural
+disasters, holidays, e.g., ``\textit{Święta Bożego Narodzenia}'', etc.).
 
-  \begin{itemize}
+This category does not include the recognition of temporal and numerical
+expressions, as well as recognition of identifiers such as email addresses,
+URLs, postal addresses, etc.
 
-  \item This category covers all other named mentions of entities, e.g.,
-    product names (e.g., ``\textit{Motorola Moto X}''), events
-    (conferences, concerts, natural disasters, holidays, e.g.,
-    ``\textit{Święta Bożego Narodzenia}'', etc.).
+\end{description}
 
-  \item This category does not include the recognition of temporal and
-    numerical expressions, as well as recognition of identifiers such as
-    email addresses, URLs, postal addresses, etc.
+\subsection{Complex and Ambiguous Entities}
 
-  \end{itemize}
+In case of complex named entities, consisting of nested named entities, only
+the top-most entity should be recognized. For example, from the text fragment
+``\textit{George Washington University}'' one should not extract
+``\textit{George Washington}'', but the entire name, namely, ``\textit{George
+Washington University}.''
 
-\end{itemize}
-
-\noindent \textbf{Other aspects}:
-
-\begin{itemize}
-
-\item In case of complex named entities, consisting of nested named
-  entities, only the top-most entity should be recognized. For example,
-  from the text fragment ``\textit{George Washington University}'' one
-  should not extract ``\textit{George Washington}'', but the entire name,
-  namely, ``\textit{George Washington University}.''
-
-\item In case a same form (e.g., ``\textit{Washington}'') in two different
-  contexts in the same document is used to refer to two different
-  real-world entities (e.g. a person and a location) the system should
-  return two annotations respectively, where each of them associates the
-  mention with a different cross-language ID resp.
-
-\end{itemize}
+In case a same form (e.g., ``\textit{Washington}'') in two different contexts
+in the same document is used to refer to two different real-world entities
+(e.g., a person and a location), the system should return two annotations
+respectively, where each of them associates the mention with a different
+cross-language ID resp.
 
 
-The registered participants were provided two trial datasets related to:
-(a) {\em Beata Szydło}, the current prime minister of Poland, and (b)
-ISIS, the so-called ``Islamic State of Iraq and Syria'' terror group.
-These datasets consisted of 187 and 186 documents respectively, with
-equal distribution of documents across the seven languages of interest.
-
-\section{System Input and Response Protocol}
+\subsection{System Input and Response}
 \label{sec:protocol}
 
-\subsection{Input Document Format}
+\paragraph{Input Document Format.}
 \label{subsec:input}
-
-Documents in trial and test datasets are represented in the following
-format, where the first 5 lines contain metadata, whereas the core text
+%
+Documents in collection are represented in the following
+format, where the first five lines contain metadata, whereas the core text
 to be processed is available from the 6th line till the end of the file.
 
 \begin{small}
@@ -364,14 +355,14 @@ to be processed is available from the 6th line till the end of the file.
 
 \noindent The \verb+<URL>+ field was used to store information on the origin from which 
 the text document was created. The values of the metadata fields were computed automatically 
-(see~\ref{sec:annotation} for details). In particular, the values of the \verb+<CREATION-DATE>+ 
+(cf.~Section~\ref{sec:annotation} for details). In particular, the values of the \verb+<CREATION-DATE>+ 
 and \verb+<TITLE>+ fields were not provided for all documents either due to unavailability 
 of such data or due to web page parsing errors during the creation process. 
 
-\subsection{System Response}
+\paragraph{System Response.}
 \label{subsec:input}
-
-For each input document the systems should return a corresponding file in the following format.
+%
+For each input document, the systems should return a corresponding file in the following format.
 The first line should contain only the \verb+<DOCUMENT-ID>+ field that corresponds to the input file,
 whereas each subsequent line should be of the format:
 
@@ -381,12 +372,14 @@ whereas each subsequent line should be of the format:
 \end{verbatim}
 \end{small}
 
-\noindent The value of the \verb+<MENTION>+ field should contain the named-entity mention as it 
-appears in text. The value of the \verb+<BASE>+ field should contain the base form of the
-entity. Finally, the \verb+<CAT>+ and \verb+<ID>+ fields are used to store information
-on the category of the entity (ORG, PER, LOC or MISC) and cross-lingual identifier resp. 
-The cross-lingual identifiers may consist of an arbitrary sequence of alphanumeric characters.
-An example of system response (for a document in Polish) is given below.
+\noindent The value of the \verb+<MENTION>+ field should contain the
+named-entity mention as it appears in text. The value of the \verb+<BASE>+
+field should contain the base form of the entity. Finally, the \verb+<CAT>+ and
+\verb+<ID>+ fields are used to store information on the category of the entity
+(\textsc{Org}, \textsc{Per}, \textsc{Loc}, or \textsc{Misc}) and cross-lingual
+identifier resp.  The cross-lingual identifiers may consist of an arbitrary
+sequence of alphanumeric characters.  An example of a system response (for a
+document in Polish) is given below.
 
 \begin{small}
 \begin{verbatim}
@@ -405,27 +398,35 @@ Magazynu Kuriera Porannego \
 \section{Task Dataset}
 \label{sec:annotation}
 
+\subsection{Trial Datasets}
+
+The registered participants were provided two trial datasets:
+(1) a dataset related to {\em Beata Szydło}, the current prime minister of Poland, and (2)
+a dataset related to ISIS, the so-called ``Islamic State of Iraq and Syria'' terror group.
+These datasets consisted of 187 and 186 documents respectively, with
+equal distribution of documents across the seven languages of interest.
+
+\subsection{Test Datasets}
+
 Two datasets were prepared for evaluation, each consisting of documents
-extracted from the Web and revolving around a given entity.
-Specifically, the first dataset contains documents related to Donald
-Trump, the recently elected President of United States (which will be
-referred to as {\sc Trump}), whereas the second dataset contains
-documents related to the European Commission (which will be referred to
-as {\sc ECommission}).
+extracted from the web and revolving around a given entity.  Specifically, the
+first dataset contains documents related to Donald Trump, the recently elected
+President of United States (henceforth referred to as {\sc Trump}), while the
+second dataset contains documents related to the European Commission
+(henceforth referred to as {\sc ECommission}).
 
 The test datasets were created in the following manner.  For each entity
-of interest we have posed a separate search query to Google, in each of
+of interest, we have posed a separate search query to Google, in each of
 the seven target languages.  The query was configured to return links to
 documents only in the language of interest.  Next, we extracted the first
-100 links\footnote{Or fewer, in case the search engine did not return 100
-  links.} returned by the search engine, removed duplicate links and
+100 links (or fewer, in case the search engine did not return 100
+links) returned by the search engine, removed duplicate links, and
 downloaded the corresponding HTML pages---mainly news articles or
 fragments thereof---and converted them into pure text, using a hybrid
 HTML parser.  This process was done semi-automatically using the tool
 described in~\cite{Crawley:ea:2010}.  In particular, some of the metadata
 fields---i.e., creation date, title, URL---were automatically computed
 using this tool.
-
 
 The HTML parsing resulted in extracting texts that may include not only
 the core text of a Web page, but also some additional pieces of text,
@@ -440,18 +441,22 @@ additionally polished by removing erroneously extracted boilerplate
 content.  The resulting set of partially ``cleaned'' documents were used to
 select for each language and topic circa 20-25 documents for the
 preparation of the final test datasets. The annotation for Croatian,
-Czech, Polish, Russian, Slovene and Ukrainian were done by native speakers, whereas
+Czech, Polish, Russian, Slovene, and Ukrainian\todo{Ukranian: native or non-native?} were done by native speakers, whereas
 annotation for Slovak and Ukrainian were made by native speakers of Czech, capable 
-of understanding the former language. The cross-language alignment of the entity identifiers was
+of understanding the former\todo{fix: "former"} language. The cross-language alignment of the entity identifiers was
 done by two annotators. 
 
-Table~\ref{tab:datasets} provides more detailed quantitative data about the test annotated datasets. A breakdown 
-of the entity mention figures with respect to entity type is given in Table~\ref{tab:datasets-2}. 
+Table~\ref{tab:datasets} provides a more detailed quantitative data about the annotated datasets. A breakdown 
+of the entity mention figures with respect to entity class is given in Table~\ref{tab:datasets-2}. 
 
-It is worthwhile mentioning that for the sake of compliance with the named-entity recognition guidelines described
-in~\ref{sec:task} documents that included hard-to-decide entity mention annotations were excluded from the test 
-datasets, e.g., ``\textit{Zagrebačke, Sisačko-Moslavačke i Karlovačke županije}'', being a conflated versions of 3 
-named entities, namely, ``\textit{Zagrebačke županije}'', ``\textit{Sisačko-Moslavačke županije}'' and ``\textit{Karlovačke županije}''.
+It is worthwhile mentioning that, for the sake of compliance with the named
+entity recognition guidelines described in~Section \ref{sec:task}, documents
+that included hard-to-decide entity mention annotations were excluded from the
+test datasets. \alert{A case in point is a document in Croatian that contained the
+	phrase ``\textit{Zagrebačka, Sisačko-Moslavačka i Karlovačka
+	županija}'', which is a contracted version of three named entities,
+namely, ``\textit{Zagrebačka županija}'', ``\textit{Sisačko-Moslavačka
+županija}'', and ``\textit{Karlovačka županija}''.}
 
 \begin{table}
 \begin{center}
