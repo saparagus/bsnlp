@@ -454,9 +454,9 @@ entity recognition guidelines described in~Section \ref{sec:task}, documents
 that included hard-to-decide entity mention annotations were excluded from the
 test datasets. \alert{A case in point is a document in Croatian that contained the
 	phrase ``\textit{Zagrebačka, Sisačko-Moslavačka i Karlovačka
-	županija}'', which is a contracted version of three named entities,
-namely, ``\textit{Zagrebačka županija}'', ``\textit{Sisačko-Moslavačka
-županija}'', and ``\textit{Karlovačka županija}''.}
+	županija}''---a contracted version of three named entities
+	(``\textit{Zagrebačka županija}'', ``\textit{Sisačko-Moslavačka
+županija}'', and ``\textit{Karlovačka županija}'') expressed using a head noun with three coordinate modifiers.}
 
 \begin{table}
 \begin{center}
@@ -511,13 +511,13 @@ MISC & 6.4\% & 9.6\% \\
 \section{Evaluation Methodology}
 \label{sec:evaluation}
 
-Named entity recognition (exact case-insensitive matching) and  Name Normalization (sometimes called “lemmatization”) tasks were evaluated in terms of precision, recall, and F1 scores. In particular, as regards named entity recognition, two types of evaluations were carried out:
+Named entity recognition (exact case-insensitive matching) and  Name Normalization (sometimes called “lemmatization”) tasks were evaluated in terms of precision, recall, and F1-scores. In particular, as regards named entity recognition, two types of evaluations were carried out:
 
 \begin{itemize}
 
-\item \textbf{Relaxed evaluation}: an entity mentioned in a given document is considered to be extracted correctly if the system response includes at least one annotation of a named mention of this entity (regardless whether the extracted mention is base form);
+\item \textbf{Relaxed evaluation}: An entity mentioned in a given document is considered to be extracted correctly if the system response includes at least one annotation of a named mention of this entity (regardless whether the extracted mention is base form);
 
-\item \textbf{Strict evaluation}: the system response should include exactly one annotation for each unique form of a named mention of an entity that is referred to in a given document, i.e., capturing and listing all variants of an entity is required.
+\item \textbf{Strict evaluation}: The system response should include exactly one annotation for each unique form of a named mention of an entity that is referred to in a given document, i.e., capturing and listing all variants of an entity is required.
 
 \end{itemize}
 
