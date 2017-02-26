@@ -27,6 +27,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{booktabs}
 \usepackage{color}
+\usepackage{multirow}
 
 %\usepackage{todonotes}%remove this when all todos are gone
 \usepackage{todonotes}
@@ -479,54 +480,129 @@ excluded from the test datasets. {A case in point is a document in
   modifiers.}
 
 \begin{table}
-\begin{center}
-\begin{footnotesize}
-%\begin{tabular}{|l|c|c|c|c|c|c|}
-\begin{tabular}{lcccc}
-\toprule 
- & \multicolumn{2}{c}{\textbf{{\sc Trump}}} & \multicolumn{2}{c}{\textbf{{\sc ECommission}}} \\
-\cmidrule(lr){2-3}
-\cmidrule(lr){4-5}
-Language &  \#\,docs & \#\,ment & \#\,docs & \#\,ment \\
-\midrule
-Croatian & 25 & 525 & 25 & 436 \\
-Czech & 25 & 479  & 25 & 417 \\
-Polish & 25 & 692  & 24 & 466 \\
-Russian & 26 & 331  & 24 & 385 \\
-Slovak  & 24 & 453  & 25 & 374 \\
-Slovene & 24 & 474  & 26 & 434 \\
-Ukrainian & 28 & 337  & 54 & 1078 \\
-\midrule
-Total & 177 & 3291  & 203 & 3588 \\
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+      \begin{tabular}{lcccc}
+        \toprule 
+        & \multicolumn{2}{c}{\textbf{{\sc Trump}}} & \multicolumn{2}{c}{\textbf{{\sc ECommission}}} \\
+        \cmidrule(lr){2-3}
+        \cmidrule(lr){4-5}
+        Language &  \#\,docs & \#\,ment & \#\,docs & \#\,ment \\
+        \midrule
+        Croatian & 25 & 525 & 25 & 436 \\
+        Czech & 25 & 479  & 25 & 417 \\
+        Polish & 25 & 692  & 24 & 466 \\
+        Russian & 26 & 331  & 24 & 385 \\
+        Slovak  & 24 & 453  & 25 & 374 \\
+        Slovene & 24 & 474  & 26 & 434 \\
+        Ukrainian & 28 & 337  & 54 & 1078 \\
+        \midrule
+        Total & 177 & 3291  & 203 & 3588 \\
 
-
-\bottomrule
-\end{tabular}
-\end{footnotesize}
-\end{center}
-\caption{Quantitative data about the test datasets. \#docs and \#ment refer to the number of documents and named-entity mention annotations.}
-\label{tab:datasets}
+        \bottomrule
+      \end{tabular}
+    \end{footnotesize}
+  \end{center}
+  \caption{Quantitative data about the test datasets. \#docs and \#ment refer to the number of documents and named-entity mention annotations.}
+  \label{tab:datasets}
 \end{table}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
-\begin{center}
-\begin{footnotesize}
-%\begin{tabular}{|l|c|c|c|c|c|c|}
-\begin{tabular}{lcc}
-\toprule 
- Entity type & {\textbf{{\sc Trump}}} & {\textbf{{\sc ECommission}}} \\
-\midrule
-ORG & 18.3\% & 48.4\% \\
-LOC & 26.9\% & 29.1\% \\
-PER & 48.4\% & 11.9\% \\
-MISC & 6.4\% & 9.6\% \\
-\bottomrule
-\end{tabular}
-\end{footnotesize}
-\end{center}
-\caption{Breakdown of the annotations according to the entity type.}
-\label{tab:datasets-2}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+      \begin{tabular}{lcc}
+        \toprule 
+        Entity type & {\textbf{{\sc Trump}}} & {\textbf{{\sc ECommission}}} \\
+        \midrule
+        ORG & 18.3\% & 48.4\% \\
+        LOC & 26.9\% & 29.1\% \\
+        PER & 48.4\% & 11.9\% \\
+        MISC & 6.4\% & 9.6\% \\
+        \bottomrule
+      \end{tabular}
+    \end{footnotesize}
+  \end{center}
+  \caption{Breakdown of the annotations according to the entity type.}
+  \label{tab:datasets-2}
 \end{table}
+
+
+
+
+
+\begin{table*}[t]
+  \centering
+  \setlength\tabcolsep{5pt}
+  %\caption{Global caption}
+  \begin{minipage}{\linewidth}
+    \centering
+    %\tablewidth=\textwidth
+\scalebox{0.87}{
+    \begin{tabular}{| l | l ||l r|l r|l r|l r|l r|l r|l r| }
+
+\hline
+{\em Scenario}      & {\bf Trump}     & \multicolumn{14}{c|}{\em Language}                                                                    \\
+\hline
+Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
+\hline
+\multirow{6}{*}
+{Recognition}       & Relaxed Partial & jhu      & 46.2 & jhu  & 52.4 & pw   & 66.6 & jhu  & 46.3 & jhu  & 46.8 & jhu  & 47.3 & jhu  & 38.8   \\
+                    &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
+\cline{2-16}
+                    & Relaxed Exact   & jhu      & 46.1 & jhu  & 50.8 & pw   & 66.1 & jhu  & 43.1 & jhu  & 46.2 & jhu  & 46.0 & jhu  & 37.3   \\
+                    &                 &          &      &      &      & jhu  & 43.4 &      &      &      &      &      &      &      &        \\
+\cline{2-16}
+                    & Strict          & jhu      & 46.1 & jhu  & 50.4 & pw   & 66.6 & jhu  & 41.8 & jhu  & 47.0 & jhu  & 46.2 & jhu  & 33.2   \\
+                    &                 &          &      &      &      & jhu  & 41.0 &      &      &      &      &      &      &      &        \\
+\hline
+Normalization       &                 &          &      &      &      & pw   & 60.5 &      &      &      &      &      &      &      &        \\
+\hline
+\multirow{3}{*}
+{Coreference}       & Document level  & jhu      &  5.4 & jhu  &  7.3 & jhu  &  6.3 & jhu  & 11.2 & jhu  & 10.1 & jhu  &  9.5 & jhu  &  0.0   \\
+\cline{2-16}
+                    & Single language & jhu      & 19.3 & jhu  & 17.6 & jhu  & 18.2 & jhu  & 18.9 & jhu  & 22.6 & jhu  & 28.7 & jhu  & 10.7   \\
+\cline{2-16}
+                    & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c|}{}                                                             \\
+\hline
+\hline
+{\em Scenario}      & {\bf EU}        & \multicolumn{14}{c|}{\em Language}                                                                    \\
+\hline
+Phase               & Metric          & cs       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
+\hline
+\multirow{6}{*}
+{Recognition}       & Relaxed Partial & jhu      & 47.6 & jhu  & 45.9 & pw   & 61.8 & jhu  & 46.0 & jhu  & 49.1 & jhu  & 47.9 & jhu  & 18.4   \\
+                    &                 &          &      &      &      & jhu  & 47.3 &      &      &      &      &      &      &      &        \\
+\cline{2-16}
+                    & Relaxed Exact   & jhu      & 44.4 & jhu  & 43.1 & pw   & 60.9 & jhu  & 44.1 & jhu  & 46.4 & jhu  & 43.9 & jhu  & 14.7   \\
+                    &                 &          &      &      &      & jhu  & 42.4 &      &      &      &      &      &      &      &        \\
+\cline{2-16}
+                    & Strict          & jhu      & 47.2 & jhu  & 46.2 & pw   & 61.1 & jhu  & 46.5 & jhu  & 46.1 & jhu  & 47.8 & jhu  & 10.8   \\
+                    &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
+\hline
+Normalization       &                 &          &      &      &      & pw   & 48.3 &      &      &      &      &      &      &      &        \\
+\hline
+\multirow{3}{*}
+{Coreference}       & Document level  & jhu      & 25.0 & jhu  & 16.0 & jhu  & 13.7 & jhu  & 13.7 & jhu  & 13.1 & jhu  & 36.8 & jhu  &  0.6   \\
+\cline{2-16}
+                    & Single language & jhu      & 27.3 & jhu  & 22.1 & jhu  & 17.5 & jhu  & 24.9 & jhu  & 30.6 & jhu  & 32.2 & jhu  &  4.8   \\
+\cline{2-16}
+                    & Cross-lingual   & jhu      &  2.6 &  \multicolumn{12}{c|}{}                                                             \\
+\hline
+      \end{tabular}
+}
+    \caption{Evaluation results across all scenarios and languages.}
+    \label{tab:eval-results}
+
+  \end{minipage}%
+%  \hfill
+\end{table*}
+
+
+
+
 
 \section{Evaluation Methodology}
 \label{sec:evaluation}
@@ -578,40 +654,90 @@ computed as fraction of co-reference links in $r_i$ that are extracted correctly
 	\mathit{res}(r_i) = \sum_{k_{j} \in K} \frac{\mathit{link}(r_{i} \cap k_{j})}{\mathit{link}(r_{i})}
 \end{equation*}
 
-There are various benefits of using LEA, e.g., LEA considers resolved co-reference relations 
-instead of resolved mentions and has more discriminative power than other metrics used
-for co-reference resolution evaluation~\cite{DBLP:conf-acl-Moosavi016}.
+There are various benefits to using LEA.  For example, LEA considers
+resolved co-reference relations instead of resolved mentions and has more
+discriminative power than other metrics used for evaluation of
+co-reference resolution~\cite{DBLP:conf-acl-Moosavi016}.
 
-It is important to stress at this stage that the evaluation was carried out in ``case-insensitive'' 
-mode, all named mentions in system response and test corpora were lowercased.
+It is important to stress at this stage that the evaluation was carried
+out in ``case-insensitive'' mode: all named mentions in system response
+and test corpora were lowercased.
+
+
+
 
 \section{Participant Systems}
 \label{sec:participants}
  
-11 teams from 7 different countries (Czech Republic, Germany, India, Poland, Russia, Slovenia and USA) signed up for the evaluation task and received the trial datasets. However, presumably due to the complexity of the task and relatively short
-time available for elaborating a solution, only 3 (\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 16.02}) teams submitted results. A total of \textbf{XX} unique runs were submitted: \todo{ammend once we know}
+Eleven teams from seven countries---Czech Republic, Germany, India,
+Poland, Russia, Slovenia and USA---signed up for the evaluation task and
+received the trial datasets.  Due to the complexity of the task and
+relatively short time available for elaborating a solution, only 3
+(\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 16.02})
+teams submitted results.
+%
+A total of \textbf{XX} unique runs were submitted: 
+%
+\todo{ammend once we know}
 
-The {\sc DeepNLP} team~\footnote{\tt https://github.com/tindzk/bsnlp} learns entities and their base forms from 
-Wikipedia data dumps.~\footnote{\tt https://dumps.wikimedia.org/} A character-level recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} 
-is trained to predict which characters belong to an entity. A second neural network is trained on inflected entities and predicts their base forms.
+JHU/APL team attempted only the NER and Entity Matching sub-tasks.  They
+employed a statistical tagger called
+SVMLattice~\cite{Mayfield:2003:LTU:956863.956921}, with NER labels
+inferred by projecting English tags across bitext.  The Illinois
+tagger~\cite{Ratinov:2009:DCM:1596374.1596399} was used for English. A
+rule-based entity clusterer called "kripke" was used for Entity
+Matching~\cite{DBLP:conf/tac/McNameeMFL13}.  
+%
+The team (code ``{\em jhu}'') attempted all languages available in the
+Challenge.
 
-\todo{DeepNLP team needs to be contacted to confirm the description since they mentioned they might change the strategy slightly.}
+{\sc G4.19 Research Group} adapted
+Liner2~\cite{series/sci/MarcinczukKJ13}---a generic framework which can
+be used to solve various tasks based on sequence labeling, which is
+equipped with a set of modules (based on statistical models,
+dictionaries, rules and heuristics) which recognize and annotate certain
+types of phrases.  The details of tuning Liner2 to tackle the shared task
+are described in~\cite{marcinczuk:2017}.
+%
+The team (code ``{\em pw}'') attempted only the Polish language Challenge.
 
-JHU/APL team only attempted the NER and Entity Matching sub-tasks. They employed a statistical tagger called 
-SVMLattice~\cite{Mayfield:2003:LTU:956863.956921}, with NER labels inferred by projecting English tags across bitext. 
-The Illinois tagger~\cite{Ratinov:2009:DCM:1596374.1596399} was used for English. A rule-based entity clusterer 
-called "kripke" was used for Entity Matching~\cite{DBLP:conf/tac/McNameeMFL13}.
 
-{\sc G4.19 Research Group} adapted Liner2~\cite{series/sci/MarcinczukKJ13} - a generic framework 
-which can be used to solve various tasks based on sequence labeling, which is equipped
-with a set of modules (based on statistical models, dictionaries, rules and heuristics) 
-which recognize and annotate certain types of phrases. The details of tuning Liner2 to
-tackle the shared task is described in~\cite{marcinczuk:2017}.
+The {\sc DeepNLP} team\footnote{\tt https://github.com/tindzk/bsnlp}
+learns entities and their base forms from Wikipedia data
+dumps.\footnote{\tt https://dumps.wikimedia.org/} A character-level
+recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} is trained to
+predict which characters belong to an entity. A second neural network is
+trained on inflected entities and predicts their base forms.
+
+\todo{Contact DeepNLP team, confirm description - they mentioned they
+  might change the strategy slightly.  NO Results?}
+
+
 
 \section{Evaluation Results}
 \label{sec:results}
 
 \todo{content and presentation yet to be elaborated}
+
+The results of the runs submitted as of this writing are presented in
+Table~\ref{tab:eval-results}.
+
+System {\em pw} performed substantially better on Polish than system {\em
+  jhu}.
+
+Considering the entity types, performance was overall better for LOC and
+PER, and substantially lower for ORG and MISC, which is not unexpected.
+
+Considering the tested languages and scenarios, system {\em jhu} achieved
+best performance on Trump in Croatian, its poorest performance was on EU
+in Ukrainian.  System {\em pw} performed better on the {\em Trump}
+scenario than on EU.  Overall, the {\em Trump} scenario appears easier
+due to the mix of named entities that predominate in the texts.  The {\em
+  EU} documents discuss more complex organizations with complex
+geo-political inter-relationships and affiliations.
+
+Furthermore, cross-lingual co-reference seems to be a difficult task.
+
 
 \section{Conclusions}
 \label{sec:conclusions}
