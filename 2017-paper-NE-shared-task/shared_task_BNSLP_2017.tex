@@ -188,9 +188,10 @@ Transliteration Mining~\cite{kumaran2010report}, i.e., mining of names
 from parallel corpora.  This task included corpora in English, Chinese,
 Tamil, Russian, and Arabic.
 
-\todo{add RW for other languages?}Prior work targeting NEs specifically
+\todo{add RW for other languages: Croatian, Slovene, Ukrainian, Slovak?}Prior work targeting NEs specifically
 for Slavic languages includes a corpus of 11,000 manually annotated NEs
-built for Czech~\cite{vsevvcikova2007named}, and a recent shared task on
+built for Czech~\cite{vsevvcikova2007named}, tools and resources for fine-grained annotation of NEs
+in the National Corpus of Polish~\cite{was:etal:10,sav:pis:11} and a recent shared task on
 Russian NE Recognition~\cite{alexeeva2016factrueval}.
 
 To the best of our knowledge, the shared task described in this paper is
@@ -459,11 +460,12 @@ the data sets.  Some of the downloaded documents were additionally
 polished by removing erroneously extracted boilerplate content.  The
 resulting set of partially ``cleaned'' documents were used to select for
 each language and topic circa 20-25 documents for the preparation of the
-final test datasets.  Annotation for Croatian, Czech, Polish, Russian,
-Slovene, and Ukrainian \todo{Ukranian: native?} were done by native
-speakers, whereas annotation for Slovak were made by native speakers of
-Czech, capable of understanding Czech.  The cross-language alignment of
-the entity identifiers was done by two annotators.
+final test datasets.  Annotation for Croatian, Czech, Polish, Russian and
+Slovene were done by native speakers, whereas annotation for Slovak were made 
+by native speakers of Czech, capable of understanding Slovak. The annotations 
+for Ukrainian were made partially by a native speaker and a near-native speaker 
+of Ukrainian. The cross-language alignment of the entity identifiers was done 
+by two annotators.
 
 Table~\ref{tab:datasets} provides a more detailed quantitative data about the annotated datasets. A breakdown 
 of the entity mention figures with respect to entity class is given in Table~\ref{tab:datasets-2}. 
@@ -664,8 +666,6 @@ out in ``case-insensitive'' mode: all named mentions in system response
 and test corpora were lowercased.
 
 
-
-
 \section{Participant Systems}
 \label{sec:participants}
  
@@ -689,7 +689,7 @@ rule-based entity clusterer called "kripke" was used for Entity
 Matching~\cite{DBLP:conf/tac/McNameeMFL13}.  
 %
 The team (code ``{\em jhu}'') attempted all languages available in the
-Challenge.
+Challenge. More details can be found in~\cite{mayfield:2017}.
 
 {\sc G4.19 Research Group} adapted
 Liner2~\cite{series/sci/MarcinczukKJ13}---a generic framework which can
