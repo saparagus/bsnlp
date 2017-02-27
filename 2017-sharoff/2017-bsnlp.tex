@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+\usepackage{eacl2017}
+\usepackage{standard}
+%% \usepackage{gentium}
+%% \usepackage[russian,english]{textcomp}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{multirow}
+\eaclfinalcopy
+
+\renewcommand{\R}[1]{{\fontfamily{iwonac}\foreignlanguage{russian}{#1}}}
+
+                                                                                        
+\title{Toward Pan-Slavic NLP: \\
+  Some Experiments with Language Adaptation}
+\author{Serge Sharoff\\
+  Centre for Translation Studies\\
+  University of Leeds, Leeds, UK\\
+  {\tt s.lastname@leeds.ac.uk} \\}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Introduction}
+
+There is great variation in the amount of NLP resources available for
+Slavic languages. For example, the Universal Dependency treebank
+\cite{nivre16} has about 2 MW of training resources for Czech, more than
+1 MW for Russian, while only 950 words for Ukrainian and nothing for
+Belorussian, Bosnian or Macedonian. Similarly, the Autodesk Machine
+Translation dataset only covers three Slavic languages (Czech, Polish
+and Russian).  In this talk I will discuss a general approach, which can
+be called Language Adaptation, similarly to Domain Adaptation.  In this
+approach, a model for a particular language processing task is built by
+lexical transfer of cognate words and by learning a new feature
+representation for a lesser-resourced (recipient) language starting from
+a better-resourced (donor) language. More specifically, I will
+demonstrate how language adaptation works in such training scenarios as
+Translation Quality Estimation, Part-of-Speech tagging and Named Entity
+Recognition.
+
+\section{Transfer of Feature Representation}
+Machine Learning algorithms are limited by the availability of training data.  This problem is often addressed by developing algorithms to transfer NLP models across different domains, for example, an opinion mining model trained on IMDb can be transferred to the domain of hotel reviews \cite{sogaard13}.  In a similar way, we can assume that a model trained in a donor language can be transferred to a recipient language relying on the fact that both languages come from the same language family. 
+
+\begin{table}
+  \centering
+\begin{tabular}[c]{cccc@{}c@{}}\hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{Upper baseline (ru)}}          & \multicolumn{1}{c|}{MAE}      & \multicolumn{1}{c|}{0.18} \\ \cline{2-3} 
+\multicolumn{1}{|c|}{}                                   & \multicolumn{1}{c|}{RSME}     & \multicolumn{1}{c|}{0.27} \\ \cline{2-3} 
+\multicolumn{1}{|c|}{}                                   & \multicolumn{1}{c|}{Pearson} & \multicolumn{1}{c|}{\textbf{0.47}} \\ \hline\hline
+\end{tabular}
+
+  \begin{tabular}[c]{ccc@{}c@{}}
+  en-ru  & $\to$                              & en-cs                     & en-pl                     \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{STL}}      & \multicolumn{1}{c|}{MAE}      & \multicolumn{1}{c|}{0.19} & \multicolumn{1}{c|}{0.19} \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                          & \multicolumn{1}{c|}{RMSE}     & \multicolumn{1}{c|}{0.25} & \multicolumn{1}{c|}{0.25} \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                          & \multicolumn{1}{c|}{Pearson}  & \multicolumn{1}{c|}{\textbf{0.41}} & \multicolumn{1}{c|}{\textbf{0.46}} \\ \hline
+\multicolumn{1}{|c|}{\multirow{3}{*}{\shortstack{Baseline\\Train: ru\\Test: xx}}} & \multicolumn{1}{c|}{MAE}      & \multicolumn{1}{c|}{0.20} & \multicolumn{1}{c|}{0.21} \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                          & \multicolumn{1}{c|}{RMSE}     & \multicolumn{1}{c|}{0.26} & \multicolumn{1}{c|}{0.27} \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                          & \multicolumn{1}{c|}{Pearson}  & \multicolumn{1}{c|}{\textit{0.32}} & \multicolumn{1}{c|}{\textit{0.33}} \\ \hline
+\end{tabular}
+  
+  \caption{STL for MT Quality Estimation}
+  \label{tabMT}
+\end{table}
+One of the observations for transferring models across languages is that while the general assumption of similarity holds, the individual features exhibit a slightly different distribution.  For example, in the task of estimating MT quality without reference translations, good MT examples are similar in the feature space describing translation into two related languages, but the exact feature values, such as the Language Model values or the phrase table sizes differ.  One way of transferring the feature spaces is via Self-Taught Learning (STL), in which an autoencoder learns to reduce the dimensions of \textbf{unlabelled} datasets for the two domains.  Then the available \textbf{training} set in one domain is transformed using the autoencoder, so that a new prediction model can be equally successful in the source domain and in the new target domain \cite{raina07}.  As shown in \cite{rios16}, an application of this transformation to predicting the amount of Post-Editing needed to improve raw MT output can produce models which almost reach the accuracy of the original prediction model (Table~\ref{tabMT}).
+
+\section{Transfer of Lexica}
+Linguistic models can be also transferred through re-using grammatical models trained in a donor language with substitution of the lexicons from a recipient language.  For example, a POS tagger can use the transition probabilities from the donor, while the lexical emission probabilities can come from the recipient \cite{feldman06,reddy11kannada}.
+
+Similarly, a traditional MT engine for translation from Ukrainian into English and German can be surpassed by a crude MT pipeline consisting of a direct word-for-word transfer model from Ukrainian into Russian followed by a better resourced model translating from Russian into English and German \cite{babych07-mtsummit}.  The reason for the success of the pipeline is that the Out-Of-Vocabulary rate is reduced primarily because of the better coverage of the donor lexicon.
+
+Automatic induction of translation lexica between related languages is easier than in the more general case, since in addition to the similarity of the embedding vectors, they often have very similar forms.  A reliable lexicon can be produced by combining detection of cognate forms via Levenshtein distance with assessment of semantic similarity via bilingual word embeddings even in the absence of parallel corpora \cite{upadhyay16}.
+%% morphological reinflection \cite{faruqui16,kann16}
+%% \cite{muller15marlin}
+%% \cite{nivre16}
+One of the problems in transferring the lexica concerns Multi-Word Expressions (MWEs), which tend to differ even for closely related languages.  In particular, this concerns fixed-form MWEs without a defined grammatical structure, such as \textit{by and large} or \textit{of course} in English.  Such MWEs need to be detected individually in each language and linked to a grammatical model in a donor language via a distributional measure of their similarity to single-word expressions, e.g., \textit{generally} or \textit{definitely} in the examples above \cite{riedl15}.
+
+In my talk I will also demonstrate an end-to-end example for developing a Named Entity Recognition tagger, which starts with resources available for Slovene and transfers the features derived from a CRF model \cite{lafferty01,benikova15} to other Slavic languages.
+
+\bibliography{references,serge}
+\bibliographystyle{eacl2017}
+
+\end{document}
