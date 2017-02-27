@@ -546,7 +546,7 @@ excluded from the test datasets. {A case in point is a document in
     \begin{tabular}{| l | l ||l r|l r|l r|l r|l r|l r|l r| }
 
 \hline
-{\em Scenario}      & {\bf Trump}     & \multicolumn{14}{c|}{\em Language}                                                                    \\
+{\em Scenario}      & {\sc Trump}     & \multicolumn{14}{c|}{\em Language}                                                                    \\
 \hline
 Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
 \hline
@@ -570,7 +570,7 @@ Normalization       &                 &          &      &      &      & pw   & 6
                     & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c|}{}                                                             \\
 \hline
 \hline
-{\em Scenario}      & {\bf EU}        & \multicolumn{14}{c|}{\em Language}                                                                    \\
+{\em Scenario}      & {\sc ECommission}        & \multicolumn{14}{c|}{\em Language}                                                                    \\
 \hline
 Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
 \hline
@@ -604,8 +604,6 @@ Normalization       &                 &          &      &      &      & pw   & 4
 
 
 
-
-
 \section{Evaluation Methodology}
 \label{sec:evaluation}
 
@@ -618,6 +616,8 @@ Named entity recognition (exact case-insensitive matching) and  Name Normalizati
 \item \textbf{Strict evaluation}: The system response should include exactly one annotation for each unique form of a named mention of an entity that is referred to in a given document, i.e., capturing and listing all variants of an entity is required.
 
 \end{itemize}
+
+\noindent In the relaxed evaluation mode we additionally distinguish between \textit{exact} and \textit{partial matching}, i.e., in the case of the latter an entity mentioned in a given document is considered to be extracted correctly if the system response includes at least one partial match of a named mention of this entity.
 
 In the context of the evaluation we considered various level of granularity, i.e., the performance for: 
 (a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for 
@@ -672,13 +672,9 @@ and test corpora were lowercased.
 Eleven teams from seven countries---Czech Republic, Germany, India,
 Poland, Russia, Slovenia and USA---signed up for the evaluation task and
 received the trial datasets.  Due to the complexity of the task and
-relatively short time available for elaborating a solution, only 3
-(\textbf{AS OF NOW WE RECEIVED 3 short system descriptions - 16.02})
-teams submitted results.
-%
-A total of \textbf{XX} unique runs were submitted: 
-%
-\todo{ammend once we know}
+relatively short time available for elaborating a solution, only 2
+teams submitted results within the deadline. A total of 2 unique runs 
+were submitted.
 
 JHU/APL team attempted only the NER and Entity Matching sub-tasks.  They
 employed a statistical tagger called
@@ -701,26 +697,30 @@ are described in~\cite{marcinczuk:2017}.
 %
 The team (code ``{\em pw}'') attempted only the Polish language Challenge.
 
-
+\comment{
 The {\sc DeepNLP} team\footnote{\tt https://github.com/tindzk/bsnlp}
 learns entities and their base forms from Wikipedia data
 dumps.\footnote{\tt https://dumps.wikimedia.org/} A character-level
 recurrent neural network~\cite{DBLP:conf/aaai/KimJSR16} is trained to
 predict which characters belong to an entity. A second neural network is
 trained on inflected entities and predicts their base forms.
+}
 
-\todo{Contact DeepNLP team, confirm description - they mentioned they
-  might change the strategy slightly.  NO Results?}
-
-
+Since the announcement of the challenge aroused significant interest of 
+the research community the deadline for submitting system responses
+has been extended accordingly. Although the aforementioned deadline
+goes beyond the time of the publication of this paper, please refer
+to the shared task web site~\footnote{http://bsnlp.cs.helsinki.fi/shared\_task.html}
+for information on the current list of systems tested and their respective
+performance. 
 
 \section{Evaluation Results}
 \label{sec:results}
 
-\todo{content and presentation yet to be elaborated}
-
 The results of the runs submitted as of this writing are presented in
 Table~\ref{tab:eval-results}.
+
+\todo{Table 3 is confusing since it is not clear what are the respective metrics (we have more than 1 for various eval categories), and the figures do not fully correspond to the figures reported in the system papers submitted.}
 
 System {\em pw} performed substantially better on Polish than system {\em
   jhu}.
@@ -729,12 +729,11 @@ Considering the entity types, performance was overall better for LOC and
 PER, and substantially lower for ORG and MISC, which is not unexpected.
 
 Considering the tested languages and scenarios, system {\em jhu} achieved
-best performance on Trump in Croatian, its poorest performance was on EU
-in Ukrainian.  System {\em pw} performed better on the {\em Trump}
-scenario than on EU.  Overall, the {\em Trump} scenario appears easier
-due to the mix of named entities that predominate in the texts.  The {\em
-  EU} documents discuss more complex organizations with complex
-geo-political inter-relationships and affiliations.
+best performance on {\sc Trump} in Croatian, its poorest performance was on {\sc ECommission}
+in Ukrainian.  System {\em pw} performed better on the {\sc Trump}
+scenario than on {\sc ECommission}.  Overall, the {\sc Trump} scenario appears easier
+due to the mix of named entities that predominate in the texts.  The {\sc ECommission} documents 
+discuss more complex organizations with complex geo-political inter-relationships and affiliations.
 
 Furthermore, cross-lingual co-reference seems to be a difficult task.
 
@@ -775,7 +774,9 @@ ideas.
 Work on Czech and Slovak was supported by Project MediaGist, EU's FP7
 People Programme (Marie Curie Action), no. 630786.
 
-
+The effort of organizing the shared task was supported by the Europe Media Monitoring (EMM) 
+Project carried out by the Text and Data Mining Unit of the Joint Research Centre of the 
+European Commission.
 
 \bibliographystyle{eacl2017}
 \bibliography{sharedBSNLP2017}
