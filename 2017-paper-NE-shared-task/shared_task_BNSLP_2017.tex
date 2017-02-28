@@ -650,7 +650,7 @@ of the same entity in the key entity set (response entity set). LEA recall and p
 \end{equation*}
 
 \noindent where $\mathit{imp}$ and $\mathit{res}$ denote measure of importance and resolution score for an entity respectively.
-In our setting we define $\mathit{imp}(e) = \log|e|+1$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
+In our setting we define $\mathit{imp}(e) = \log_{2}|e|+1$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
 an entity has the more important it is. However, in order not to bias the importance of the more frequent entities $\log$ 
 is used. The resolution score of key entity $k_i$ is computed as the fraction of correctly resolved co-reference 
 links of $k_i$: 
