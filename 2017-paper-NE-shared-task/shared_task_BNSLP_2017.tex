@@ -722,7 +722,7 @@ Since the announcement of the challenge aroused significant interest of
 the research community the deadline for submitting system responses
 has been extended accordingly. Although the aforementioned deadline
 goes beyond the time of the publication of this paper, please refer
-to the shared task web site~\footnote{http://bsnlp.cs.helsinki.fi/shared\_task.html}
+to the shared task web site\footnote{http://bsnlp.cs.helsinki.fi/shared\_task.html}
 for information on the current list of systems tested and their respective
 performance. 
 
@@ -741,7 +741,10 @@ System {\em pw} performed substantially better on Polish than system {\em
   jhu}.
 
 Considering the entity types, performance was overall better for LOC and
-PER, and substantially lower for ORG and MISC, which is not unexpected.
+PER, and substantially lower for ORG and MISC, which is not unexpected. 
+Table~\ref{tab:recognition-breakdown-trump} and {tab:recognition-breakdown-ec}
+provide the average precision, recall and F1 figures for {\sc Trump} and
+{\sc ECommission} scenario respectivelly.
 
 Considering the tested languages and scenarios, system {\em jhu} achieved
 best performance on {\sc Trump} in Croatian, its poorest performance was on {\sc ECommission}
@@ -752,6 +755,46 @@ discuss more complex organizations with complex geo-political inter-relationship
 
 Furthermore, cross-lingual co-reference seems to be a difficult task.
 
+
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+      \begin{tabular}{lccc}
+        \toprule 
+        Metric & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+        \midrule
+        PER &  &  & \\
+        LOC &  & & \\
+        ORG &  &  & \\
+        MISC & &  &\\
+        \bottomrule
+      \end{tabular}
+    \end{footnotesize}
+  \end{center}
+  \caption{Breakdown of the recognition performance according to the entity type for {\sc Trump} dataset.}
+  \label{tab:recognition-breakdown-trump}
+\end{table}
+
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+      \begin{tabular}{lccc}
+        \toprule 
+        Metric & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+        \midrule
+        PER &  &  & \\
+        LOC &  & & \\
+        ORG &  &  & \\
+        MISC & &  &\\
+        \bottomrule
+      \end{tabular}
+    \end{footnotesize}
+  \end{center}
+  \caption{Breakdown of the recognition performance according to the entity type for {\sc ECommission} dataset.}
+  \label{tab:recognition-breakdown-ec}
+\end{table}
 
 \section{Conclusions}
 \label{sec:conclusions}
