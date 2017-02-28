@@ -121,12 +121,19 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-This paper describes the outcomes of the shared task on multilingual named entity recognition 
+
+This paper describes the outcomes of the first challenge on multilingual named entity recognition 
 that aimed at recognizing mentions of named entities in web documents in Slavic languages, 
-their normalization/lemmatization, and cross-language matching. The task was organised in 
+their normalization/lemmatization, and cross-language matching. It was organised in 
 the context of the 6th Balto-Slavic Natural Language Processing Workshop, co-located with the 
-EACL 2017 conference. 
-\todo{amend once we know the results}
+EACL 2017 conference. Although eleven teams signed up for the evaluation, due to the complexity
+of the task(s) and short time available for elaborating a solution, only two teams submitted results
+on time. The reported evaluation figures reflect the relatively higher level of complexity of 
+named entity-related tasks in the context of processing texts in Slavic languages. Since the 
+duration of the challenge goes beyond the date of the publication of this paper and updated
+picture of the participating systems and their corresponding performance can be found on
+the web page of the challenge.
+
 \end{abstract}
 
 \section{Introduction}
@@ -334,7 +341,7 @@ opinion of the company, e.g., ``\textit{Fox News}'', it should be tagged as
 
 This category covers all other named mentions of entities, e.g., product names
 (e.g., ``\textit{Motorola Moto X}''), events (conferences, concerts, natural
-disasters, holidays, e.g., ``\textit{Święta Bożego Narodzenia}'', etc.).
+disasters, holidays, e.g., ``\textit{Święta Bożego Narodzenia}'' (Polish for ``Christmas''), etc.).
 
 This category does not include the recognition of temporal and numerical
 expressions, as well as recognition of identifiers such as email addresses,
@@ -746,19 +753,30 @@ Furthermore, cross-lingual co-reference seems to be a difficult task.
 \section{Conclusions}
 \label{sec:conclusions}
 
-\todo{TODO:}
 
-\begin{itemize}
+This paper reported on the first challenge on multilingual named entity recognition that aimed at recognizing 
+mentions of named entities in web documents in Slavic languages, their normalization/lemmatization, and 
+cross-language matching. Although the challenge arouse lot of interest among researchers working 
+in this field only two teams submitted results on time, which is most likely due to the complexity
+of the task(s) and short time available for elaborating a solution. While drawing far reaching
+conclusions from the evaluation of two systems is not possible, we can observe though that 
+the overall performance of the two systems on unknown test datasets revolving around a specific entity
+is significantly lower than in the case of processing less-morphologically rich languages. 
 
-\item write something about the availability of the data for further use (remember copyright issues). e.g.,
-available via SIGSLAV 
+For the benefit of research on NER-related tasks, including cross-lingual entity matching, for Slavic
+languages the challenge was extended going beyond the date of the publication of this paper. The current 
+list of systems that has been evaluated on the different task(s) is listed on the shared task web page. 
 
-\item future task extensions, more corpora, more languages, improving the guidelines (we have some inaccuracies
-in the gudielines on how to deal with certain phenomena, etc., bla bla
+The test datasets, the corresponding annotations and various scripts used for the evaluation purposes 
+are available on the shared task web page.
 
-\item emphasize that this shared task was to kick-off research in this area for Slavic languages
-
-\end{itemize}
+It is envisaged to extend the challenge through provision of additional test datasets in future, each revolving
+around a specific entity, in order to further boost research on developing ``all-rounder'' NER solutions for 
+processing real-world texts in Slavic languages and carrying out cross-language entity matching. Furthermore, 
+we also intend to extend the set of the languages covered through inclusion of the other Slavic languages 
+depending on availability of human annotators. Finally, some work will focus on the refining the NE annotation 
+guidelines in order to properly deal with particular phenomena, e.g.,  coordinated NEs and contracted versions of multiple
+NEs, which were excluded from the current test datasets.
 
 
 \section*{Acknowledgments}
