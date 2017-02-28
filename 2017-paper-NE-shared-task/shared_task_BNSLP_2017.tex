@@ -635,6 +635,8 @@ In the context of the evaluation we considered various level of granularity, i.e
 (a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for 
 each language, and (d) each particular NE type per language. 
 
+\todo{We need something on the evaluation of normalization.}
+
 As regards the evaluation of document-level and cross-language entity matching task we have adapted the 
 Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which considers how important the entity is and how well it is resolved. LEA is defined as follows. Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{r_1,r_2,\ldots,r_{|R|} \}$ denote the key entity set and the response entity set respectively, i.e., $k_i \in K$ ($r_i \in R$) stand for set of mentions
 of the same entity in the key entity set (response entity set). LEA recall and precision are then defined as follows:
@@ -731,7 +733,8 @@ performance.
 
 The overall results of the runs submitted as of this writing are presented in
 Table~\ref{tab:eval-results}. The figures provided for the recognition are
-micro-average F1 scores. As regards normalization the scores provided are
+micro-average F1 scores. \todo{verify whether the sentence on normalization evaluation is correct}
+As regards normalization the scores provided are
 accuracies computed for well-recognized entity mentions for which the system
 returned a base form. Finally, as for entity matching the F1 micro-average scores
 are provided which were computed using LEA precision and recall values (see Section~\ref{sec:evaluation}).
@@ -742,9 +745,9 @@ System {\em pw} performed substantially better on Polish than system {\em
 
 Considering the entity types, performance was overall better for LOC and
 PER, and substantially lower for ORG and MISC, which is not unexpected. 
-Table~\ref{tab:recognition-breakdown-trump} and {tab:recognition-breakdown-ec}
-provide the overall average precision, recall and F1 figures for {\sc Trump} and
-{\sc ECommission} scenario respectively.
+Table~\ref{tab:recognition-breakdown-trump} and\ref{tab:recognition-breakdown-ec}
+provide the overall average precision, recall and F1 figures for the relaxed evaluation
+with partial matching for {\sc Trump} and {\sc ECommission} scenario respectively.
 
 Considering the tested languages and scenarios, system {\em jhu} achieved
 best performance on {\sc Trump} in Croatian, its poorest performance was on {\sc ECommission}
@@ -810,19 +813,20 @@ the overall performance of the two systems on unknown test datasets revolving ar
 is significantly lower than in the case of processing less-morphologically rich languages. 
 
 For the benefit of research on NER-related tasks, including cross-lingual entity matching, for Slavic
-languages the challenge was extended going beyond the date of the publication of this paper. The current 
-list of systems that has been evaluated on the different task(s) is listed on the shared task web page. 
+languages the challenge was extended going beyond the date of the publication of this paper. For the current 
+list of systems that has been evaluated on the different task(s) and their corresponding performance figures
+please refer to the shared task web page. 
 
 The test datasets, the corresponding annotations and various scripts used for the evaluation purposes 
-are available on the shared task web page.
+are available on the shared task web page as well.
 
 It is envisaged to extend the challenge through provision of additional test datasets in future, each revolving
 around a specific entity, in order to further boost research on developing ``all-rounder'' NER solutions for 
 processing real-world texts in Slavic languages and carrying out cross-language entity matching. Furthermore, 
 we also intend to extend the set of the languages covered through inclusion of the other Slavic languages 
 depending on availability of human annotators. Finally, some work will focus on the refining the NE annotation 
-guidelines in order to properly deal with particular phenomena, e.g.,  coordinated NEs and contracted versions of multiple
-NEs, which were excluded from the current test datasets.
+guidelines in order to properly deal with particular phenomena, e.g.,  coordinated NEs and contracted versions 
+of multiple NEs, which were excluded from the current test datasets.
 
 
 \section*{Acknowledgments}
