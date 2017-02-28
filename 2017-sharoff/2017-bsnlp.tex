@@ -1,14 +1,12 @@
 \documentclass[11pt]{article}
 \usepackage{eacl2017}
-\usepackage{standard}
-%% \usepackage{gentium}
-%% \usepackage[russian,english]{textcomp}
+\usepackage[british]{babel}
 \usepackage{times}
 \usepackage{latexsym}
 \usepackage{multirow}
 \eaclfinalcopy
 
-\renewcommand{\R}[1]{{\fontfamily{iwonac}\foreignlanguage{russian}{#1}}}
+%% \renewcommand{\R}[1]{{\fontfamily{iwonac}\foreignlanguage{russian}{#1}}}
 
                                                                                         
 \title{Toward Pan-Slavic NLP: \\
@@ -27,19 +25,19 @@
 
 There is great variation in the amount of NLP resources available for
 Slavic languages. For example, the Universal Dependency treebank
-\cite{nivre16} has about 2 MW of training resources for Czech, more than
-1 MW for Russian, while only 950 words for Ukrainian and nothing for
-Belorussian, Bosnian or Macedonian. Similarly, the Autodesk Machine
-Translation dataset only covers three Slavic languages (Czech, Polish
-and Russian).  In this talk I will discuss a general approach, which can
-be called Language Adaptation, similarly to Domain Adaptation.  In this
-approach, a model for a particular language processing task is built by
-lexical transfer of cognate words and by learning a new feature
-representation for a lesser-resourced (recipient) language starting from
-a better-resourced (donor) language. More specifically, I will
-demonstrate how language adaptation works in such training scenarios as
-Translation Quality Estimation, Part-of-Speech tagging and Named Entity
-Recognition.
+\cite{nivre16} has about 2 MW of training resources for Czech, more
+than 1 MW for Russian, while only 950 words for Ukrainian and nothing
+for Belorussian, Bosnian or Macedonian. Similarly, the Autodesk
+Machine Translation dataset only covers three Slavic languages (Czech,
+Polish and Russian).  In this talk I present a general approach, which
+can be called Language Adaptation, similarly to Domain Adaptation.  In
+this approach, a model for a particular language processing task is
+built by lexical transfer of cognate words and by learning a new
+feature representation for a lesser-resourced (recipient) language
+starting from a better-resourced (donor) language. More specifically,
+I demonstrate how language adaptation works in such training scenarios
+as Translation Quality Estimation, Part-of-Speech tagging and Named
+Entity Recognition.
 
 \section{Transfer of Feature Representation}
 Machine Learning algorithms are limited by the availability of training data.  This problem is often addressed by developing algorithms to transfer NLP models across different domains, for example, an opinion mining model trained on IMDb can be transferred to the domain of hotel reviews \cite{sogaard13}.  In a similar way, we can assume that a model trained in a donor language can be transferred to a recipient language relying on the fact that both languages come from the same language family. 
@@ -78,9 +76,9 @@ Automatic induction of translation lexica between related languages is easier th
 %% \cite{nivre16}
 One of the problems in transferring the lexica concerns Multi-Word Expressions (MWEs), which tend to differ even for closely related languages.  In particular, this concerns fixed-form MWEs without a defined grammatical structure, such as \textit{by and large} or \textit{of course} in English.  Such MWEs need to be detected individually in each language and linked to a grammatical model in a donor language via a distributional measure of their similarity to single-word expressions, e.g., \textit{generally} or \textit{definitely} in the examples above \cite{riedl15}.
 
-In my talk I will also demonstrate an end-to-end example for developing a Named Entity Recognition tagger, which starts with resources available for Slovene and transfers the features derived from a CRF model \cite{lafferty01,benikova15} to other Slavic languages.
+In my talk I have also demonstrated an end-to-end example for transferring feature spaces and lexicons by developing a Named Entity Recognition tagger, which starts with resources available for Slovene and transfers the features derived from a CRF model \cite{lafferty01,benikova15} to other Slavic languages.
 
-\bibliography{references,serge}
+\bibliography{bibexport}
 \bibliographystyle{eacl2017}
 
 \end{document}
