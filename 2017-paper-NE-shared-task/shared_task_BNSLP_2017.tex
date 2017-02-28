@@ -575,7 +575,7 @@ Phase               & Metric          & cz       &      & hr   &      & pl   &  
 Normalization       &                 &          &      &      &      & pw   & 60.5 &      &      &      &      &      &      &      &        \\
 \hline
 \multirow{3}{*}
-{Coreference}       & Document level  & jhu      &  5.4 & jhu  &  7.3 & jhu  &  6.3 & jhu  & 11.2 & jhu  & 10.1 & jhu  &  9.5 & jhu  &  0.0   \\
+{Entity matching}       & Document level  & jhu      &  5.4 & jhu  &  7.3 & jhu  &  6.3 & jhu  & 11.2 & jhu  & 10.1 & jhu  &  9.5 & jhu  &  0.0   \\
 \cline{2-16}
                     & Single language & jhu      & 19.3 & jhu  & 17.6 & jhu  & 18.2 & jhu  & 18.9 & jhu  & 22.6 & jhu  & 28.7 & jhu  & 10.7   \\
 \cline{2-16}
@@ -599,7 +599,7 @@ Phase               & Metric          & cz       &      & hr   &      & pl   &  
 Normalization       &                 &          &      &      &      & pw   & 48.3 &      &      &      &      &      &      &      &        \\
 \hline
 \multirow{3}{*}
-{Coreference}       & Document level  & jhu      & 25.0 & jhu  & 16.0 & jhu  & 13.7 & jhu  & 13.7 & jhu  & 13.1 & jhu  & 36.8 & jhu  &  0.6   \\
+{Entity Matching}       & Document level  & jhu      & 25.0 & jhu  & 16.0 & jhu  & 13.7 & jhu  & 13.7 & jhu  & 13.1 & jhu  & 36.8 & jhu  &  0.6   \\
 \cline{2-16}
                     & Single language & jhu      & 27.3 & jhu  & 22.1 & jhu  & 17.5 & jhu  & 24.9 & jhu  & 30.6 & jhu  & 32.2 & jhu  &  4.8   \\
 \cline{2-16}
@@ -729,10 +729,13 @@ performance.
 \section{Evaluation Results}
 \label{sec:results}
 
-The results of the runs submitted as of this writing are presented in
-Table~\ref{tab:eval-results}.
+The overall results of the runs submitted as of this writing are presented in
+Table~\ref{tab:eval-results}. The figures provided for the recognition are
+micro-average F1 scores. As regards normalization the scores provided are
+accuracies computed for well-recognized entity mentions for which the system
+returned a base form. Finally, as for entity matching the F1 micro-average scores
+are provided which were computed using LEA precision and recall values (see Section~\ref{sec:evaluation}).
 
-\todo{Table 3 is confusing since it is not clear what are the respective metrics (we have more than 1 for various eval categories), and the figures do not fully correspond to the figures reported in the system papers submitted.}
 
 System {\em pw} performed substantially better on Polish than system {\em
   jhu}.
