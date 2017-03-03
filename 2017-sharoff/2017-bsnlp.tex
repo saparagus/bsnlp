@@ -60,7 +60,7 @@ Machine Learning algorithms are limited by the availability of training data.  T
 \multicolumn{1}{|c|}{}                          & \multicolumn{1}{c|}{Pearson}  & \multicolumn{1}{c|}{\textit{0.32}} & \multicolumn{1}{c|}{\textit{0.33}} \\ \hline
 \end{tabular}
   
-  \caption{STL for MT Quality Estimation}
+  \caption{STL for MT Quality Estimation.}
   \label{tabMT}
 \end{table}
 One of the observations for transferring models across languages is that while the general assumption of similarity holds, the individual features exhibit a slightly different distribution.  For example, in the task of estimating MT quality without reference translations, good MT examples are similar in the feature space describing translation into two related languages, but the exact feature values, such as the Language Model values or the phrase table sizes differ.  One way of transferring the feature spaces is via Self-Taught Learning (STL), in which an autoencoder learns to reduce the dimensions of \textbf{unlabelled} datasets for the two domains.  Then the available \textbf{training} set in one domain is transformed using the autoencoder, so that a new prediction model can be equally successful in the source domain and in the new target domain \cite{raina07}.  As shown in \cite{rios16}, an application of this transformation to predicting the amount of Post-Editing needed to improve raw MT output can produce models which almost reach the accuracy of the original prediction model (Table~\ref{tabMT}).
