@@ -80,10 +80,10 @@
   \textsuperscript{2}University of Helsinki, Finland, {\small \tt
   \{roman.yangarber,lidia.pivovara\}@cs.helsinki.fi}\\
   %
-    \textsuperscript{2}University of Zagreb, Croatia, {\small \tt
+    \textsuperscript{3}University of Zagreb, Croatia, {\small \tt
     jan.snajder@fer.hr} \\
   %
-  \textsuperscript{3}University of West Bohemia, Czech Republic, 
+  \textsuperscript{4}University of West Bohemia, Czech Republic, 
   {\small \tt jstein@kiv.zcu.cz} 
   %
   }
@@ -195,14 +195,13 @@ Transliteration Mining~\cite{kumaran2010report}, i.e., mining of names
 from parallel corpora.  This task included corpora in English, Chinese,
 Tamil, Russian, and Arabic.
 
-\todo{add RW for other languages: Ukrainian, Slovak?}Prior work targeting NEs
-specifically for Slavic languages includes tools for NE recognition for
+Prior work targeting NEs specifically for Slavic languages includes tools for NE recognition for
 Croatian \cite{karan2013croner,ljubesic2013combining}, a tool specifically tailored for NE
 recognition in Croatian tweets \cite{baksa2017tagging}, a manually annotated NE
 corpus for Croatian \cite{agic2014setimes}, a tool for NE recognition for
 Slovene \cite{ljubesic2013combining}, corpus of 11,000 manually annotated NEs
-built for Czech~\cite{vsevvcikova2007named}, tools and resources for
-fine-grained annotation of NEs in the National Corpus of
+built for Czech~\cite{vsevvcikova2007named} and NER tools for Czech~\cite{Konkol:2013}, 
+tools and resources for fine-grained annotation of NEs in the National Corpus of
 Polish~\cite{was:etal:10,sav:pis:11} and a recent shared task on Russian NE
 Recognition~\cite{alexeeva2016factrueval}.
 
@@ -423,7 +422,7 @@ Polsce Polska LOC 4
 Warszawie Warszawa LOC 5
 Rosja Rosja LOC 3
 Magazynu Kuriera Porannego \
-   Magazyn Kuriera Porannego ORG 6
+Magazyn Kuriera Porannego ORG 6
 \end{verbatim}	    
 \end{small}
 
@@ -644,24 +643,36 @@ In the context of the evaluation we considered various level of granularity, i.e
 (a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for 
 each language, and (d) each particular NE type per language. 
 
-\todo{We need something on the evaluation of normalization.}
 
-As regards the evaluation of document-level and cross-language entity matching task we have adapted the 
+In the case of the name normalization sub-task, only correctly recognized entity mentions in the system response and only those that were normalized (on both the annotation and system's sides) are taken into account. More formally, let $correct_{N}$ denote the number of all correctly recognized entity mentions for which the system returned a correct base form. Further, let 
+$all_{N}$ denote the number of all normalized entity mentions in the golden truth and $response_{N}$ denote the number of
+all normalized entity mentions in the system response. Then, we define precision and recall for the name normalization task 
+as follows.
+
+\begin{equation*}
+	\mathit{Recall_{N}} = \frac{corrrect_{N}}{all_{N}}              
+\end{equation*}
+
+\begin{equation*}
+	\mathit{Precision_{N}} = \frac{corrrect_{N}}{response_{N}}              
+\end{equation*}
+
+As regards the evaluation of document-level, single-language and cross-language entity matching task we have adapted the 
 Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which considers how important the entity is and how well it is resolved. LEA is defined as follows. Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{r_1,r_2,\ldots,r_{|R|} \}$ denote the key entity set and the response entity set respectively, i.e., $k_i \in K$ ($r_i \in R$) stand for set of mentions
 of the same entity in the key entity set (response entity set). LEA recall and precision are then defined as follows:
 
 \begin{equation*}
-	\mathit{Recall} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
+	\mathit{Recall_{LEA}} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
               {\sum_{k_{z} \in K} imp(k_{z})}
 \end{equation*}
 
 \begin{equation*}
-	\mathit{Precision} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
+	\mathit{Precision_{LEA}} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
               {\sum_{r_{z} \in R} imp(r_{z})}
 \end{equation*}
 
 \noindent where $\mathit{imp}$ and $\mathit{res}$ denote measure of importance and resolution score for an entity respectively.
-In our setting we define $\mathit{imp}(e) = \log_{2}|e|+1$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
+In our setting we define $\mathit{imp}(e) = \log_{2}|e|$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
 an entity has the more important it is. However, in order not to bias the importance of the more frequent entities $\log$ 
 is used. The resolution score of key entity $k_i$ is computed as the fraction of correctly resolved co-reference 
 links of $k_i$: 
@@ -742,12 +753,16 @@ performance.
 
 The overall results of the runs submitted as of this writing are presented in
 Table~\ref{tab:eval-results}. The figures provided for the recognition are
-micro-average F1 scores. \todo{verify whether the sentence on normalization evaluation is correct}
-As regards normalization the scores provided are
-accuracies computed for well-recognized entity mentions for which the system
-returned a base form. Finally, as for entity matching the F1 micro-average scores
-are provided which were computed using LEA precision and recall values (see Section~\ref{sec:evaluation}).
+micro-average F1 scores. 
 
+As regards normalization, the scores provided are F1 scores (using the $Recall_{N}$ and $Precision_{N}$ definitions 
+in~\ref{sec:evaluation}) computed for entity mentions for which the annotation or 
+system response contains a different base form compared to the surface form. 
+This evaluation includes only correctly recognized entity mentions to suppress 
+the influence of entity recognition performance.
+
+Finally, as for entity matching the F1 micro-average scores are provided which were computed using 
+LEA precision and recall values (see Section~\ref{sec:evaluation}).
 
 System {\em pw} performed substantially better on Polish than system {\em
   jhu}.
