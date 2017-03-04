@@ -28,6 +28,7 @@
 \usepackage{booktabs}
 \usepackage{color}
 \usepackage{multirow}
+\usepackage{graphicx}
 
 %\usepackage{todonotes}%remove this when all todos are gone
 \usepackage{todonotes}
@@ -60,10 +61,10 @@
 
 
 % Shared Task on Multilingual Named Entity Recognition, Normalisation and
-% Cross-language Matching for Slavic Languages
+% cross-lingual Matching for Slavic Languages
 
 \title{The First Cross-Lingual Challenge on Recognition,
-  Normalization,  
+  Normalization
   \\ and Matching of Named Entities in Slavic Languages}
 
 
@@ -75,13 +76,13 @@
   %
   \textsuperscript{1}Joint Research Centre,
   \comment{Via Enrico Fermi 2749, 21027}Ispra\comment{ (VA)}, Italy,
-  {\small \tt jakub.piskorski@jrc.ec.europa.eu} \\
+  {\small \tt first.last@jrc.ec.europa.eu} \\
   %
   \textsuperscript{2}University of Helsinki, Finland, {\small \tt
-  \{roman.yangarber,lidia.pivovara\}@cs.helsinki.fi}\\
+  first.last@cs.helsinki.fi}\\
   %
     \textsuperscript{3}University of Zagreb, Croatia, {\small \tt
-    jan.snajder@fer.hr} \\
+    first.last@fer.hr} \\
   %
   \textsuperscript{4}University of West Bohemia, Czech Republic, 
   {\small \tt jstein@kiv.zcu.cz} 
@@ -122,119 +123,98 @@
 \maketitle
 \begin{abstract}
 
-This paper describes the outcomes of the first challenge on multilingual named entity recognition 
-that aimed at recognizing mentions of named entities in web documents in Slavic languages, 
-their normalization/lemmatization, and cross-language matching. It was organised in 
-the context of the 6th Balto-Slavic Natural Language Processing Workshop, co-located with the 
-EACL 2017 conference. Although eleven teams signed up for the evaluation, due to the complexity
-of the task(s) and short time available for elaborating a solution, only two teams submitted results
-on time. The reported evaluation figures reflect the relatively higher level of complexity of 
-named entity-related tasks in the context of processing texts in Slavic languages. Since the 
-duration of the challenge goes beyond the date of the publication of this paper and updated
-picture of the participating systems and their corresponding performance can be found on
-the web page of the challenge.
+  This paper describes the outcomes of the First Multilingual Named Entity Challenge in Slavic
+  Languages.  The Challenge targets recognizing mentions of named entities in Web documents,
+  their normalization/lemmatization, and cross-lingual matching.  The Challenge was organized
+  in the context of the 6th Balto-Slavic Natural Language Processing Workshop, co-located with
+  the EACL-2017 conference.  Eleven teams registered for the evaluation, two of which
+  submitted results on schedule, due to the complexity of the tasks and short time available
+  for elaborating a solution.  The reported evaluation figures reflect the relatively higher
+  level of complexity of named entity tasks in the context of Slavic languages.  Since the
+  Challenge extends beyond the date of the publication of this paper, updates to the results
+  of the participating systems can be found on the official Web page of the Challenge.
 
 \end{abstract}
 
 \section{Introduction}
 \label{sec:intro}
 
-Due to rich inflection, derivation, free word order, and other phenomena
-exhibited by Slavic languages, the detection of names and their
-lemmatization poses a challenging
-task~\cite{Przepiorkowski:2007:SIE:1567545.1567547,journals/ir/PiskorskiWS09}.
-Fostering research and development on this problem---and the closely
-related problem of entity linking---is of paramount importance for
-enabling effective multilingual and cross-lingual information access in
-these languages.
+Due to the rich inflection, derivation, free word order, and other morphological and syntactic
+phenomena exhibited by Slavic languages, analysis of named entities (NEs) in these languages
+poses a challenging
+task~\cite{Przepiorkowski:2007:SIE:1567545.1567547,journals/ir/PiskorskiWS09}.  Fostering
+research and development on detection and lemmatization of NEs---and the closely related
+problem of entity linking---is of paramount importance for enabling effective multilingual and
+cross-lingual information access in these languages.
 
-This paper describes the outcomes of the shared task on multilingual
-named entity recognition {(NER)} that aimed at recognizing mentions
-of named entities in web documents in Slavic languages, their
-normalization/lemmatization, and cross-language matching.  The task
-initially covers seven languages and focuses on recognition of four types
-of named entities (NEs): person, location, organization, and
-miscellaneous, where the last category covers mentions of all other types
-of named entities, e.g., event or product.  The input text collection
-consists of sets of documents in {seven Slavic languages} collected from
-the Web, each collection revolving around a certain entity. The main
-rationale of such a set-up is to foster development of ``all-rounder''
-named-entity recognition and cross-language entity matching solutions
-that are not tailored to specific domains.  The shared task was organised
-in the context of the 6th Balto-Slavic Natural Language Processing
-Workshop co-located with the EACL 2017 conference.
+This paper describes the outcomes of the first shared task on multilingual named entity
+recognition {(NER)} that aims at recognizing mentions of named entities in Web documents in
+Slavic languages, their normalization/lemmatization, and cross-lingual matching.  The task
+initially covers seven languages and four types of NEs: person, location, organization, and
+miscellaneous, where the last category covers all other types of named entities, e.g., event
+or product.  The input text collection consists of documents in {seven Slavic languages}
+collected from the Web, each collection revolving around a certain ``focus'' entity.  The main
+rationale of such a set-up is to foster development of ``all-rounder'' NER and cross-lingual
+entity matching solutions that are not tailored to specific, narrow domains.  The shared task
+was organized in the context of the 6th Balto-Slavic Natural Language Processing Workshop
+co-located with the EACL 2017 conference.
 
-Several related shared tasks have been organized in the past.  The first
-{\em non-English} monolingual NER evaluations---covering Chinese,
-Japanese, Spanish, and Arabic---were carried out in the context of the
-Message Understanding Conferences (MUSs)~\cite{chinchor:98} and the ACE
-Programme~\cite{conf/lrec/DoddingtonMPRSW04}.  The first shared task
-focusing on \emph{multilingual} named entity recognition, which covered
-some European languages, including Spanish, German, and Dutch, was
-organized in the context of CoNLL conferences in
-~2002~\cite{TjongKimSang:2002:ICS:1118853.1118877} and in
-2003~\cite{TjongKimSang:2003:ICS:1119176.1119195}.  The NE types covered
-in these campaigns were similar to the NE types covered in our challenge.
+Similar shared tasks have been organized previously.  The first {\em non-English} monolingual
+NER evaluations---covering Chinese, Japanese, Spanish, and Arabic---were carried out in the
+context of the Message Understanding Conferences (MUCs)~\cite{chinchor:98} and the ACE
+Programme~\cite{conf/lrec/DoddingtonMPRSW04}.  The first shared task focusing on
+\emph{multilingual} named entity recognition, which covered some European languages, including
+Spanish, German, and Dutch, was organized in the context of CoNLL
+conferences~\cite{TjongKimSang:2002:ICS:1118853.1118877,TjongKimSang:2003:ICS:1119176.1119195}.
+The NE types covered in these campaigns were similar to the NE types covered in our Challenge.
+%
 Also related to our task is the Entity Discovery and Linking (EDL)
-track~\cite{ji:ea:2014,ji:ea:2015}, which has been part of the NIST Text
-Analysis Conferences (TAC).  EDL aimed to extract entity mentions from a
-source collection of textual documents in multiple languages (English,
-Chinese, and Spanish), and to partition the entities into cross-document
-equivalence classes, by either linking mentions to a knowledge base or
-directly clustering them.  The fundamental difference between EDL and our
-task is that we do not include the sub-task of linking entities to a
-knowledge base.
+track~\cite{ji:ea:2014,ji:ea:2015} of the NIST Text Analysis Conferences (TAC).  EDL aimed to
+extract entity mentions from a collection of textual documents in multiple languages (English,
+Chinese, and Spanish), and to partition the entities into cross-document equivalence classes,
+by either linking mentions to a knowledge base or directly clustering them.  An important
+difference between EDL and our task is that we do not link entities to a knowledge base.
 
-Another task related to cross-lingual NE recognition is NE
-transliteration, i.e., cross-lingual linking of NEs across languages
-using different scripts.  A series of NE Transliteration Shared Tasks
-were organized as a part of NEWS (Named Entity
-Workshops)~\cite{duan2016report}, focusing mostly on the Indian and Asian
-languages.  In 2010, the NEWS Workshop included a shared task on
-Transliteration Mining~\cite{kumaran2010report}, i.e., mining of names
-from parallel corpora.  This task included corpora in English, Chinese,
-Tamil, Russian, and Arabic.
+Related to cross-lingual NE recognition is NE transliteration, i.e., linking NEs across
+languages that use different scripts.  A series of NE Transliteration Shared Tasks were
+organized as a part of NEWS---Named Entity Workshops---\cite{duan2016report}, focusing mostly
+on Indian and Asian languages.  In 2010, the NEWS Workshop included a shared task on
+Transliteration Mining~\cite{kumaran2010report}, i.e., mining of names from parallel corpora.
+This task included corpora in English, Chinese, Tamil, Russian, and Arabic.
 
-Prior work targeting NEs specifically for Slavic languages includes tools for
-NE recognition for Croatian \cite{karan2013croner,ljubesic2013combining}, a
-tool specifically tailored for NE recognition in Croatian tweets
-\cite{baksa2017tagging}, a manually annotated NE corpus for Croatian
-\cite{agic2014setimes}, tools for NE recognition for Slovene
-\cite{stajner2013razpoznavanje,ljubesic2013combining}, corpus of 11,000
-manually annotated NEs built for Czech~\cite{vsevvcikova2007named} and NER
-tools for Czech~\cite{Konkol:2013}, tools and resources for fine-grained
-annotation of NEs in the National Corpus of
-Polish~\cite{was:etal:10,sav:pis:11} and a recent shared task on Russian NE
-Recognition~\cite{alexeeva2016factrueval}.
+Prior work targeting NEs specifically for Slavic languages includes tools for NE recognition
+for Croatian \cite{karan2013croner,ljubesic2013combining}, a tool tailored for NE recognition
+in Croatian tweets \cite{baksa2017tagging}, a manually annotated NE corpus for Croatian
+\cite{agic2014setimes}, tools for NE recognition in
+Slovene~\cite{stajner2013razpoznavanje,ljubesic2013combining}, a Czech corpus of 11,000
+manually annotated NEs~\cite{vsevvcikova2007named}, NER tools for Czech~\cite{Konkol:2013},
+tools and resources for fine-grained annotation of NEs in the National Corpus of
+Polish~\cite{was:etal:10,sav:pis:11} and a recent shared task on NE Recognition in
+Russian~\cite{alexeeva2016factrueval}.
 
-To the best of our knowledge, the shared task described in this paper is
-the first attempt on multilingual name recognition, normalization, and
-cross-language entity matching that covers a large number of Slavic
-languages.
+To the best of our knowledge, the shared task described in this paper is the first attempt at
+multilingual name recognition, normalization, and cross-lingual entity matching that covers a
+large number of Slavic languages.
 
-This paper is organised as follows. Section~\ref{sec:task} describes the
-shared task, while Section~\ref{sec:annotation} describes the annotation
-of the dataset.  The evaluation methodology is introduced in
-Section~\ref{sec:evaluation}.  The description of participant systems is
-provided in Section~\ref{sec:participants} and the results obtained by
-these systems are presented in Section~\ref{sec:results}.  Finally,
-lessons learnt and main conclusions are discussed in
+This paper is organized as follows.  Section~\ref{sec:task} describes the task;
+Section~\ref{sec:annotation} describes the annotation of the dataset.  The evaluation
+methodology is introduced in Section~\ref{sec:evaluation}.  Participant systems are described
+in Section~\ref{sec:participants} and the results obtained by these systems are presented in
+Section~\ref{sec:results}.  Finally, lessons learnt and conclusions are discussed in
 Section~\ref{sec:conclusions}.
 
 \section{Task Description}
 \label{sec:task}
 
 
-The data for the shared task consists of a collection of text documents
-{in seven Slavic languages: Croatian, Czech, Polish, Russian, Slovak,
-  Slovene, and Ukrainian. The documents focus around a certain
-  entity---e.g., a person or an organization. The documents were obtained
-  from the Web, by posing a query to a search engine and parsing the HTML
-  of returned documents.}
+The data for the shared task consists of text documents {in seven Slavic languages: Croatian,
+  Czech, Polish, Russian, Slovak, Slovene, and Ukrainian. The documents focus around a certain
+  entity---e.g., a person or an organization. The documents were obtained from the Web, by
+  posing a query to a search engine and parsing the HTML of the retrieved documents.}
 
-The task {was} to recognize, classify, and ``normalize'' all named-entity
-mentions in each of the documents, and to link together across languages
-all named mentions referring to the same real-world entity.
+The task {is} to recognize, classify, and ``normalize'' all named-entity mentions in each of
+the documents, and to link across languages all named mentions referring to the same
+real-world entity.
 
 Formally, the Multilingual Named Entity Recognition task includes three
 sub-tasks:
@@ -245,124 +225,112 @@ sub-tasks:
   Recognizing all unique named mentions of entities of four types:
   persons (\textsc{Per}), organizations (\textsc{Org}), locations (\textsc{Loc}), miscellaneous
   (\textsc{Misc}), the last covering mentions of all other types of named
-  entities, e.g., products, events, etc.;
+  entities, e.g., products, events, etc.
 
-\item \textbf{Name Normalization}: {Mapping each named mention of
-    an entity to its corresponding base form. By ``base form'' we
-    generally mean the lemma (the dictionary form) of the inflected
-    word-form, though in some cases normalization should go beyond
-    inflection and transform a derived word into a base word's lemma,
-    e.g., in case of person possessives (see below).  Multi-word names
-    should be normalized to the canonical multi-word expression, rather
-    than a sequence of lemmas making up the multi-word expression.}
+\item \textbf{Name Normalization}: {Mapping each named mention of an entity to its
+    corresponding {\em base form}.  By ``base form'' we generally mean the lemma (``dictionary
+    form'') of the inflected word-form.  In some cases normalization should go beyond
+    inflection and transform a derived word into a base word's lemma, e.g., in case of
+    personal possessives (see below).  Multi-word names should be normalized to the {\em
+      canonical} multi-word expression, rather than a sequence of lemmas of the words making
+    up the multi-word expression.}
 
-\item \textbf{Entity Matching}: Assigning to each detected named mention
-  of an entity an identifier in such a way that detected mentions of
-  entities referring to the same real-world entity should be assigned the
-  same identifier, which is referred to as cross-lingual ID.
+\item \textbf{Entity Matching}: Assigning an identifier (ID) to each detected named mention of
+  an entity, in such a way that mentions of entities referring to the same real-world entity
+  should be assigned the same ID (referred to as the cross-lingual ID).
 
 \end{itemize}
 
-\noindent The task does not include returning positional information of name
-entity mentions. Consequently, for all occurrences of the same form of a
-mention (e.g., inflected variant, acronym, or abbreviation) of a named entity
-within the same document not more than one annotation should be returned,
-unless the different occurrences thereof have different entity types (different
-readings) assigned to them. Furthermore, distinguishing case information is not
-relevant since the evaluation is case-insensitive. In particular, if the text
-includes lowercase, uppercase and/or mixed-letter named mention variants of the
-same entity, the system response should include only one annotation for all of
-these mentions.  For instance, for ``\textit{ISIS}'', ``\textit{isis}'', and
-``\textit{Isis}'' (provided that they refer to the same named-entity type),
-only one annotation should be returned (e.g., ``\textit{Isis}''). Note that the
-recognition of nominal or pronominal mentions of entities is not part of the
-task. 
+\noindent The task does not require positional information of the name entity mentions.
+Consequently, for all occurrences of the same form of a NE mention (e.g., inflected variant,
+acronym, or abbreviation) within the same document no more than one annotation should be
+returned.\footnote{Unless the different occurrences have different entity types (different
+  readings) assigned to them, which is rare.}  Furthermore, distinguishing case information is
+not necessary since the evaluation is case-insensitive.  In particular, if the text includes
+lowercase, uppercase or mixed-case variants of the same entity, the system should produce only
+one annotation for all of these mentions.  For instance, for ``\textit{ISIS}'',
+``\textit{isis}'', and ``\textit{Isis}'' (provided that they refer to the same NE type), only
+one annotation should be returned.  Note that the recognition of nominal or pronominal
+mentions of entities is not part of the task.
 
 \subsection{Named Entity Classes}
 
-{The task covers four NE classes, defined as follows.}
+{The task defines the following four NE classes:}
 
 \begin{description}
 
-\item[Person names (\textsc{Per}).] {This class includes names of
-    real persons (and fictional characters).} Person names should not
-  include titles, honorifics, and functions/positions. For example, in
-  the text fragment ``\textit{CEO Dr. Jan Kowalski}'', only ``\textit{Jan
-    Kowalski"}'' should be recognized as a person name. However, initials
-  and pseudonyms are considered named mentions of person names and should
-  be recognized.  Similarly, named references to groups of people (that
-  do not have a formal organization unifying them) should also be
-  recognized, e.g., ``\textit{Ukrainians}''. In this context, mentions of
-  a single member belonging to such groups, e.g.  ``\textit{Ukrainian}'',
-  should be assigned the same cross-language ID as plural mentions, i.e.,
-  ``\textit{Ukrainians}'' and ``\textit{Ukrainian}'' when referring to
-  the nation should be assigned the same cross-language ID.
+\item[Person names (\textsc{Per})] 
+  
+  {Names of real persons (and fictional characters).} Person
+  names should not include titles, honorifics, and functions/positions. For example, in the
+  text fragment ``\textit{...CEO Dr. Jan Kowalski...}'', only ``\textit{Jan Kowalski"}'' is
+  recognized as a person name.  Initials and pseudonyms are considered named mentions of
+  persons and should be recognized.  Similarly, named references to groups of people (that do
+  not have a formal organization unifying them) should also be recognized, e.g.,
+  ``\textit{Ukrainians}.'' In this context, mentions of a single member belonging to such
+  groups, e.g.  ``\textit{Ukrainian},'' should be assigned the same cross-lingual ID as plural
+  mentions, i.e., ``\textit{Ukrainians}'' and ``\textit{Ukrainian}'' when referring to the
+  nation should be assigned the same cross-lingual ID.
 
-  Furthemore, personal possessives derived from a named mention of a person should
-  be classified as a person, and the base form of the corresponding
-  person name should be extracted. For instance, for
-  ``\textit{Trumpov tweet}'' (Croatian) it is expected to recognize
-  ``\textit{Trumpov}'', classified with PER and extract the base
-  form ``\textit{Trump}''.
+  Personal possessives derived from a person name should be classified as a person, and the
+  base form of the corresponding person name should be extracted. For instance, for
+  ``\textit{Trumpov tweet}'' (Croatian) it is expected to recognize ``\textit{Trumpov}'' and
+  classify it as PER, with the base form ``\textit{Trump}.''
 
 
-\item[Locations (\textsc{Loc}).]
+\item[Locations (\textsc{Loc})]
 
-This category includes all toponyms and geopolitical entities (e.g., cities,
-counties, provinces, countries, regions, bodies of water, land formations,
-etc.) and named mentions of facilities (e.g., stadiums, parks, museums,
-theaters, hotels, hospitals, transportation hubs, churches, railroads, bridges,
-and other similar urban and non-urban facilities).
+  All toponyms and geopolitical entities (cities, counties, provinces, countries, regions,
+  bodies of water, land formations, etc.), including named mentions of {\em facilities} (e.g.,
+  stadiums, parks, museums, theaters, hotels, hospitals, transportation hubs, churches,
+  railroads, bridges, and similar facilities).
 
-Even in case of named mentions of facilities that refer to an organization, the
-\textsc{Loc} tag should be used. For example, from the text phrase
-``\textit{The Schipol airport has acquired new electronic gates}'' the mention
-``\textit{The Schipol airport}'' should be extracted and classified as
-\textsc{Loc}.
+  In case named mentions of facilities may also refer to an organization, the \textsc{Loc} tag
+  should be used.  For example, from the text phrase ``\textit{The Schipol Airport has
+    acquired new electronic gates}'' the mention ``\textit{The Schipol Airport}'' should be
+  extracted and classified as \textsc{Loc}.
 
-\item[Organizations (\textsc{Org}).]
+\item[Organizations (\textsc{Org})]
 
-This category covers all kind of organizations such as political parties,
-public institutions, international organizations, companies, religious
-organizations, sport organizations, education and research institutions, etc.
+  All kinds of organizations: political parties, public institutions, international
+  organizations, companies, religious organizations, sport organizations, educational and
+  research institutions, etc.
 
-Organization designators and potential mentions of the seat of the organization
-are considered to be part of the organization name. For instance, from the text
-fragment ``\textit{Citi Handlowy w Poznaniu}'' (a bank in Poznań), the full
-phrase ``\textit{Citi Handlowy w Poznaniu}'' should be extracted.
+  Organization designators and potential mentions of the seat of the organization are
+  considered to be part of the organization name. For instance, from the text fragment
+  ``\textit{Citi Handlowy w Poznaniu}'' (a bank in Poznań), the full phrase ``\textit{Citi
+    Handlowy w Poznaniu}'' should be extracted.
 			
-When a company name is used to refer to a service (e.g., ``\textit{na
-Twiterze}'' (Polish for ``on Twitter'') the mention of ``\textit{Twitter}'' is
-considered to refer to a service/product and should be tagged as \textsc{Misc}.
-However, when a company name is referring to a service which expresses the
-opinion of the company, e.g., ``\textit{Fox News}'', it should be tagged as
-\textsc{Org}.			
+  When a company name is used to refer to a service (e.g., ``\textit{na Twiterze}'' (Polish
+  for ``on Twitter'') the mention of ``\textit{Twitter}'' is considered to refer to a
+  service/product and should be tagged as \textsc{Misc}.  However, when a company name is
+  referring to a service which expresses the opinion of the company, e.g., ``\textit{Fox
+    News}'', it should be tagged as \textsc{Org}.
 
-\item[Miscellaneous (\textsc{Misc}).]
+\item[Miscellaneous (\textsc{Misc})]
 
-This category covers all other named mentions of entities, e.g., product names
-(e.g., ``\textit{Motorola Moto X}''), events (conferences, concerts, natural
-disasters, holidays, e.g., ``\textit{Święta Bożego Narodzenia}'' (Polish for ``Christmas''), etc.).
+  All other named mentions of entities, e.g., product names---e.g., ``\textit{Motorola Moto
+    X}''), events (conferences, concerts, natural disasters, holidays, e.g., ``\textit{Święta
+    Bożego Narodzenia}'' (Polish for ``Christmas''), etc.
 
-This category does not include the recognition of temporal and numerical
-expressions, as well as recognition of identifiers such as email addresses,
-URLs, postal addresses, etc.
+  This category does not include temporal and numerical expressions, as well as identifiers
+  such as email addresses, URLs, postal addresses, etc.
 
 \end{description}
 
+
+
 \subsection{Complex and Ambiguous Entities}
 
-In case of complex named entities, consisting of nested named entities, only
-the top-most entity should be recognized. For example, from the text fragment
-``\textit{George Washington University}'' one should not extract
-``\textit{George Washington}'', but the entire name, namely, ``\textit{George
-Washington University}.''
+In case of complex named entities, consisting of nested named entities, only the {\em
+  top-most} entity should be recognized. For example, from the text string ``\textit{George
+  Washington University}'' one should not extract ``\textit{George Washington}'', but the
+entire string.
 
-In case a same form (e.g., ``\textit{Washington}'') in two different contexts
-in the same document is used to refer to two different real-world entities
-(e.g., a person and a location), the system should return two annotations
-respectively, where each of them associates the mention with a different
-cross-language ID resp.
+In case one word-form (e.g., ``\textit{Washington}'') is used to refer to two different
+real-world entities in different contexts in the same document (e.g., a person and a
+location), the system should return two annotations, associated with different cross-lingual
+IDs.
 
 
 \subsection{System Input and Response}
@@ -371,9 +339,9 @@ cross-language ID resp.
 \paragraph{Input Document Format.}
 \label{subsec:input}
 %
-Documents in collection are represented in the following
-format, where the first five lines contain metadata, whereas the core text
-to be processed is available from the 6th line till the end of the file.
+Documents in the collection are represented in the following format.  The {\em first five
+  lines} contain meta-data; the core text to be processed begins from the 6th line and runs
+till the end of file.
 
 \begin{small}
 \begin{verbatim}
@@ -386,18 +354,18 @@ to be processed is available from the 6th line till the end of the file.
 \end{verbatim}
 \end{small}
 
-\noindent The \verb+<URL>+ field was used to store information on the origin from which 
-the text document was created. The values of the metadata fields were computed automatically 
-(cf.~Section~\ref{sec:annotation} for details). In particular, the values of the \verb+<CREATION-DATE>+ 
-and \verb+<TITLE>+ fields were not provided for all documents either due to unavailability 
-of such data or due to web page parsing errors during the creation process. 
+\noindent The \verb+<URL>+ field stores the origin from which the text document was retrieved.
+The values of the meta-data fields were computed automatically
+(see~Section~\ref{sec:annotation} for details). In particular, the values of
+\verb+<CREATION-DATE>+ and \verb+<TITLE>+ were not provided for all documents, either due to
+unavailability of such data or due to errors in Web page parsing during the creation process.
 
 \paragraph{System Response.}
 \label{subsec:input}
 %
-For each input document, the systems should return a corresponding file in the following format.
-The first line should contain only the \verb+<DOCUMENT-ID>+ field that corresponds to the input file,
-whereas each subsequent line should be of the format:
+For each input document, the systems should return one file as follows.  The first line should
+contain only the \verb+<DOCUMENT-ID>+ field that corresponds to the input file.  Each
+subsequent line should contain the following, tab-separated fields:
 
 \begin{small}
 \begin{verbatim}
@@ -405,97 +373,100 @@ whereas each subsequent line should be of the format:
 \end{verbatim}
 \end{small}
 
-\noindent The value of the \verb+<MENTION>+ field should contain the
-named-entity mention as it appears in text. The value of the \verb+<BASE>+
-field should contain the base form of the entity. Finally, the \verb+<CAT>+ and
-\verb+<ID>+ fields are used to store information on the category of the entity
-(\textsc{Org}, \textsc{Per}, \textsc{Loc}, or \textsc{Misc}) and cross-lingual
-identifier resp.  The cross-lingual identifiers may consist of an arbitrary
-sequence of alphanumeric characters.  An example of a system response (for a
-document in Polish) is given below.
+\noindent The value of the \verb+<MENTION>+ field should be the NE mention as it appears in
+text.  The value of the \verb+<BASE>+ field should be the base form of the entity.  The
+\verb+<CAT>+ and \verb+<ID>+ fields store information on the category of the entity
+(\textsc{Org}, \textsc{Per}, \textsc{Loc}, or \textsc{Misc}) and cross-lingual identifier,
+respectively.  The cross-lingual identifiers may consist of an arbitrary sequence of
+alphanumeric characters.  An example of a system response (for a document in Polish) is given
+below.
 
-\begin{small}
-\begin{verbatim}
+\resizebox{.9\linewidth}{!}{%
+  \begin{tabular*}{.5\textwidth}{l }
+    16 \\
+    Podlascy Czeczeni\ \ \ \ \ \ Podlascy Czeczeni\ \ \ \ \ \ PER\ \ \ \ \ \ 1 \\
+    ISIS\ \ \ \ \ \ ISIS\ \ \ \ \ \ ORG\ \ \ \ \ \ 2 \\
+    Rosji\ \ \ \ \ \ Rosja\ \ \ \ \ \ LOC\ \ \ \ \ \ 3 \\
+    Rosja\ \ \ \ \ \ Rosja\ \ \ \ \ \ LOC\ \ \ \ \ \ 3 \\
+    Polsce\ \ \ \ \ \ Polska\ \ \ \ \ \ LOC\ \ \ \ \ \ 4 \\
+    Warszawie\ \ \ \ \ \ Warszawa\ \ \ \ \ \ LOC\ \ \ \ \ \ 5 \\
+    Magazynu Kuriera Porannego\ \ \ \ \ \ Magazyn Kuriera\textbackslash \\
+    \ \ \ \ \ \ \ \ \ \ \ \  Porannego\ \ \ \ \ \ ORG\ \ \ \ \ \ 6 \\
+  \end{tabular*}
+}
+
+\comment{
+%\begin{small}
+%\begin{verbatim}
 16
-Podlascy Czeczeni Podlascy Czeczeni PER 1
-ISIS ISIS ORG 2
-Rosji Rosja LOC 3
-Polsce Polska LOC 4
-Warszawie Warszawa LOC 5
-Rosja Rosja LOC 3
+Podlascy Czeczeni    Podlascy Czeczeni    PER    1
+ISIS    ISIS    ORG    2
+Rosji    Rosja    LOC    3
+Polsce    Polska    LOC    4
+Warszawie    Warszawa    LOC    5
+Rosja    Rosja    LOC    3
 Magazynu Kuriera Porannego \
-Magazyn Kuriera Porannego ORG 6
-\end{verbatim}	    
-\end{small}
+      Magazyn Kuriera Porannego    ORG    6
+%\end{verbatim}	    
+}
 
 \section{Data}
 \label{sec:annotation}
 
 \subsection{Trial Datasets}
 
-The registered participants were provided two trial datasets:
-(1) a dataset related to {\em Beata Szydło}, the current prime minister of Poland, and (2)
-a dataset related to ISIS, the so-called ``Islamic State of Iraq and Syria'' terror group.
-These datasets consisted of 187 and 186 documents respectively, with
-equal distribution of documents across the seven languages of interest.
+The registered participants were provided two trial datasets: (1) a dataset related to {\em
+  Beata Szydło}, the current prime minister of Poland, and (2) a dataset related to {\em
+  ISIS}, the so-called ``Islamic State of Iraq and Syria'' terrorist group.  These datasets
+consisted of 187 and 186 documents, respectively, with equal distribution of documents across
+the seven languages of interest.
 
 \subsection{Test Datasets}
 
-Two datasets were prepared for evaluation, each consisting of documents
-extracted from the web and revolving around a given entity.  Specifically, the
-first dataset contains documents related to Donald Trump, the recently elected
-President of United States (henceforth referred to as {\sc Trump}), while the
-second dataset contains documents related to the European Commission
-(henceforth referred to as {\sc ECommission}).
+Two datasets were prepared for evaluation, each consisting of documents extracted from the Web
+and related to a given entity.  One dataset contains documents related to Donald Trump, the
+recently elected President of United States (henceforth referred to as {\sc Trump}), and the
+second dataset contains documents related to the European Commission (henceforth referred to
+as {\sc ECommission}).
 
-The test datasets were created in the following manner.  For each entity
-of interest, we have posed a separate search query to Google, in each of
-the seven target languages.  The query was configured to return links to
-documents only in the language of interest.  Next, we extracted the first
-100 links (or fewer, in case the search engine did not return 100
-links) returned by the search engine, removed duplicate links, and
-downloaded the corresponding HTML pages---mainly news articles or
-fragments thereof---and converted them into pure text, using a hybrid
-HTML parser.  This process was done semi-automatically using the tool
-described in~\cite{Crawley:ea:2010}.  In particular, some of the metadata
-fields---i.e., creation date, title, URL---were automatically computed
-using this tool.
+The test datasets were created as follows.  For each ``focus'' entity, we posed a separate
+search query to Google, in each of the seven target languages.  The query returned links to
+documents only in the language of interest.  We extracted the first 100 links\footnote{Or
+  fewer, in case the search engine did not return 100 links.} returned by the search engine,
+removed duplicate links, downloaded the corresponding HTML pages---mainly news articles or
+fragments thereof---and converted them into plain text, using a hybrid HTML parser.  This
+process was done semi-automatically using the tool described in~\cite{Crawley:ea:2010}.  In
+particular, some of the meta-data fields---i.e., creation date, title, URL---were automatically
+computed using this tool.
 
-The HTML parsing resulted in extracting texts that may include not only
-the core text of a Web page, but also some additional pieces of text,
-e.g., a list of labels from a menu, user comments, etc., which might not
-necessarily constitute well-formed utterances in the target language.
-This occurred in a small fraction of texts processed.  Some of these
-texts were included in the test dataset in order to maintain the flavour
-of ``real-data.''  However, obvious HTML parser failure, e.g., extraction
-of JavaScript code, extraction of empty texts, etc., were removed from
-the data sets.  Some of the downloaded documents were additionally
-polished by removing erroneously extracted boilerplate content.  The
-resulting set of partially ``cleaned'' documents were used to select for
-each language and topic circa 20-25 documents for the preparation of the
-final test datasets.  Annotation for Croatian, Czech, Polish, Russian and
-Slovene were done by native speakers, whereas annotation for Slovak were made 
-by native speakers of Czech, capable of understanding Slovak. The annotations 
-for Ukrainian were made partially by a native speaker and a near-native speaker 
-of Ukrainian. The cross-language alignment of the entity identifiers was done 
-by two annotators.
+HTML parsing resulted in texts that included not only the core text of a Web page, but also
+some additional pieces of text, e.g., a list of labels from a menu, user comments, etc., which
+may not constitute well-formed utterances in the target language.  This occurred in a small
+fraction of texts processed.  Some of these texts were included in the test dataset in order
+to maintain the flavour of ``real-data.''  However, obvious HTML parser failure (e.g.,
+extraction of JavaScript code, extraction of empty texts, etc.) were removed from the data
+sets.  Some of the downloaded documents were additionally polished by removing erroneously
+extracted boilerplate content.  The resulting set of partially ``cleaned'' documents were used
+to select {\em circa} 20-25 documents for each language and topic, for the preparation of the
+final test datasets.  Annotations for Croatian, Czech, Polish, Russian and Slovene were made
+by native speakers; annotations for Slovak were made by native speakers of Czech, capable of
+understanding Slovak.  Annotations for Ukrainian were made partly by native speakers and
+partly by near-native speakers of Ukrainian.  Cross-lingual alignment of the entity
+identifiers was performed by two annotators.
 
-Table~\ref{tab:datasets} provides a more detailed quantitative data about the annotated datasets. A breakdown 
-of the entity mention figures with respect to entity class is given in Table~\ref{tab:datasets-2}. 
-Noteworthy, high fraction of the annotated mentions had a base form that is different from
-the form that appeared in text. For instance, for {\sc Trump} dataset this figure oscillate 
-between 37.5\% (Slovak) to 57.5\% (Croatian).
+Table~\ref{tab:datasets} provides more quantitative details about the annotated datasets.
+Table~\ref{tab:datasets-2} gives the breakdown of entity classes.  It is noteworthy that a
+high proportion of the annotated mentions have a base form that differs from the form
+appearing in text.  For instance, for the {\sc Trump} dataset this figure is between 37.5\%
+(Slovak) and 57.5\% (Croatian).
 
-It is worthwhile mentioning that, for the sake of compliance with the
-named entity recognition guidelines described in~Section \ref{sec:task},
-documents that included hard-to-decide entity mention annotations were
-excluded from the test datasets. {A case in point is a document in
-  Croatian that contained the phrase ``\textit{Zagrebačka,
-    Sisačko-Moslavačka i Karlovačka županija}''---a contracted version of
-  three named entities (``\textit{Zagrebačka županija}'',
-  ``\textit{Sisačko-Moslavačka županija}'', and ``\textit{Karlovačka
-    županija}'') expressed using a head noun with three coordinate
-  modifiers.}
+It is worth mentioning that, for the sake of compliance with the NER guidelines in~Section
+\ref{sec:task}, documents that included hard-to-decide entity mention annotations were
+excluded from the test datasets for the present.  {A case in point is a document in Croatian
+  that contained the phrase ``\textit{Zagrebačka, Sisačko-Moslavačka i Karlovačka
+    županija}''---a contracted version of three named entities (``\textit{Zagrebačka
+    županija}'', ``\textit{Sisačko-Moslavačka županija}'', and ``\textit{Karlovačka
+    županija}'') expressed using a head noun with three coordinate modifiers.}
 
 \begin{table}
   \begin{center}
@@ -522,7 +493,8 @@ excluded from the test datasets. {A case in point is a document in
       \end{tabular}
     \end{footnotesize}
   \end{center}
-  \caption{Quantitative data about the test datasets. \#docs and \#ment refer to the number of documents and named-entity mention annotations.}
+  \caption{Quantitative data about the test datasets. {\em \#docs} and {\em \#ment} refer to
+    the number of documents and NE mention annotations.} 
   \label{tab:datasets}
 \end{table}
 
@@ -629,39 +601,58 @@ Normalization       &                 &          &      &      &      & pw   & 4
 \section{Evaluation Methodology}
 \label{sec:evaluation}
 
-Named entity recognition (exact case-insensitive matching) and  Name Normalization (sometimes called “lemmatization”) tasks were evaluated in terms of precision, recall, and F1-scores. In particular, as regards named entity recognition, two types of evaluations were carried out:
+The NER task (exact case-insensitive matching) and Name Normalization task (also called
+``lemmatization'') were evaluated in terms of precision, recall, and F1-scores.  In
+particular, for NER, two types of evaluations were carried out:
 
 \begin{itemize}
 
-\item \textbf{Relaxed evaluation}: An entity mentioned in a given document is considered to be extracted correctly if the system response includes at least one annotation of a named mention of this entity (regardless whether the extracted mention is base form);
+\item \textbf{Relaxed evaluation}: An entity mentioned in a given document is considered to be
+  extracted correctly if the system response includes at least one annotation of a named
+  mention of this entity (regardless whether the extracted mention is in base form);
 
-\item \textbf{Strict evaluation}: The system response should include exactly one annotation for each unique form of a named mention of an entity that is referred to in a given document, i.e., capturing and listing all variants of an entity is required.
+\item \textbf{Strict evaluation}: The system response should include exactly one annotation
+  for {\em each} unique form of a named mention of an entity in a given document, i.e.,
+  capturing and listing all variants of an entity is required.
 
 \end{itemize}
 
-\noindent In the relaxed evaluation mode we additionally distinguish between \textit{exact} and \textit{partial matching}, i.e., in the case of the latter an entity mentioned in a given document is considered to be extracted correctly if the system response includes at least one partial match of a named mention of this entity.
+\noindent In relaxed evaluation mode we additionally distinguish between \textit{exact} and
+\textit{partial matching}, i.e., in the case of the latter an entity mentioned in a given
+document is considered to be extracted correctly if the system response includes at least one
+partial match of a named mention of this entity.
 
-In the context of the evaluation we considered various level of granularity, i.e., the performance for: 
-(a) all NE types and all languages, (b) each particular NE type and all languages, (c) all NE types for 
-each language, and (d) each particular NE type per language. 
+In the evaluation we consider various level of granularity, i.e., the performance for: (a) all
+NE types and all languages, (b) each particular NE type and all languages, (c) all NE types
+for each language, and (d) each particular NE type per language.
 
 
-In the case of the name normalization sub-task, only correctly recognized entity mentions in the system response and only those that were normalized (on both the annotation and system's sides) are taken into account. More formally, let $correct_{N}$ denote the number of all correctly recognized entity mentions for which the system returned a correct base form. Further, let 
-$all_{N}$ denote the number of all normalized entity mentions in the golden truth and $response_{N}$ denote the number of
-all normalized entity mentions in the system response. Then, we define precision and recall for the name normalization task 
-as follows.
+In the name normalization sub-task, only correctly recognized entity mentions in the system
+response and only those that were normalized (on both the annotation and system's sides) are
+taken into account.  Formally, let $correct_{N}$ denote the number of all correctly recognized
+entity mentions for which the system returned a correct base form.  Let $key_{N}$ denote the
+number of all normalized entity mentions in the gold-standard answer key and $response_{N}$
+denote the number of all normalized entity mentions in the system's response. We define
+precision and recall for the name normalization task as:
 
 \begin{equation*}
-	\mathit{Recall_{N}} = \frac{corrrect_{N}}{all_{N}}              
+	\mathit{Recall_{N}} = \frac{corrrect_{N}}{key_{N}}              
 \end{equation*}
 
 \begin{equation*}
 	\mathit{Precision_{N}} = \frac{corrrect_{N}}{response_{N}}              
 \end{equation*}
 
-As regards the evaluation of document-level, single-language and cross-language entity matching task we have adapted the 
-Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which considers how important the entity is and how well it is resolved. LEA is defined as follows. Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{r_1,r_2,\ldots,r_{|R|} \}$ denote the key entity set and the response entity set respectively, i.e., $k_i \in K$ ($r_i \in R$) stand for set of mentions
-of the same entity in the key entity set (response entity set). LEA recall and precision are then defined as follows:
+In evaluating the document-level, single-language and cross-lingual entity matching task we
+have adapted the Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which
+considers how important the entity is and how well it is resolved. 
+%
+LEA is defined as follows. 
+%
+Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{r_1,r_2,\ldots,r_{|R|} \}$ denote the key
+entity set and the response entity set, respectively, i.e., $k_i \in K$ ($r_i \in R$) stand
+for set of mentions of the same entity in the key entity set (response entity set). LEA recall
+and precision are then defined as follows:
 
 \begin{equation*}
 	\mathit{Recall_{LEA}} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
@@ -673,57 +664,61 @@ of the same entity in the key entity set (response entity set). LEA recall and p
               {\sum_{r_{z} \in R} imp(r_{z})}
 \end{equation*}
 
-\noindent where $\mathit{imp}$ and $\mathit{res}$ denote measure of importance and resolution score for an entity respectively.
-In our setting we define $\mathit{imp}(e) = \log_{2}|e|$ for an entity $e$ (in $K$ or $R$), i.e., the more mentions 
-an entity has the more important it is. However, in order not to bias the importance of the more frequent entities $\log$ 
-is used. The resolution score of key entity $k_i$ is computed as the fraction of correctly resolved co-reference 
-links of $k_i$: 
+\noindent where $\mathit{imp}$ and $\mathit{res}$ denote the measure of importance and the
+resolution score for an entity, respectively.  In our setting, we define
+$\mathit{imp}(e) = \log_{2}|e|$ for an entity $e$ (in $K$ or $R$), $|e|$ is the number of
+mentions of $e$---i.e., the more mentions an entity has the more important it is.  To avoid
+biasing the importance of the more frequent entities $\log$ is used.  The resolution score of
+key entity $k_i$ is computed as the fraction of correctly resolved co-reference links of
+$k_i$:
 
 \begin{equation*}
 	\mathit{res}(k_i) = \sum_{r_{j} \in R} \frac{\mathit{link}(k_{i} \cap r_{j})}{\mathit{link}(k_{i})}
 \end{equation*}
 
-\noindent where $\mathit{link}(e) = (|e| \times (|e|-1))/2$ stands for the number of unique 
-co-reference links in $e$. For each $k_i$, LEA checks all response entities to check whether 
-they are partial matches for $k_i$. Analogously, the resolution score of response entity $r_i$ is
-computed as fraction of co-reference links in $r_i$ that are extracted correctly:
+\noindent where $\mathit{link}(e) = (|e| \times (|e|-1))/2$ is the number
+of unique co-reference links in $e$.  For each $k_i$, LEA checks all
+response entities to check whether they are partial matches for
+$k_i$. Analogously, the resolution score of response entity $r_i$ is
+computed as the fraction of co-reference links in $r_i$ that are
+extracted correctly:
 
 \begin{equation*}
 	\mathit{res}(r_i) = \sum_{k_{j} \in K} \frac{\mathit{link}(r_{i} \cap k_{j})}{\mathit{link}(r_{i})}
 \end{equation*}
 
-There are various benefits to using LEA.  For example, LEA considers
-resolved co-reference relations instead of resolved mentions and has more
+Using LEA brings several benefits.  For example, LEA considers resolved
+co-reference relations instead of resolved mentions and has more
 discriminative power than other metrics used for evaluation of
 co-reference resolution~\cite{DBLP:conf-acl-Moosavi016}.
 
-It is important to stress at this stage that the evaluation was carried
-out in ``case-insensitive'' mode: all named mentions in system response
-and test corpora were lowercased.
+It is important to note at this stage that the evaluation was carried out
+in ``case-insensitive'' mode: all named mentions in system response and
+test corpora were lowercased.
 
 
 \section{Participant Systems}
 \label{sec:participants}
  
 Eleven teams from seven countries---Czech Republic, Germany, India,
-Poland, Russia, Slovenia and USA---signed up for the evaluation task and
+Poland, Russia, Slovenia and USA---registered for the evaluation task and
 received the trial datasets.  Due to the complexity of the task and
-relatively short time available for elaborating a solution, only 2
-teams submitted results within the deadline. A total of 2 unique runs 
+relatively short time available to create a working solution, only two
+teams submitted results within the deadline.  A total of two unique runs
 were submitted.
 
-JHU/APL team attempted only the NER and Entity Matching sub-tasks.  They
+JHU/APL team attempted the NER and Entity Matching sub-tasks.  They
 employed a statistical tagger called
 SVMLattice~\cite{Mayfield:2003:LTU:956863.956921}, with NER labels
 inferred by projecting English tags across bitext.  The Illinois
 tagger~\cite{Ratinov:2009:DCM:1596374.1596399} was used for English. A
 rule-based entity clusterer called ``kripke'' was used for Entity
-Matching~\cite{DBLP:conf/tac/McNameeMFL13}.  
+Matching~\cite{DBLP:conf/tac/McNameeMFL13}.
 %
 The team (code ``{\em jhu}'') attempted all languages available in the
 Challenge. More details can be found in~\cite{mayfield:2017}.
 
-{\sc G4.19 Research Group} adapted
+The {G4.19 Research Group} adapted
 Liner2~\cite{series/sci/MarcinczukKJ13}---a generic framework which can
 be used to solve various tasks based on sequence labeling, which is
 equipped with a set of modules (based on statistical models,
@@ -731,7 +726,7 @@ dictionaries, rules and heuristics) which recognize and annotate certain
 types of phrases.  The details of tuning Liner2 to tackle the shared task
 are described in~\cite{marcinczuk:2017}.
 %
-The team (code ``{\em pw}'') attempted only the Polish language Challenge.
+The team (code ``{\em pw}'') attempted only the Polish-language Challenge.
 
 \comment{
 The {\sc DeepNLP} team\footnote{\tt https://github.com/tindzk/bsnlp}
@@ -742,29 +737,33 @@ predict which characters belong to an entity. A second neural network is
 trained on inflected entities and predicts their base forms.
 }
 
-Since the announcement of the challenge aroused significant interest of 
-the research community the deadline for submitting system responses
-has been extended accordingly. Although the aforementioned deadline
-goes beyond the time of the publication of this paper, please refer
-to the shared task web site\footnote{http://bsnlp.cs.helsinki.fi/shared\_task.html}
-for information on the current list of systems tested and their respective
-performance. 
+The above systems met the deadline to participate in the first run of the
+Challenge---Phase I.
+%
+Since the Challenge aroused significant interest in the research
+community, it was extended into Phase II, with a new deadline for
+submitting system responses, beyond the time of publication of this
+paper.  Please refer to the Challenge Web
+site\footnote{http://bsnlp.cs.helsinki.fi/shared\_task.html} for
+information on the current status, systems tested, and their performance.
 
 \section{Evaluation Results}
 \label{sec:results}
 
-The overall results of the runs submitted as of this writing are presented in
-Table~\ref{tab:eval-results}. The figures provided for the recognition are
-micro-average F1 scores. 
+The results of the runs submitted for Phase I are presented in
+Table~\ref{tab:eval-results}.  The figures provided for the recognition
+are micro-average F1 scores.
 
-As regards normalization, the scores provided are F1 scores (using the $Recall_{N}$ and $Precision_{N}$ definitions 
-from~\ref{sec:evaluation}) computed for entity mentions for which the annotation or 
-system response contains a different base form compared to the surface form. 
-This evaluation includes only correctly recognized entity mentions to suppress 
-the influence of entity recognition performance.
+For normalization, we report F1 scores, using the $Recall_{N}$ and
+$Precision_{N}$ definitions from Section~\ref{sec:evaluation}, computed
+for entity mentions for which the annotation or system response contains
+a different base form compared to the surface form.  This evaluation
+includes only correctly recognized entity mentions to suppress the
+influence of entity recognition performance.
 
-Finally, as for entity matching the F1 micro-average scores are provided which were computed using 
-LEA precision and recall values (see Section~\ref{sec:evaluation}).
+Lastly, for entity matching, the F1 micro-average scores are provided,
+computed using LEA precision and recall values (see
+Section~\ref{sec:evaluation}).
 
 System {\em pw} performed substantially better on Polish than system {\em
   jhu}.
@@ -776,11 +775,13 @@ provide the overall average precision, recall and F1 figures for the relaxed eva
 with partial matching for {\sc Trump} and {\sc ECommission} scenario respectively.
 
 Considering the tested languages and scenarios, system {\em jhu} achieved
-best performance on {\sc Trump} in Croatian, its poorest performance was on {\sc ECommission}
-in Ukrainian.  System {\em pw} performed better on the {\sc Trump}
-scenario than on {\sc ECommission}.  Overall, the {\sc Trump} scenario appears easier
-due to the mix of named entities that predominate in the texts.  The {\sc ECommission} documents 
-discuss more complex organizations with complex geo-political inter-relationships and affiliations.
+best performance on {\sc Trump} in Croatian, its poorest performance was
+on {\sc ECommission} in Ukrainian.  System {\em pw} performed better on
+the {\sc Trump} scenario than on {\sc ECommission}.  Overall, the {\sc
+  Trump} scenario appears to be easier, due to the mix of named entities
+that predominate in the texts.  The {\sc ECommission} documents discuss
+organizations with complex geo-political inter-relationships and
+affiliations.
 
 Furthermore, cross-lingual co-reference seems to be a difficult task.
 
@@ -829,30 +830,38 @@ Furthermore, cross-lingual co-reference seems to be a difficult task.
 \label{sec:conclusions}
 
 
-This paper reported on the first challenge on multilingual named entity recognition that aimed at recognizing 
-mentions of named entities in web documents in Slavic languages, their normalization/lemmatization, and 
-cross-language matching. Although the challenge arouse lot of interest among researchers working 
-in this field only two teams submitted results on time, which is most likely due to the complexity
-of the task(s) and short time available for elaborating a solution. While drawing far reaching
-conclusions from the evaluation of two systems is not possible, we can observe though that 
-the overall performance of the two systems on unknown test datasets revolving around a specific entity
-is significantly lower than in the case of processing less-morphologically rich languages. 
+This paper reports on the First multilingual named entity Challenge that
+aims at recognizing mentions of named entities in Web documents in Slavic
+languages, their normalization/lemmatization, and cross-lingual matching.
+Although the Challenge aroused substantial interest in the field, only
+two teams submitted results on time, most likely due to the complexity of
+the tasks and the short time available to finalize a solution.  While
+drawing substantial conclusions from the evaluation of two systems is not
+yet possible, we can observe though that the overall performance of the
+two systems on hidden test sets revolving around a specific entity is
+significantly lower than in the case of processing less-morphologically
+complex languages.
 
-For the benefit of research on NER-related tasks, including cross-lingual entity matching, for Slavic
-languages the challenge was extended going beyond the date of the publication of this paper. For the current 
-list of systems that has been evaluated on the different task(s) and their corresponding performance figures
-please refer to the shared task web page. 
+To support research on NER-related tasks for Slavic languages, including
+cross-lingual entity matching, the Challenge was extended into Phase II,
+going beyond the date of the publication of this paper.  For the current
+list of systems that has been evaluated on the different tasks and their
+performance figures please refer to the shared task Web page.
 
-The test datasets, the corresponding annotations and various scripts used for the evaluation purposes 
-are available on the shared task web page as well.
+The test datasets, the corresponding annotations and various scripts used
+for the evaluation purposes are made available on the shared task Web
+page as well.
 
-It is envisaged to extend the challenge through provision of additional test datasets in future, each revolving
-around a specific entity, in order to further boost research on developing ``all-rounder'' NER solutions for 
-processing real-world texts in Slavic languages and carrying out cross-language entity matching. Furthermore, 
-we also intend to extend the set of the languages covered through inclusion of the other Slavic languages 
-depending on availability of human annotators. Finally, some work will focus on the refining the NE annotation 
-guidelines in order to properly deal with particular phenomena, e.g.,  coordinated NEs and contracted versions 
-of multiple NEs, which were excluded from the current test datasets.
+We plan to extend the Challenge through provision of additional test
+datasets in the future, involving new entities, in order to further boost
+research on developing ``all-rounder'' NER solutions for processing
+real-world texts in Slavic languages and carrying out cross-lingual
+entity matching.  Furthermore, we plan to extend the set of the languages
+covered, depending on the availability of annotators.  Finally, some work
+will focus on the refining the NE annotation guidelines in order to
+properly deal with particular phenomena, e.g., coordinated NEs and
+contracted versions of multiple NEs, which were excluded from the first
+test datasets.
 
 
 \section*{Acknowledgments}
