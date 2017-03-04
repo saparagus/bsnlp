@@ -154,7 +154,7 @@ initially covers seven languages and four types of NEs: person, location, organi
 miscellaneous, where the last category covers all other types of named entities, e.g., event
 or product.  The input text collection consists of documents in {seven Slavic languages}
 collected from the Web, each collection revolving around a certain ``focus'' entity.  The main
-rationale of such a set-up is to foster development of ``all-rounder'' NER and cross-lingual
+rationale of such a setup is to foster development of ``all-rounder'' NER and cross-lingual
 entity matching solutions that are not tailored to specific, narrow domains.  The shared task
 was organized in the context of the 6th Balto-Slavic Natural Language Processing Workshop
 co-located with the EACL 2017 conference.
@@ -221,13 +221,13 @@ sub-tasks:
 
 \begin{itemize}
 
-\item \textbf{Named Entity Mention Detection and Classification}:
+\item \textbf{Named Entity Mention Detection and Classification.}
   Recognizing all unique named mentions of entities of four types:
   persons (\textsc{Per}), organizations (\textsc{Org}), locations (\textsc{Loc}), miscellaneous
   (\textsc{Misc}), the last covering mentions of all other types of named
   entities, e.g., products, events, etc.
 
-\item \textbf{Name Normalization}: {Mapping each named mention of an entity to its
+\item \textbf{Name Normalization.} {Mapping each named mention of an entity to its
     corresponding {\em base form}.  By ``base form'' we generally mean the lemma (``dictionary
     form'') of the inflected word-form.  In some cases normalization should go beyond
     inflection and transform a derived word into a base word's lemma, e.g., in case of
@@ -235,7 +235,7 @@ sub-tasks:
       canonical} multi-word expression, rather than a sequence of lemmas of the words making
     up the multi-word expression.}
 
-\item \textbf{Entity Matching}: Assigning an identifier (ID) to each detected named mention of
+\item \textbf{Entity Matching.} Assigning an identifier (ID) to each detected named mention of
   an entity, in such a way that mentions of entities referring to the same real-world entity
   should be assigned the same ID (referred to as the cross-lingual ID).
 
@@ -255,20 +255,20 @@ mentions of entities is not part of the task.
 
 \subsection{Named Entity Classes}
 
-{The task defines the following four NE classes:}
+The task defines the following four NE classes.
 
 \begin{description}
 
-\item[Person names (\textsc{Per})] 
+\item[Person names (\textsc{Per}).] 
   
   {Names of real persons (and fictional characters).} Person
   names should not include titles, honorifics, and functions/positions. For example, in the
-  text fragment ``\textit{...CEO Dr. Jan Kowalski...}'', only ``\textit{Jan Kowalski"}'' is
+  text fragment ``\textit{\dots CEO Dr.~Jan Kowalski\dots}'', only ``\textit{Jan Kowalski"}'' is
   recognized as a person name.  Initials and pseudonyms are considered named mentions of
   persons and should be recognized.  Similarly, named references to groups of people (that do
   not have a formal organization unifying them) should also be recognized, e.g.,
   ``\textit{Ukrainians}.'' In this context, mentions of a single member belonging to such
-  groups, e.g.  ``\textit{Ukrainian},'' should be assigned the same cross-lingual ID as plural
+  groups, e.g., ``\textit{Ukrainian},'' should be assigned the same cross-lingual ID as plural
   mentions, i.e., ``\textit{Ukrainians}'' and ``\textit{Ukrainian}'' when referring to the
   nation should be assigned the same cross-lingual ID.
 
@@ -278,7 +278,7 @@ mentions of entities is not part of the task.
   classify it as PER, with the base form ``\textit{Trump}.''
 
 
-\item[Locations (\textsc{Loc})]
+\item[Locations (\textsc{Loc}).]
 
   All toponyms and geopolitical entities (cities, counties, provinces, countries, regions,
   bodies of water, land formations, etc.), including named mentions of {\em facilities} (e.g.,
@@ -290,7 +290,7 @@ mentions of entities is not part of the task.
     acquired new electronic gates}'' the mention ``\textit{The Schipol Airport}'' should be
   extracted and classified as \textsc{Loc}.
 
-\item[Organizations (\textsc{Org})]
+\item[Organizations (\textsc{Org}).]
 
   All kinds of organizations: political parties, public institutions, international
   organizations, companies, religious organizations, sport organizations, educational and
@@ -302,12 +302,12 @@ mentions of entities is not part of the task.
     Handlowy w Poznaniu}'' should be extracted.
 			
   When a company name is used to refer to a service (e.g., ``\textit{na Twiterze}'' (Polish
-  for ``on Twitter'') the mention of ``\textit{Twitter}'' is considered to refer to a
+  for ``on Twitter''), the mention of ``\textit{Twitter}'' is considered to refer to a
   service/product and should be tagged as \textsc{Misc}.  However, when a company name is
   referring to a service which expresses the opinion of the company, e.g., ``\textit{Fox
     News}'', it should be tagged as \textsc{Org}.
 
-\item[Miscellaneous (\textsc{Misc})]
+\item[Miscellaneous (\textsc{Misc}).]
 
   All other named mentions of entities, e.g., product names---e.g., ``\textit{Motorola Moto
     X}''), events (conferences, concerts, natural disasters, holidays, e.g., ``\textit{Święta
@@ -339,7 +339,7 @@ IDs.
 \paragraph{Input Document Format.}
 \label{subsec:input}
 %
-Documents in the collection are represented in the following format.  The {\em first five
+Documents in the collection are represented in the following format.  The {first five
   lines} contain meta-data; the core text to be processed begins from the 6th line and runs
 till the end of file.
 
@@ -447,8 +447,8 @@ to maintain the flavour of ``real-data.''  However, obvious HTML parser failure 
 extraction of JavaScript code, extraction of empty texts, etc.) were removed from the data
 sets.  Some of the downloaded documents were additionally polished by removing erroneously
 extracted boilerplate content.  The resulting set of partially ``cleaned'' documents were used
-to select {\em circa} 20-25 documents for each language and topic, for the preparation of the
-final test datasets.  Annotations for Croatian, Czech, Polish, Russian and Slovene were made
+to select {\em circa} 20--25 documents for each language and topic, for the preparation of the
+final test datasets.  Annotations for Croatian, Czech, Polish, Russian, and Slovene were made
 by native speakers; annotations for Slovak were made by native speakers of Czech, capable of
 understanding Slovak.  Annotations for Ukrainian were made partly by native speakers and
 partly by near-native speakers of Ukrainian.  Cross-lingual alignment of the entity
@@ -494,7 +494,7 @@ excluded from the test datasets for the present.  {A case in point is a document
     \end{footnotesize}
   \end{center}
   \caption{Quantitative data about the test datasets. {\em \#docs} and {\em \#ment} refer to
-    the number of documents and NE mention annotations.} 
+    the number of documents and NE mention annotations, respectively.} 
   \label{tab:datasets}
 \end{table}
 
@@ -507,10 +507,10 @@ excluded from the test datasets for the present.  {A case in point is a document
         \toprule 
         Entity type & {\textbf{{\sc Trump}}} & {\textbf{{\sc ECommission}}} \\
         \midrule
-        ORG & 18.3\% & 48.4\% \\
-        LOC & 26.9\% & 29.1\% \\
-        PER & 48.4\% & 11.9\% \\
-        MISC & 6.4\% & 9.6\% \\
+	\textsc{Per} & 48.4\% & 11.9\% \\
+	\textsc{Loc} & 26.9\% & 29.1\% \\
+	\textsc{Org} & 18.3\% & 48.4\% \\
+	\textsc{Misc} & \phantom{0}6.4\% & \phantom{0}9.6\% \\
         \bottomrule
       \end{tabular}
     \end{footnotesize}
@@ -534,7 +534,7 @@ excluded from the test datasets for the present.  {A case in point is a document
     \begin{tabular}{| l | l ||l r|l r|l r|l r|l r|l r|l r| }
 
 \hline
-{\em Scenario}      & {\sc Trump}     & \multicolumn{14}{c|}{\em Language}                                                                    \\
+{\em Dataset}      & {\sc\bf Trump}     & \multicolumn{14}{c|}{\em Language}                                                                    \\
 \hline
 Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
 \hline
@@ -562,7 +562,7 @@ Normalization       &                 &          &      &      &      & pw   & 6
                     & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c|}{}                                                             \\
 \hline
 \hline
-{\em Scenario}      & {\sc ECommission}        & \multicolumn{14}{c|}{\em Language}                                                                    \\
+{\em Dataset}      & {\sc\bf ECommission}        & \multicolumn{14}{c|}{\em Language}                                                                    \\
 \hline
 Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
 \hline
@@ -622,25 +622,25 @@ particular, for NER, two types of evaluations were carried out:
 document is considered to be extracted correctly if the system response includes at least one
 partial match of a named mention of this entity.
 
-In the evaluation we consider various level of granularity, i.e., the performance for: (a) all
+In the evaluation we consider various levels of granularity, i.e., the performance for: (a) all
 NE types and all languages, (b) each particular NE type and all languages, (c) all NE types
 for each language, and (d) each particular NE type per language.
 
 
 In the name normalization sub-task, only correctly recognized entity mentions in the system
 response and only those that were normalized (on both the annotation and system's sides) are
-taken into account.  Formally, let $correct_{N}$ denote the number of all correctly recognized
-entity mentions for which the system returned a correct base form.  Let $key_{N}$ denote the
-number of all normalized entity mentions in the gold-standard answer key and $response_{N}$
+taken into account.  Formally, let $\emph{correct}_{N}$ denote the number of all correctly recognized
+entity mentions for which the system returned a correct base form.  Let $\mathit{key}_{N}$ denote the
+number of all normalized entity mentions in the gold-standard answer key and $\mathit{response}_{N}$
 denote the number of all normalized entity mentions in the system's response. We define
 precision and recall for the name normalization task as:
-
+%
 \begin{equation*}
-	\mathit{Recall_{N}} = \frac{corrrect_{N}}{key_{N}}              
+	\mathit{Recall_{N}} = \frac{\mathit{corrrect}_{N}}{\mathit{key}_{N}}              
 \end{equation*}
 
 \begin{equation*}
-	\mathit{Precision_{N}} = \frac{corrrect_{N}}{response_{N}}              
+	\mathit{Precision_{N}} = \frac{\mathit{corrrect}_{N}}{\mathit{response}_{N}}              
 \end{equation*}
 
 In evaluating the document-level, single-language and cross-lingual entity matching task we
@@ -653,14 +653,14 @@ Let $K = \{k_1,k_2,\ldots,k_{|K|} \}$ and $R = \{r_1,r_2,\ldots,r_{|R|} \}$ deno
 entity set and the response entity set, respectively, i.e., $k_i \in K$ ($r_i \in R$) stand
 for set of mentions of the same entity in the key entity set (response entity set). LEA recall
 and precision are then defined as follows:
-
+%
 \begin{equation*}
-	\mathit{Recall_{LEA}} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
+	\mathit{\mathit{Recall}_{LEA}} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
               {\sum_{k_{z} \in K} imp(k_{z})}
 \end{equation*}
 
 \begin{equation*}
-	\mathit{Precision_{LEA}} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
+	\mathit{\mathit{Precision}_{LEA}} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
               {\sum_{r_{z} \in R} imp(r_{z})}
 \end{equation*}
 
@@ -671,7 +671,7 @@ mentions of $e$---i.e., the more mentions an entity has the more important it is
 biasing the importance of the more frequent entities $\log$ is used.  The resolution score of
 key entity $k_i$ is computed as the fraction of correctly resolved co-reference links of
 $k_i$:
-
+%
 \begin{equation*}
 	\mathit{res}(k_i) = \sum_{r_{j} \in R} \frac{\mathit{link}(k_{i} \cap r_{j})}{\mathit{link}(k_{i})}
 \end{equation*}
@@ -682,7 +682,7 @@ response entities to check whether they are partial matches for
 $k_i$. Analogously, the resolution score of response entity $r_i$ is
 computed as the fraction of co-reference links in $r_i$ that are
 extracted correctly:
-
+%
 \begin{equation*}
 	\mathit{res}(r_i) = \sum_{k_{j} \in K} \frac{\mathit{link}(r_{i} \cap k_{j})}{\mathit{link}(r_{i})}
 \end{equation*}
@@ -701,7 +701,7 @@ test corpora were lowercased.
 \label{sec:participants}
  
 Eleven teams from seven countries---Czech Republic, Germany, India,
-Poland, Russia, Slovenia and USA---registered for the evaluation task and
+Poland, Russia, Slovenia, and USA---registered for the evaluation task and
 received the trial datasets.  Due to the complexity of the task and
 relatively short time available to create a working solution, only two
 teams submitted results within the deadline.  A total of two unique runs
@@ -752,26 +752,26 @@ information on the current status, systems tested, and their performance.
 
 The results of the runs submitted for Phase I are presented in
 Table~\ref{tab:eval-results}.  The figures provided for the recognition
-are micro-average F1 scores.
+are micro-averaged F1-scores.
 
-For normalization, we report F1 scores, using the $Recall_{N}$ and
-$Precision_{N}$ definitions from Section~\ref{sec:evaluation}, computed
+For normalization, we report F1-scores, using the $\mathit{Recall}_{N}$ and
+$\mathit{Precision}_{N}$ definitions from Section~\ref{sec:evaluation}, computed
 for entity mentions for which the annotation or system response contains
 a different base form compared to the surface form.  This evaluation
 includes only correctly recognized entity mentions to suppress the
 influence of entity recognition performance.
 
-Lastly, for entity matching, the F1 micro-average scores are provided,
+Lastly, for entity matching, the micro-averaged F1-scores are provided,
 computed using LEA precision and recall values (see
 Section~\ref{sec:evaluation}).
 
 System {\em pw} performed substantially better on Polish than system {\em
   jhu}.
 
-Considering the entity types, performance was overall better for LOC and
-PER, and substantially lower for ORG and MISC, which is not unexpected. 
+Considering the entity types, performance was overall better for \textsc{Loc} and
+\textsc{Per}, and substantially lower for \textsc{Org} and \textsc{Misc}, which is not unexpected. 
 Table~\ref{tab:recognition-breakdown-trump} and~\ref{tab:recognition-breakdown-ec}
-provide the overall average precision, recall and F1 figures for the relaxed evaluation
+provide the overall average precision, recall, and F1 figures for the relaxed evaluation
 with partial matching for {\sc Trump} and {\sc ECommission} scenario respectively.
 
 Considering the tested languages and scenarios, system {\em jhu} achieved
@@ -794,10 +794,10 @@ Furthermore, cross-lingual co-reference seems to be a difficult task.
         \toprule 
         Metric & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
         \midrule
-        PER & 74.8 & 65.9 & 69.8 \\
-        LOC & 73.0 & 75.4 & 74.2 \\
-        ORG & 47.1 & 22.1 & 30.0 \\
-        MISC & 7.9 & 14.4 & 10.2 \\
+	\textsc{Per} & 74.8 & 65.9 & 69.8 \\
+	\textsc{Loc} & 73.0 & 75.4 & 74.2 \\
+	\textsc{Org} & 47.1 & 22.1 & 30.0 \\
+	\textsc{Misc} & 7.9 & 14.4 & 10.2 \\
         \bottomrule
       \end{tabular}
     \end{footnotesize}
@@ -814,10 +814,10 @@ Furthermore, cross-lingual co-reference seems to be a difficult task.
         \toprule 
         Metric & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
         \midrule
-        PER & 68.2 & 59.4 & 62.9 \\
-        LOC & 73.1 & 57.8 & 64.5 \\
-        ORG & 45.0 & 49.0 & 46.6 \\
-        MISC & 18.7 & 12.0 & 14.2 \\
+	\textsc{Per} & 68.2 & 59.4 & 62.9 \\
+	\textsc{Loc} & 73.1 & 57.8 & 64.5 \\
+	\textsc{Org} & 45.0 & 49.0 & 46.6 \\
+	\textsc{Misc} & 18.7 & 12.0 & 14.2 \\
         \bottomrule
       \end{tabular}
     \end{footnotesize}
