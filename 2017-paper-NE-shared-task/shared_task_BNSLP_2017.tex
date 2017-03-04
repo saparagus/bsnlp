@@ -263,7 +263,7 @@ mentions of entities is not part of the task.
   
   {Names of real persons (and fictional characters).} Person
   names should not include titles, honorifics, and functions/positions. For example, in the
-  text fragment ``\textit{...CEO Dr. Jan Kowalski...}'', only ``\textit{Jan Kowalski"}'' is
+  text fragment ``\textit{...CEO Dr. Jan Kowalski...}'', only ``\textit{Jan Kowalski}'' is
   recognized as a person name.  Initials and pseudonyms are considered named mentions of
   persons and should be recognized.  Similarly, named references to groups of people (that do
   not have a formal organization unifying them) should also be recognized, e.g.,
@@ -424,9 +424,9 @@ the seven languages of interest.
 \subsection{Test Datasets}
 
 Two datasets were prepared for evaluation, each consisting of documents extracted from the Web
-and related to a given entity.  One dataset contains documents related to Donald Trump, the
+and related to a given entity.  One dataset contains documents related to {\em Donald Trump}, the
 recently elected President of United States (henceforth referred to as {\sc Trump}), and the
-second dataset contains documents related to the European Commission (henceforth referred to
+second dataset contains documents related to the {\em European Commission} (henceforth referred to
 as {\sc ECommission}).
 
 The test datasets were created as follows.  For each ``focus'' entity, we posed a separate
@@ -642,6 +642,7 @@ precision and recall for the name normalization task as:
 \begin{equation*}
 	\mathit{Precision_{N}} = \frac{corrrect_{N}}{response_{N}}              
 \end{equation*}
+
 
 In evaluating the document-level, single-language and cross-lingual entity matching task we
 have adapted the Link-Based Entity-Aware metric (LEA)~\cite{DBLP:conf-acl-Moosavi016} which
