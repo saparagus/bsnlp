@@ -531,13 +531,13 @@ excluded from the test datasets for the present.  {A case in point is a document
     \centering
     %\tablewidth=\textwidth
 \scalebox{0.87}{
-    \begin{tabular}{| l | l ||l r|l r|l r|l r|l r|l r|l r| }
+    \begin{tabular}{ l  l  l r l r l r l r l r  l r l r }
 
-\hline
-{\em Dataset}      & {\sc\bf Trump}     & \multicolumn{14}{c|}{\em Language}                                                                    \\
-\hline
+\toprule
+{\em Dataset:}{\sc\bf Trump}      &      & \multicolumn{14}{c}{\em Language}                                                                    \\
+\cmidrule(lr){3-16}
 Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
-\hline
+\midrule
 \multirow{6}{*}
 {Recognition}       & Relaxed Partial & jhu      & 46.2 & jhu  & 52.4 & pw   & 66.6 & jhu  & 46.3 & jhu  & 46.8 & jhu  & 47.3 & jhu  & 38.8   \\
                     &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
@@ -559,13 +559,12 @@ Normalization       &                 &          &      &      &      & pw   & 6
 
 										
 \cline{2-16}
-                    & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c|}{}                                                             \\
-\hline
-\hline
-{\em Dataset}      & {\sc\bf ECommission}        & \multicolumn{14}{c|}{\em Language}                                                                    \\
-\hline
+                    & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c}{}                                                             \\
+\toprule
+{\em Dataset:} {\sc\bf ECommission}      &        & \multicolumn{14}{c}{\em Language}                                                                    \\
+\cmidrule(lr){3-16}
 Phase               & Metric          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
-\hline
+\midrule
 \multirow{6}{*}
 {Recognition}       & Relaxed Partial & jhu      & 47.6 & jhu  & 45.9 & pw   & 61.8 & jhu  & 46.0 & jhu  & 49.1 & jhu  & 47.9 & jhu  & 18.4   \\
                     &                 &          &      &      &      & jhu  & 47.3 &      &      &      &      &      &      &      &        \\
@@ -585,8 +584,8 @@ Normalization       &                 &          &      &      &      & pw   & 4
                     & Single language & jhu      & 27.3 & jhu  & 22.1 & jhu  & 17.5 & jhu  & 24.9 & jhu  & 30.6 & jhu  & 32.2 & jhu  &  4.8   \\
                         &                 &          &      &      &      & pw   &  4.6    &      &      &      &      &      &   &   &     \\										
 \cline{2-16}
-                    & Cross-lingual   & jhu      &  2.6 &  \multicolumn{12}{c|}{}                                                             \\
-\hline
+                    & Cross-lingual   & jhu      &  2.6 &  \multicolumn{12}{c}{}                                                             \\
+\bottomrule
       \end{tabular}
 }
     \caption{Evaluation results across all scenarios and languages.}
