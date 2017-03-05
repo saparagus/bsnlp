@@ -460,36 +460,6 @@ understanding Slovak.  Annotations for Ukrainian were made partly by native spea
 partly by near-native speakers of Ukrainian.  Cross-lingual alignment of the entity
 identifiers was performed by two annotators.
 
-
-
-Table~\ref{tab:datasets} provides more quantitative details about the annotated datasets.
-Table~\ref{tab:datasets-2} gives the breakdown of entity classes.  It is noteworthy that a
-high proportion of the annotated mentions have a base form that differs from the form
-appearing in text.  For instance, for the {\sc Trump} dataset this figure is between 37.5\%
-(Slovak) and 57.5\% (Croatian). Table~\ref{tab:inflected} provides examples of genitive forms 
-of the name ``\textit{European Commission}'' that occurred in the {\sc ECommission} corpus frequently.
-
-While normalization of the inflected forms in Table~\ref{tab:inflected} could be achieved
-by lemmatization of each of the constituents of the noun phrase separately and then concatenating
-the corresponding base forms together, many entity mentions in the test dataset are complex noun phrases, 
-whose lemmatization requires detection of inner syntactic structure. For instance, the inflected form 
-of the Polish proper name \textit{Europejskiego Funduszu Rozwoju Regionalnego} 
-(\emph{European\textsubscript{GEN} Fund\textsubscript{GEN} Development\textsubscript{GEN} Regional\textsubscript{GEN}}) consists of two basic genitive 
-noun phrases, of which only the first one (``European Fund'') needs to be normalized, whereas the 
-second (``Regional Development'') should remain unchanged. The corresponding base form
-is ``\textit{Europejski Fundusz Rozwoju Regionalnego}''. Since in some Slavic languages
-adjectives may precede or follow a noun in a noun phrase (like in the example above), 
-detection of inner syntactic structure of complex proper names is not trivial, and thus complicates
-the process of automated lemmatization.
-
-It is worth mentioning that, for the sake of compliance with the NER guidelines in~Section
-~\ref{sec:task}, documents that included hard-to-decide entity mention annotations were
-excluded from the test datasets for the present.  {A case in point is a document in Croatian
-  that contained the phrase ``\textit{Zagrebačka, Sisačko-Moslavačka i Karlovačka
-    županija}''---a contracted version of three named entities (``\textit{Zagrebačka
-    županija}'', ``\textit{Sisačko-Moslavačka županija}'', and ``\textit{Karlovačka
-    županija}'') expressed using a head noun with three coordinate modifiers.}
-
 \begin{table}
   \begin{center}
     \begin{footnotesize}
@@ -519,6 +489,36 @@ excluded from the test datasets for the present.  {A case in point is a document
     the number of documents and NE mention annotations, respectively.} 
   \label{tab:datasets}
 \end{table}
+
+
+Table~\ref{tab:datasets} provides more quantitative details about the annotated datasets.
+Table~\ref{tab:datasets-2} gives the breakdown of entity classes.  It is noteworthy that a
+high proportion of the annotated mentions have a base form that differs from the form
+appearing in text.  For instance, for the {\sc Trump} dataset this figure is between 37.5\%
+(Slovak) and 57.5\% (Croatian). Table~\ref{tab:inflected} provides examples of genitive forms 
+of the name ``\textit{European Commission}'' that occurred in the {\sc ECommission} corpus frequently.
+
+While normalization of the inflected forms in Table~\ref{tab:inflected} could be achieved
+by lemmatization of each of the constituents of the noun phrase separately and then concatenating
+the corresponding base forms together, many entity mentions in the test dataset are complex noun phrases, 
+whose lemmatization requires detection of inner syntactic structure. For instance, the inflected form 
+of the Polish proper name \textit{Europejskiego Funduszu Rozwoju Regionalnego} 
+(\emph{European\textsubscript{GEN} Fund\textsubscript{GEN} Development\textsubscript{GEN} Regional\textsubscript{GEN}}) consists of two basic genitive noun phrases, of which only the first one (``European Fund'') needs to be normalized, whereas the 
+second (``Regional Development'') should remain unchanged. The corresponding base form
+is ``\textit{Europejski Fundusz Rozwoju Regionalnego}''. Since in some Slavic languages
+adjectives may precede or follow a noun in a noun phrase (like in the example above), 
+detection of inner syntactic structure of complex proper names is not trivial~\cite{DBLP:conf/acl/Radziszewski13}, 
+and thus complicates the process of automated lemmatization. Complex person name declension 
+paradigms~\cite{journals/ir/PiskorskiWS09} add another level of complexity.
+
+It is worth mentioning that, for the sake of compliance with the NER guidelines in~Section
+~\ref{sec:task}, documents that included hard-to-decide entity mention annotations were
+excluded from the test datasets for the present.  {A case in point is a document in Croatian
+  that contained the phrase ``\textit{Zagrebačka, Sisačko-Moslavačka i Karlovačka
+    županija}''---a contracted version of three named entities (``\textit{Zagrebačka
+    županija}'', ``\textit{Sisačko-Moslavačka županija}'', and ``\textit{Karlovačka
+    županija}'') expressed using a head noun with three coordinate modifiers.}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{table}
