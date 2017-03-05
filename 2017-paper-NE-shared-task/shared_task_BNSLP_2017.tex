@@ -29,6 +29,7 @@
 \usepackage{color}
 \usepackage{multirow}
 \usepackage{graphicx}
+\usepackage{fixltx2e}
 
 %\usepackage{todonotes}%remove this when all todos are gone
 \usepackage{todonotes}
@@ -466,18 +467,18 @@ of the name ``\textit{European Commission}'' that occurred in the {\sc ECommissi
 While normalization of the inflected forms in Table~\ref{tab:inflected} could be achieved
 by lemmatization of each of the constituents of the noun phrase separately and then concatenating
 the corresponding base forms together, many entity mentions in the test dataset are complex noun phrases, 
-whose lemmatization requires detection of inner syntactical structure. For instance, the inflected form 
+whose lemmatization requires detection of inner syntactic structure. For instance, the inflected form 
 of the Polish proper name \textit{Europejskiego Funduszu Rozwoju Regionalnego} 
-($European_{GEN}$ $Fund_{GEN}$ $Development_{GEN}$ $Regional_{GEN}$) consists of two basic genitive 
+(\emph{European\textsubscript{GEN} Fund\textsubscript{GEN} Development\textsubscript{GEN} Regional\textsubscript{GEN}}) consists of two basic genitive 
 noun phrases, of which only the first one (``European Fund'') needs to be normalized, whereas the 
 second (``Regional Development'') should remain unchanged. The corresponding base form
 is ``\textit{Europejski Fundusz Rozwoju Regionalnego}''. Since in some Slavic languages
-adjectives may precede or follow a noun in a noun phrase (like in the example above) 
-detection of inner syntactical structure of complex proper names is not trivial, and thus complicates
+adjectives may precede or follow a noun in a noun phrase (like in the example above), 
+detection of inner syntactic structure of complex proper names is not trivial, and thus complicates
 the process of automated lemmatization.
 
 It is worth mentioning that, for the sake of compliance with the NER guidelines in~Section
-\ref{sec:task}, documents that included hard-to-decide entity mention annotations were
+~\ref{sec:task}, documents that included hard-to-decide entity mention annotations were
 excluded from the test datasets for the present.  {A case in point is a document in Croatian
   that contained the phrase ``\textit{Zagrebačka, Sisačko-Moslavačka i Karlovačka
     županija}''---a contracted version of three named entities (``\textit{Zagrebačka
@@ -541,9 +542,9 @@ excluded from the test datasets for the present.  {A case in point is a document
       % \begin{tabular}{|l|c|c|c|c|c|c|}
       \begin{tabular}{lcc}
         \toprule 
-        {\textbf{Language}} & {\textbf{Genitive}} & {\textbf{Nominative}}\\
+        {Language} & {Genitive} & {Nominative}\\
         \midrule
-				Croatian & Europsku komisiju & Europska komisija \\
+				Croatian & Europske komisije & Europska komisija \\
 				Czech & Komisji Europejskiej & Komisja Europejska \\
         Polish & Evropskou komisí & Evropská komise \\
         %Russian & Европейской комиссией & Европейская комиссия \\
@@ -829,7 +830,7 @@ Furthermore, cross-lingual co-reference seems to be a difficult task.
       % \begin{tabular}{|l|c|c|c|c|c|c|}
       \begin{tabular}{lccc}
         \toprule 
-        Metric & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+        Metric & Precision & Recall & F1 \\
         \midrule
 	\textsc{Per} & 74.8 & 65.9 & 69.8 \\
 	\textsc{Loc} & 73.0 & 75.4 & 74.2 \\
@@ -849,7 +850,7 @@ Furthermore, cross-lingual co-reference seems to be a difficult task.
       % \begin{tabular}{|l|c|c|c|c|c|c|}
       \begin{tabular}{lccc}
         \toprule 
-        Metric & \textbf{Precision} & \textbf{Recall} & \textbf{F1} \\
+        Metric & Precision & Recall & F1 \\
         \midrule
 	\textsc{Per} & 68.2 & 59.4 & 62.9 \\
 	\textsc{Loc} & 73.1 & 57.8 & 64.5 \\
