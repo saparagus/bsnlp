@@ -31,6 +31,11 @@
 \usepackage{graphicx}
 \usepackage{fixltx2e}
 
+%\usepackage[T2A,OT1]{fontenc}
+\usepackage[russian,english]{babel}
+\newcommand\textcyr[1]{{\fontencoding{T2A}\selectfont #1}}
+
+
 %\usepackage{todonotes}%remove this when all todos are gone
 \usepackage{todonotes}
 
@@ -536,28 +541,61 @@ excluded from the test datasets for the present.  {A case in point is a document
   \label{tab:datasets-2}
 \end{table}
 
+
+\comment{
 \begin{table}
   \begin{center}
     \begin{footnotesize}
       % \begin{tabular}{|l|c|c|c|c|c|c|}
-      \begin{tabular}{lcc}
+      \begin{tabular}{lll}
         \toprule 
         {Language} & {Genitive} & {Nominative}\\
         \midrule
 				Croatian & Europske komisije & Europska komisija \\
 				Czech & Komisji Europejskiej & Komisja Europejska \\
         Polish & Evropskou komisí & Evropská komise \\
-        %Russian & Европейской комиссией & Европейская комиссия \\
+        Russian & \textcyr{Европейской комиссией} & \textcyr{Европейская комиссия} \\
         Slovene & Evropske komisije & Evropska komisija \\
         Slovak & Európskej komisie & Európska komisia \\
-        %Ukrainian & Європейської Комісії & Європейська Комісія \\
+        Ukrainian & \textcyr{Європейської Комісії} & \textcyr{Європейська Комісія} \\
         \bottomrule
       \end{tabular}
     \end{footnotesize}
   \end{center}
-  \caption{Inflected (genitive) forms of the name ``\textit{European Commission}'' that occurred in the test dataset.} 
+  \caption{Inflected (genitive) forms of the name ``\textit{European
+      Commission}'' found in test data.} 
   \label{tab:inflected}
 \end{table}
+}
+
+
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+\resizebox{1.02\linewidth}{!}{
+      \begin{tabular}{lll}
+        \toprule 
+        \comment{Lan} & {Genitive} & {Nominative (``base'')}\\
+        \midrule
+        hr & Europske komisije & Europska komisija \\
+        cz & Komisji Europejskiej & Komisja Europejska \\
+        pl & Evropskou komisí & Evropská komise \\
+        ru & \textcyr{Европейской комиссией} & \textcyr{Европейская комиссия} \\
+        sl & Evropske komisije & Evropska komisija \\
+        sk & Európskej komisie & Európska komisia \\
+        ua & \textcyr{Європейської Комісії} & \textcyr{Європейська Комісія} \\
+        \bottomrule
+      \end{tabular}
+}
+    \end{footnotesize}
+  \end{center}
+  \caption{Inflected (genitive) forms of the name ``\textit{European
+      Commission}'' found in test data.} 
+  \label{tab:inflected}
+\end{table}
+
+
 
 
 
