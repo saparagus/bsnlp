@@ -1,0 +1,99 @@
+\documentclass{beamer}
+
+\newcommand{\lang}{\stackrel{\rightarrow}{\mathcal{L}}}
+
+%\usepackage{multimedia}
+
+%\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{epic}
+\usepackage{eepic}
+\usepackage{epsf}
+\usepackage{boxedminipage}
+\usepackage[polish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{times}
+
+%\usepackage{accents}
+%\usepackage{hyperref}
+
+%\usepackage{polski}
+
+\setbeamertemplate{background canvas}[vertical shading][]
+
+%\setbeamertemplate{itemize item}[ball]
+\usetheme{Warsaw}
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\paperheight]{FrontexTemplate.jpg}}
+\usefonttheme[onlysmall]{structurebold}
+\usecolortheme[named=blue]{structure}
+
+
+\definecolor{darkblue}{RGB}{0,51,153}
+\definecolor{darkgreen}{RGB}{0,102,0}
+\definecolor{darkred}{RGB}{204,0,0}
+  
+
+\setbeamertemplate{frametitle}
+{
+\vspace{0.3cm}\hspace{-0.5cm}
+\color{darkblue}
+\textbf{\insertframetitle}
+\par
+}
+
+\setbeamertemplate{navigation symbols}{}
+
+\definecolor{gold}{rgb}{0.85,.66,0}
+
+\bibliographystyle{alpha}
+
+
+
+\title[Cross-lingual NER Challenge]{\textbf{The First Cross-Lingual Challenge on Recognition, Normalization,
+and Matching of Named Entities in Slavic Languages}}
+\author[J. Piskorski et. al]{Jakub Piskorski, Lidia Pivovarova, Jan Šnajder, Josef Steinberger, Roman Yangarber\\}   
+\institute{{Put logos here}
+}
+
+%\titlegraphic{\includegraphics[scale=0.5]{ipipan-logo.png}}
+
+
+\date{{\color{white} 4 April 2017, Valencia, Spain}}
+
+
+\begin{document}
+
+\maketitle
+
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\paperheight]{AutomatedEventExtraction_firstPage.jpg}}
+%\begin{frame}[plain]
+%
+%\end{frame}
+
+%\usebackgroundtemplate{\includegraphics[width=\paperwidth, height=\paperheight]{FrontexBlue.jpg}}
+
+%****************
+% SLIDE 
+%****************
+
+\begin{frame}
+ \frametitle{Outline}
+
+\begin{itemize}
+\item Motivation
+\item Tasks
+\item Trial and Test Datasets
+\item Baseline System: LexiFlexi
+\item Evaluation Methodology
+\item Evaluation Results
+\item Way Forward
+\end{itemize}
+
+%\sound[sound[encoding=Signed]{HERE}{test-sound.aiff}
+
+
+\end{frame}
+
+
+
+\end{document}
