@@ -8,6 +8,7 @@
 \usepackage{epic}
 \usepackage{eepic}
 \usepackage{epsf}
+\usepackage{times}
 \usepackage{boxedminipage}
 %\usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
@@ -19,12 +20,17 @@
 \usepackage{multirow}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{fixltx2e}
 
+\usepackage[russian,english]{babel}
+\newcommand\textcyr[1]{{\fontencoding{T2A}\selectfont #1}}
 
 %\usepackage{accents}
 %\usepackage{hyperref}
 
 %\usepackage{polski}
+
+\newcommand{\comment}[1]{}
 
 \setbeamertemplate{background canvas}[vertical shading][]
 
@@ -108,6 +114,76 @@ and Matching of Named Entities in Slavic Languages}}
 \begin{frame}
  \frametitle{Tasks}
 
+\begin{itemize}
+
+\item \textbf{Named Entity Mention Detection and Classification}
+
+\begin{itemize}
+
+\item \textbf{ORG} (ex. {\color{blue}\textit{Citi Handlowy w Poznaniu}} - PL)
+
+\vspace{0.2cm}
+
+\item \textbf{PER} (ex. {\color{blue}\textit{Władimir Putin}} - PL, {\color{blue}\textit{Ukrajinci}} - SI)
+
+\vspace{0.2cm}
+
+\item \textbf{LOC} toponyms, GPEs, facilities, (ex. {\color{blue}\textit{Rusko}} - CS, {\color{blue}\textit{Európska únia}} - SK, {\color{blue}\textit{Zagrebački Glavni kolodvor}} - HR)
+
+\vspace{0.2cm}
+
+\item \textbf{MISC} (ex. {\color{blue}\textit{Motorola Moto X}}, {\color{blue}\textit{Święta Bożego Narodzenia}} - PL)
+
+\vspace{0.2cm}
+
+\item no extraction of positional information
+
+\vspace{0.2cm}
+
+\item recognition of timex, numex and identifiers and nested NEs \textbf{not part of the task}
+
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Tasks}
+
+\begin{itemize}
+
+\item \textbf{Name Normalization}
+
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+\resizebox{1.02\linewidth}{!}{
+      \begin{tabular}{lll}
+        \toprule 
+        \comment{Lan} & {Genitive} & {Nominative (``base'')}\\
+        \midrule
+        hr & {\color{blue}Europske komisije} & {\color{blue}Europska komisija} \\
+        cz & {\color{blue}Komisji Europejskiej} & {\color{blue}Komisja Europejska} \\
+        pl & {\color{blue}Evropskou komisí} & {\color{blue}Evropská komise} \\
+       ru & {\color{blue}\textcyr{Европейской комиссией}} & {\color{blue}\textcyr{Европейская комиссия}} \\
+        sl & {\color{blue}Evropske komisije} & {\color{blue}Evropska komisija} \\
+        sk & {\color{blue}Európskej komisie} & {\color{blue}Európska komisia} \\
+        ua & {\color{blue}\textcyr{Європейської Комісії}} & {\color{blue}\textcyr{Європейська Комісія}} \\
+        \bottomrule
+      \end{tabular}
+}
+    \end{footnotesize}
+  \end{center}
+\end{table}
+
+\item \textbf{Entity Matching}
+
+
+
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}[fragile]
@@ -119,10 +195,10 @@ and Matching of Named Entities in Slavic Languages}}
 
 \begin{itemize}
 
-\item a dataset of 187 docs related to {\color{red}Beata Szydło}, the
+\item a dataset of \textbf{187 docs} related to {\color{red}Beata Szydło}, the
 current prime minister of Poland, 
 
-\item a dataset of 186 docs related to {\color{red}ISIS}
+\item a dataset of \textbf{186 docs} related to {\color{red}ISIS}
 
 \end{itemize}
 
@@ -130,11 +206,13 @@ current prime minister of Poland,
 
 \begin{itemize}
 
-\item a dataset of 177 docs related to {\color{red}Donald Trump}, 
+\item a dataset of \textbf{177 docs} related to {\color{red}Donald Trump}, 
 
-\item a dataset of 203 docs related to {\color{red}European Commission}
+\item a dataset of \textbf{203 docs} related to {\color{red}European Commission}
 
 \end{itemize}
+
+\item Languages: Czech, Croatian, Polish, Slovak, Slovenian, Russian and Ukrainian
 
 \end{itemize}
 
@@ -221,14 +299,56 @@ Inflected forms: in {\sc Trump} dataset min {\color{red}37.5\%} (Slovak) and max
 
 \end{frame}
 
+\begin{frame}[fragile]
+ \frametitle{Baseline system: Lexi Flexi}
 
-\begin{frame}
- \frametitle{Baseline system: LexiFlexi}
+\textbf{Basic idea:} exploit existing lexico-semantic resources publicly available
+
+\begin{enumerate}
+
+\item match names from {\color{red}JRC-Names} database (4,05 mln entries) + exploit the cross-lingual entity IDs,
+
+\item match names from a collection of \textbf{multi-word named entities} semi-automatically derrived from {\color{red}{\sc Babelnet}} (6,82 mln entries) in unconsumed text,
+
+\item match toponyms from the {\color{red}{\sc GeoNames}} gazetteer (1,36 mln) in unconsumed part of the texts + exploit cross-lingual IDs,
+
+\item apply language-independent heuristics to match variants of mentions of entities recognised in the previous steps
+
+\end{enumerate}
 
 \end{frame}
 
 \begin{frame}
+ \frametitle{Evaluation Methodology}
+
+\end{frame}
+
+
+\begin{frame}
+ \frametitle{Participant Systems}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Evaluation Results}
+
+\end{frame}
+
+
+\begin{frame}
  \frametitle{Way Forward}
+
+\begin{itemize}
+
+\item provision of additional test datasets (of similar nature)
+
+\item extend the set of the languages covered (inclusion of Baltic languages?)
+
+\item refining the NE annotation guidelines
+
+\item making the evaluation software publicly available
+
+\end{itemize}
 
 \end{frame}
 
