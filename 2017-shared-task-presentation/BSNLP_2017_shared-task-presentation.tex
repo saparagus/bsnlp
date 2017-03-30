@@ -9,10 +9,17 @@
 \usepackage{eepic}
 \usepackage{epsf}
 \usepackage{boxedminipage}
-\usepackage[polish]{babel}
+%\usepackage[polish]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{times}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
 
 %\usepackage{accents}
 %\usepackage{hyperref}
@@ -51,11 +58,11 @@
 
 \title[Cross-lingual NER Challenge]{\textbf{The First Cross-Lingual Challenge on Recognition, Normalization,
 and Matching of Named Entities in Slavic Languages}}
-\author[J. Piskorski et. al]{Jakub Piskorski, Lidia Pivovarova, Jan Šnajder, Josef Steinberger, Roman Yangarber\\}   
-\institute{{Put logos here}
-}
+\author[J. Piskorski et. al]{Jakub Piskorski, Lidia Pivovarova, Jan Šnajder,\\ Josef Steinberger, Roman Yangarber\\}   
+%\institute{{Put logos here}
+%}
 
-%\titlegraphic{\includegraphics[scale=0.5]{ipipan-logo.png}}
+\titlegraphic{\includegraphics[scale=0.3]{institution-logos.png}}
 
 
 \date{{\color{white} 4 April 2017, Valencia, Spain}}
@@ -91,9 +98,138 @@ and Matching of Named Entities in Slavic Languages}}
 
 %\sound[sound[encoding=Signed]{HERE}{test-sound.aiff}
 
+\end{frame}
+
+\begin{frame}
+ \frametitle{Motivation}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Tasks}
+
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Trial and Test Datasets}
+
+\begin{itemize}
+
+\item Trial Dataset: 
+
+\begin{itemize}
+
+\item a dataset of 187 docs related to {\color{red}Beata Szydło}, the
+current prime minister of Poland, 
+
+\item a dataset of 186 docs related to {\color{red}ISIS}
+
+\end{itemize}
+
+\item Test Datasets:
+
+\begin{itemize}
+
+\item a dataset of 177 docs related to {\color{red}Donald Trump}, 
+
+\item a dataset of 203 docs related to {\color{red}European Commission}
+
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Test Datasets}
+
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+      \begin{tabular}{lcccc}
+        \toprule 
+        & \multicolumn{2}{c}{\textbf{{\sc Trump}}} & \multicolumn{2}{c}{\textbf{{\sc ECommission}}} \\
+        \cmidrule(lr){2-3}
+        \cmidrule(lr){4-5}
+        Language &  \#\,docs & \#\,ment & \#\,docs & \#\,ment \\
+        \midrule
+        Croatian & 25 & 525 & 25 & 436 \\
+        Czech & 25 & 479  & 25 & 417 \\
+        Polish & 25 & 692  & 24 & 466 \\
+        Russian & 26 & 331  & 24 & 385 \\
+        Slovak  & 24 & 453  & 25 & 374 \\
+        Slovene & 24 & 474  & 26 & 434 \\
+        Ukrainian & 28 & 337  & 54 & 1078 \\
+        \midrule
+        Total & 177 & 3291  & 203 & 3588 \\
+
+        \bottomrule
+      \end{tabular}
+    \end{footnotesize}
+  \end{center}
+	\caption{Quantitative data about the test datasets.}
+\end{table}
+
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Test Datasets}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+      % \begin{tabular}{|l|c|c|c|c|c|c|}
+      \begin{tabular}{lcc}
+        \toprule 
+        Entity type & {\textbf{{\sc Trump}}} & {\textbf{{\sc ECommission}}} \\
+        \midrule
+	\textsc{Per} & 48.4\% & 11.9\% \\
+	\textsc{Loc} & 26.9\% & 29.1\% \\
+	\textsc{Org} & 18.3\% & 48.4\% \\
+	\textsc{Misc} & \phantom{0}6.4\% & \phantom{0}9.6\% \\
+        \bottomrule
+      \end{tabular}
+    \end{footnotesize}
+  \end{center}
+  \caption{Breakdown of the annotations according to the entity type.}
+\end{table}
+
+Inflected forms: in {\sc Trump} dataset min {\color{red}37.5\%} (Slovak) and max {\color{red}57.5\%} (Croatian)
+
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Test Datasets: Preparation}
+
+\begin{itemize}
+
+\item pose a search query to Google in each of the target languages
+
+\item extract max. 100 links and remove duplicates
+
+\item download documents, parse HTML and convert to pure text
+
+\item remove documents with obvious HTML parser failure
+
+\item select for each language/topic circa 25 documents for annotation (1 person per language)
+
+\item 2 persons aligned the cross-language IDs
+
+\end{itemize}
 
 \end{frame}
 
 
+\begin{frame}
+ \frametitle{Baseline system: LexiFlexi}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Way Forward}
+
+\end{frame}
 
 \end{document}
