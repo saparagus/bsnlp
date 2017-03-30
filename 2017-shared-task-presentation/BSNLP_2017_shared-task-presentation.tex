@@ -93,7 +93,7 @@ and Matching of Named Entities in Slavic Languages}}
  \frametitle{Outline}
 
 \begin{itemize}
-\item Motivation
+\item Introduction
 \item Tasks
 \item Trial and Test Datasets
 \item Baseline System: LexiFlexi
@@ -107,16 +107,41 @@ and Matching of Named Entities in Slavic Languages}}
 \end{frame}
 
 \begin{frame}
- \frametitle{Motivation}
+ \frametitle{Introduction}
+
+\begin{itemize}
+
+\item \textbf{Motivation} 
+
+\begin{itemize}
+
+\item foster research on NER, NE lemmatization and their cross-language matching for {\color{red}\textbf{Slavic languages}}
+
+\vspace{0.2cm}
+
+\item foster development of \textbf{“all-rounder”} NER and cross-lingual entity matching solutions not tailored 
+to specific, narrow domains
+
+\end{itemize}
+
+\item \textbf{Task} 
+
+\begin{itemize}
+
+\item {\color{red}Input:} collection of web documents in seven Slavic languages revolving around a certain “focus” entity
+
+\vspace{0.2cm}
+
+\item {\color{red}Output:} extract mentions of general-type NEs, compute their base forms and assign them cross-language IDs
+
+\end{itemize}
+
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}
- \frametitle{Tasks}
-
-\begin{itemize}
-
-\item \textbf{Named Entity Mention Detection and Classification}
+ \frametitle{Tasks: NE Mention Detection and Classification}
 
 \begin{itemize}
 
@@ -132,7 +157,7 @@ and Matching of Named Entities in Slavic Languages}}
 
 \vspace{0.2cm}
 
-\item \textbf{MISC} (ex. {\color{blue}\textit{Motorola Moto X}}, {\color{blue}\textit{Święta Bożego Narodzenia}} - PL)
+\item \textbf{MISC} (ex. {\color{blue}\textit{Motorola Moto X}} - PL, {\color{blue}\textit{Święta Bożego Narodzenia}} - PL)
 
 \vspace{0.2cm}
 
@@ -144,45 +169,59 @@ and Matching of Named Entities in Slavic Languages}}
 
 \end{itemize}
 
-\end{itemize}
-
 \end{frame}
 
 \begin{frame}[fragile]
- \frametitle{Tasks}
-
-\begin{itemize}
-
-\item \textbf{Name Normalization}
+ \frametitle{Tasks: Name Normalization}
 
 \begin{table}
   \begin{center}
-    \begin{footnotesize}
-      % \begin{tabular}{|l|c|c|c|c|c|c|}
-\resizebox{1.02\linewidth}{!}{
+    \begin{footnotesize}      
+%\resizebox{1.02\linewidth}{!}{
       \begin{tabular}{lll}
         \toprule 
         \comment{Lan} & {Genitive} & {Nominative (``base'')}\\
         \midrule
-        hr & {\color{blue}Europske komisije} & {\color{blue}Europska komisija} \\
-        cz & {\color{blue}Komisji Europejskiej} & {\color{blue}Komisja Europejska} \\
-        pl & {\color{blue}Evropskou komisí} & {\color{blue}Evropská komise} \\
-       ru & {\color{blue}\textcyr{Европейской комиссией}} & {\color{blue}\textcyr{Европейская комиссия}} \\
-        sl & {\color{blue}Evropske komisije} & {\color{blue}Evropska komisija} \\
-        sk & {\color{blue}Európskej komisie} & {\color{blue}Európska komisia} \\
-        ua & {\color{blue}\textcyr{Європейської Комісії}} & {\color{blue}\textcyr{Європейська Комісія}} \\
+        hr & {\color{blue}\textit{Europske komisije}} & {\color{blue}\textit{Europska komisija}} \\
+        cz & {\color{blue}\textit{Komisji Europejskiej}} & {\color{blue}\textit{Komisja Europejska}} \\
+        pl & {\color{blue}\textit{Evropskou komisí}} & {\color{blue}\textit{Evropská komise}} \\
+       ru & {\color{blue}\textit{\textcyr{Европейской комиссией}}} & {\color{blue}\textit{\textcyr{Европейская комиссия}}} \\
+        sl & {\color{blue}\textit{Evropske komisije}} & {\color{blue}\textit{Evropska komisija}} \\
+        sk & {\color{blue}\textit{Európskej komisie}} & {\color{blue}\textit{Európska komisia}} \\
+        ua & {\color{blue}\textit{\textcyr{Європейської Комісії}}} & {\color{blue}\textit{\textcyr{Європейська Комісія}}} \\
         \bottomrule
       \end{tabular}
-}
+%}
     \end{footnotesize}
   \end{center}
 \end{table}
 
-\item \textbf{Entity Matching}
+\end{frame}
 
+\begin{frame}[fragile]
+ \frametitle{Tasks: Entity Matching}
 
-
-\end{itemize}
+\begin{table}
+  \begin{center}
+    \begin{footnotesize}
+%\resizebox{1.02\linewidth}{!}{
+      \begin{tabular}{lll}
+        \toprule 
+        \comment{Lan} & Mention & ID \\
+        \midrule        
+        pl & {\color{blue}\textit{Komisja Europejska}} & 1 \\
+				pl & {\color{blue}\textit{Komisją Europejską}} & 1 \\
+				pl & {\color{blue}\textit{KE}} & 1 \\
+				pl & {\color{blue}\textit{Kom Europ}} & 1 \\
+        ru & {\color{blue}\textit{\textcyr{Европейской комиссией}}} & 1 \\
+        sl & {\color{blue}\textit{Evropske komisije}} & 1\\        
+				sl & {\color{blue}\textit{EK}} & 1\\        
+        \bottomrule
+      \end{tabular}
+%}
+    \end{footnotesize}
+  \end{center}
+\end{table}
 
 \end{frame}
 
@@ -191,26 +230,30 @@ and Matching of Named Entities in Slavic Languages}}
 
 \begin{itemize}
 
-\item Trial Dataset: 
+\item Trial Datasets: 
 
 \begin{itemize}
 
-\item a dataset of \textbf{187 docs} related to {\color{red}Beata Szydło}, the
+\item \textbf{187 docs} related to {\color{red}Beata Szydło}, the
 current prime minister of Poland, 
 
-\item a dataset of \textbf{186 docs} related to {\color{red}ISIS}
+\item \textbf{186 docs} related to {\color{red}ISIS}
 
 \end{itemize}
+
+\vspace{0.2cm}
 
 \item Test Datasets:
 
 \begin{itemize}
 
-\item a dataset of \textbf{177 docs} related to {\color{red}Donald Trump}, 
+\item \textbf{177 docs} related to {\color{red}Donald Trump}, 
 
-\item a dataset of \textbf{203 docs} related to {\color{red}European Commission}
+\item \textbf{203 docs} related to {\color{red}European Commission}
 
 \end{itemize}
+
+\vspace{0.2cm}
 
 \item Languages: Czech, Croatian, Polish, Slovak, Slovenian, Russian and Ukrainian
 
@@ -285,13 +328,23 @@ Inflected forms: in {\sc Trump} dataset min {\color{red}37.5\%} (Slovak) and max
 
 \item pose a search query to Google in each of the target languages
 
+\vspace{0.2cm}
+
 \item extract max. 100 links and remove duplicates
+
+\vspace{0.2cm}
 
 \item download documents, parse HTML and convert to pure text
 
+\vspace{0.2cm}
+
 \item remove documents with obvious HTML parser failure
 
+\vspace{0.2cm}
+
 \item select for each language/topic circa 25 documents for annotation (1 person per language)
+
+\vspace{0.2cm}
 
 \item 2 persons aligned the cross-language IDs
 
@@ -302,15 +355,21 @@ Inflected forms: in {\sc Trump} dataset min {\color{red}37.5\%} (Slovak) and max
 \begin{frame}[fragile]
  \frametitle{Baseline system: Lexi Flexi}
 
-\textbf{Basic idea:} exploit existing lexico-semantic resources publicly available
+\textbf{Basic idea:} exploit existing lexico-semantic resources available
 
 \begin{enumerate}
 
 \item match names from {\color{red}JRC-Names} database (4,05 mln entries) + exploit the cross-lingual entity IDs,
 
+\vspace{0.2cm}
+
 \item match names from a collection of \textbf{multi-word named entities} semi-automatically derrived from {\color{red}{\sc Babelnet}} (6,82 mln entries) in unconsumed text,
 
+\vspace{0.2cm}
+
 \item match toponyms from the {\color{red}{\sc GeoNames}} gazetteer (1,36 mln) in unconsumed part of the texts + exploit cross-lingual IDs,
+
+\vspace{0.2cm}
 
 \item apply language-independent heuristics to match variants of mentions of entities recognised in the previous steps
 
@@ -342,9 +401,15 @@ Inflected forms: in {\sc Trump} dataset min {\color{red}37.5\%} (Slovak) and max
 
 \item provision of additional test datasets (of similar nature)
 
+\vspace{0.2cm}
+
 \item extend the set of the languages covered (inclusion of Baltic languages?)
 
+\vspace{0.2cm}
+
 \item refining the NE annotation guidelines
+
+\vspace{0.2cm}
 
 \item making the evaluation software publicly available
 
