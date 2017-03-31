@@ -380,16 +380,163 @@ Inflected forms: in {\sc Trump} dataset min {\color{red}37.5\%} (Slovak) and max
 \begin{frame}
  \frametitle{Evaluation Methodology}
 
+Three aspects evaluated:
+
+\begin{enumerate}
+
+\item entity recognition
+
+\begin{itemize}
+\item relaxed evaluation, partial match
+\item relaxed evaluation, exact match
+\item strict evaluation
+\end{itemize}
+
+\item entity normalization
+
+\begin{itemize}
+\item considers only normalized mentions
+\end{itemize}
+
+\item entity matching
+
+\begin{itemize}
+\item the LEA metric (Link-based Entity Aware evaluation)
+\item per article / language / across languages
+\end{itemize}
+
+\end{enumerate}
+
+\begin{itemize}
+
+\item per NE type / language / topic
+\item P/R/F figures
+
+\end{itemize}
+
 \end{frame}
 
+\begin{frame}
+ \frametitle{LEA for Named Entity Matching}
+
+\textit{Moosavi, Nafise Sadat  and  Strube, Michael: Which Coreference Evaluation Metric Do You Trust? A Proposal for a Link-based Entity Aware Metric. ACL 2016.}
+
+\begin{itemize}
+\item entity matching is part of coreference resolution
+
+\begin{itemize}
+\item alternative measures: $B^3$, CEAF, and BLANC
+\end{itemize}
+
+\end{itemize}
+
+\begin{equation*}
+	\mathit{\mathit{Recall}_{LEA}} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
+              {\sum_{k_{z} \in K} imp(k_{z})}
+\end{equation*}
+
+\begin{equation*}
+	\mathit{\mathit{Precision}_{LEA}} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
+              {\sum_{r_{z} \in R} imp(r_{z})}
+\end{equation*}
+
+\end{frame}
 
 \begin{frame}
  \frametitle{Participant Systems}
+
+\textbf{JHU}
+\begin{itemize}
+\item all languages, NER and Entity Matching subtasks
+\item statistical tagger SVMLattice, 
+\item NER labels inferred by projecting English tags across bitext,
+\item the Illinois tagger for English
+\item a rule-based entity clusterer kripke for Entity Matching
+\end{itemize}
+
+\textbf{Liner2}
+\begin{itemize}
+\item Polish only, all subtasks
+\item a generic framework for resolving tasks based on sequence labeling
+\end{itemize}
 
 \end{frame}
 
 \begin{frame}
  \frametitle{Evaluation Results}
+
+\begin{table}[t]
+\small 
+  \centering
+  \setlength\tabcolsep{5pt}
+  %\caption{Global caption}
+  \begin{minipage}{\linewidth}
+    \centering
+    %\tablewidth=\textwidth
+\scalebox{0.5}{
+	\begin{tabular}{@{} l  l  l r l r l r l r l r  l r l r@{}}
+
+\toprule
+{\sc Trump}      &      & \multicolumn{14}{c}{\em Language}                                                                    \\
+\cmidrule(lr){3-16}
+{\it Phase}               & {\it Metric}          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
+\midrule
+\multirow{6}{*}
+{Recognition}       & Relaxed Partial & jhu      & 46.2 & jhu  & 52.4 & pw   & 66.6 & jhu  & 46.3 & jhu  & 46.8 & jhu  & 47.3 & jhu  & 38.8   \\
+                    &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
+\cmidrule{2-16}
+                    & Relaxed Exact   & jhu      & 46.1 & jhu  & 50.8 & pw   & 66.1 & jhu  & 43.1 & jhu  & 46.2 & jhu  & 46.0 & jhu  & 37.3   \\
+                    &                 &          &      &      &      & jhu  & 43.4 &      &      &      &      &      &      &      &        \\
+\cmidrule{2-16}
+                    & Strict          & jhu      & 46.1 & jhu  & 50.4 & pw   & 66.6 & jhu  & 41.8 & jhu  & 47.0 & jhu  & 46.2 & jhu  & 33.2   \\
+                    &                 &          &      &      &      & jhu  & 41.0 &      &      &      &      &      &      &      &        \\
+\midrule
+Normalization       &                 &          &      &      &      & pw   & 60.5 &      &      &      &      &      &      &      &        \\
+\midrule
+\multirow{5}{*}
+{Entity matching}       & Document-level  & jhu      &  5.4 & jhu  &  7.3 & jhu  &  6.3 & jhu  & 11.2 & jhu  & 10.1 & jhu  &  9.5 & jhu  &  0.0   \\
+                        &                 &          &      &      &      & pw  &  10.8 &      &      &      &      &      &    &    &     \\
+\cmidrule{2-16}
+                    & Single-language & jhu      & 19.3 & jhu  & 17.6 & jhu  & 18.2 & jhu  & 18.9 & jhu  & 22.6 & jhu  & 28.7 & jhu  & 10.7   \\
+                    &                 &          &      &      &      & pw   &  4.9 &      &      &      &      &      &      &     &     \\
+
+										
+\cmidrule{2-16}
+                    & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c}{}                                                             \\
+\toprule
+{\sc ECommission}      &        & \multicolumn{14}{c}{\em Language}                                                                    \\
+\cmidrule(lr){3-16}
+{\it Phase}               & {\it Metric}          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
+\midrule
+\multirow{6}{*}
+{Recognition}       & Relaxed Partial & jhu      & 47.6 & jhu  & 45.9 & pw   & 61.8 & jhu  & 46.0 & jhu  & 49.1 & jhu  & 47.9 & jhu  & 18.4   \\
+                    &                 &          &      &      &      & jhu  & 47.3 &      &      &      &      &      &      &      &        \\
+\cmidrule{2-16}
+                    & Relaxed Exact   & jhu      & 44.4 & jhu  & 43.1 & pw   & 60.9 & jhu  & 44.1 & jhu  & 46.4 & jhu  & 43.9 & jhu  & 14.7   \\
+                    &                 &          &      &      &      & jhu  & 42.4 &      &      &      &      &      &      &      &        \\
+\cmidrule{2-16}
+                    & Strict          & jhu      & 47.2 & jhu  & 46.2 & pw   & 61.1 & jhu  & 46.5 & jhu  & 46.1 & jhu  & 47.8 & jhu  & 10.8   \\
+                    &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
+\midrule
+Normalization       &                 &          &      &      &      & pw   & 48.3 &      &      &      &      &      &      &      &        \\
+\midrule
+\multirow{6}{*}
+{Entity Matching}       & Document-level  & jhu      & 25.0 & jhu  & 16.0 & jhu  & 13.7 & jhu  & 13.7 & jhu  & 13.1 & jhu  & 36.8 & jhu  &  0.6   \\
+                        &                 &          &      &      &      & pw   &  13.4    &      &      &      &      &      &   &   &     \\
+\cmidrule{2-16}
+                    & Single-language & jhu      & 27.3 & jhu  & 22.1 & jhu  & 17.5 & jhu  & 24.9 & jhu  & 30.6 & jhu  & 32.2 & jhu  &  4.8   \\
+                        &                 &          &      &      &      & pw   &  4.6    &      &      &      &      &      &   &   &     \\										
+\cmidrule{2-16}
+                    & Cross-lingual   & jhu      &  2.6 &  \multicolumn{12}{c}{}                                                             \\
+\bottomrule
+      \end{tabular}
+}
+    \caption{Evaluation results across all scenarios and languages.}
+    \label{tab:eval-results}
+
+  \end{minipage}%
+%  \hfill
+\end{table}
 
 \end{frame}
 
