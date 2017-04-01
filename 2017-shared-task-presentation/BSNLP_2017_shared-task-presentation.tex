@@ -421,15 +421,6 @@ Three aspects evaluated:
 
 \textit{Moosavi, Nafise Sadat  and  Strube, Michael: Which Coreference Evaluation Metric Do You Trust? A Proposal for a Link-based Entity Aware Metric. ACL 2016.}
 
-\begin{itemize}
-\item entity matching is part of coreference resolution
-
-\begin{itemize}
-\item alternative measures: $B^3$, CEAF, and BLANC
-\end{itemize}
-
-\end{itemize}
-
 \begin{equation*}
 	\mathit{\mathit{Recall}_{LEA}} = \frac{\sum_{k_{i} \in K} (\mathit{imp}(k_i) \times \mathit{res}(k_{i}))}
               {\sum_{k_{z} \in K} imp(k_{z})}
@@ -439,6 +430,10 @@ Three aspects evaluated:
 	\mathit{\mathit{Precision}_{LEA}} = \frac{\sum_{r_{i} \in R} (\mathit{imp}(r_i) \times \mathit{res}(r_{i}))}
               {\sum_{r_{z} \in R} imp(r_{z})}
 \end{equation*}
+
+\begin{itemize}
+\item alternative measures in coreference resolution: $B^3$, CEAF, and BLANC
+\end{itemize}
 
 \end{frame}
 
@@ -454,9 +449,9 @@ Three aspects evaluated:
 \item a rule-based entity clusterer kripke for Entity Matching
 \end{itemize}
 
-\textbf{Liner2}
+\textbf{Liner2} (pw)
 \begin{itemize}
-\item Polish only, all subtasks
+\item Polish only, NER and normalization subtasks
 \item a generic framework for resolving tasks based on sequence labeling
 \end{itemize}
 
@@ -473,65 +468,99 @@ Three aspects evaluated:
   \begin{minipage}{\linewidth}
     \centering
     %\tablewidth=\textwidth
-\scalebox{0.5}{
+\scalebox{0.6}{
 	\begin{tabular}{@{} l  l  l r l r l r l r l r  l r l r@{}}
 
 \toprule
 {\sc Trump}      &      & \multicolumn{14}{c}{\em Language}                                                                    \\
 \cmidrule(lr){3-16}
-{\it Phase}               & {\it Metric}          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
+{\it Phase}               & {\it Metric}          & {\bf cs}       &      & {\bf hr}   &      & {\bf pl}   &      & {\bf ru}   &      & {\bf sk}   &      & {\bf sl}   &      & {\bf ua}   &        \\
 \midrule
 \multirow{6}{*}
-{Recognition}       & Relaxed Partial & jhu      & 46.2 & jhu  & 52.4 & pw   & 66.6 & jhu  & 46.3 & jhu  & 46.8 & jhu  & 47.3 & jhu  & 38.8   \\
+{{\bf Recognition}}       & {\bf Relaxed Partial} & lf       & 47.6 & jhu  & 52.4 & pw   & {\color{blue} 66.7} & lf   & {\color{blue} 63.6} & jhu  & 46.8 & jhu  & 47.3 & lf   & 54.0   \\
+                    &                 & jhu      & 46.2 & lf   & 37.0 & lf   & 51.0 & jhu  & 46.3 & lf   & 46.8 & lf   & 46.3 & jhu  & 38.8   \\
                     &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
 \cmidrule{2-16}
-                    & Relaxed Exact   & jhu      & 46.1 & jhu  & 50.8 & pw   & 66.1 & jhu  & 43.1 & jhu  & 46.2 & jhu  & 46.0 & jhu  & 37.3   \\
+                    & {\bf Relaxed Exact}   & lf       & 46.6 & jhu  & 50.8 & pw   & {\color{blue} 66.1} & lf   & {\color{blue} 62.6} & jhu  & 46.2 & jhu  & 46.0 & lf   & 53.3   \\
+                    &                 & jhu      & 46.1 & lf   & 35.6 & lf   & 48.8 & jhu  & 43.1 & lf   & 45.2 & lf   & 44.2 & jhu  & 37.3   \\
                     &                 &          &      &      &      & jhu  & 43.4 &      &      &      &      &      &      &      &        \\
 \cmidrule{2-16}
-                    & Strict          & jhu      & 46.1 & jhu  & 50.4 & pw   & 66.6 & jhu  & 41.8 & jhu  & 47.0 & jhu  & 46.2 & jhu  & 33.2   \\
+                    & {\bf Strict}          & jhu      & 46.1 & jhu  & 50.4 & pw   & {\color{blue} 66.6} & lf   & 55.6 & jhu  & 47.0 & jhu  & 46.2 & lf   & 50.8   \\
+                    &                 & lf       & 42.2 & lf   & 37.4 & lf   & 48.0 & jhu  & 41.8 & lf   & 44.8 & lf   & 44.2 & jhu  & 33.2   \\
                     &                 &          &      &      &      & jhu  & 41.0 &      &      &      &      &      &      &      &        \\
 \midrule
-Normalization       &                 &          &      &      &      & pw   & 60.5 &      &      &      &      &      &      &      &        \\
+{\bf Normalization}       &                 &          &      &      &      & pw   & 60.5 &      &      &      &      &      &      &      &        \\
 \midrule
 \multirow{5}{*}
-{Entity matching}       & Document-level  & jhu      &  5.4 & jhu  &  7.3 & jhu  &  6.3 & jhu  & 11.2 & jhu  & 10.1 & jhu  &  9.5 & jhu  &  0.0   \\
-                        &                 &          &      &      &      & pw  &  10.8 &      &      &      &      &      &    &    &     \\
+{{\bf Entity matching}}       & {\bf Document-level}  & lf  &  {\color{red} 16.0} & lf   & 31.0 & lf  & 30.0 & lf  & 25.8 & lf  & 26.4 &  lf & 30.1 & lf  & 35.1   \\
+                        &                 & jhu &  5.4  & jhu  &  7.3 & jhu  & 6.3 & jhu & 11.2 & jhu & 10.1 & jhu & 9.5  & jhu & 0.6    \\
 \cmidrule{2-16}
-                    & Single-language & jhu      & 19.3 & jhu  & 17.6 & jhu  & 18.2 & jhu  & 18.9 & jhu  & 22.6 & jhu  & 28.7 & jhu  & 10.7   \\
-                    &                 &          &      &      &      & pw   &  4.9 &      &      &      &      &      &      &     &     \\
+                    & {\bf Single-language} & jhu & 19.3 & lf  & 17.8 & lf  & 24.0 & lf   & {\color{blue} 41.7} & jhu  & 22.6 & lf   & 29.4 & lf  & 30.2   \\
+                    &                 & lf  & 19.0 & jhu & 17.6 & jhu & 18.2 & jhu  & 18.9 & lf   & 21.4 & jhu  & 28.7 & jhu & 10.7    \\
 
 										
 \cmidrule{2-16}
-                    & Cross-lingual   & jhu      &  9.0 &  \multicolumn{12}{c}{}                                                             \\
-\toprule
-{\sc ECommission}      &        & \multicolumn{14}{c}{\em Language}                                                                    \\
-\cmidrule(lr){3-16}
-{\it Phase}               & {\it Metric}          & cz       &      & hr   &      & pl   &      & ru   &      & sk   &      & sl   &      & ua   &        \\
-\midrule
-\multirow{6}{*}
-{Recognition}       & Relaxed Partial & jhu      & 47.6 & jhu  & 45.9 & pw   & 61.8 & jhu  & 46.0 & jhu  & 49.1 & jhu  & 47.9 & jhu  & 18.4   \\
-                    &                 &          &      &      &      & jhu  & 47.3 &      &      &      &      &      &      &      &        \\
-\cmidrule{2-16}
-                    & Relaxed Exact   & jhu      & 44.4 & jhu  & 43.1 & pw   & 60.9 & jhu  & 44.1 & jhu  & 46.4 & jhu  & 43.9 & jhu  & 14.7   \\
-                    &                 &          &      &      &      & jhu  & 42.4 &      &      &      &      &      &      &      &        \\
-\cmidrule{2-16}
-                    & Strict          & jhu      & 47.2 & jhu  & 46.2 & pw   & 61.1 & jhu  & 46.5 & jhu  & 46.1 & jhu  & 47.8 & jhu  & 10.8   \\
-                    &                 &          &      &      &      & jhu  & 44.8 &      &      &      &      &      &      &      &        \\
-\midrule
-Normalization       &                 &          &      &      &      & pw   & 48.3 &      &      &      &      &      &      &      &        \\
-\midrule
-\multirow{6}{*}
-{Entity Matching}       & Document-level  & jhu      & 25.0 & jhu  & 16.0 & jhu  & 13.7 & jhu  & 13.7 & jhu  & 13.1 & jhu  & 36.8 & jhu  &  0.6   \\
-                        &                 &          &      &      &      & pw   &  13.4    &      &      &      &      &      &   &   &     \\
-\cmidrule{2-16}
-                    & Single-language & jhu      & 27.3 & jhu  & 22.1 & jhu  & 17.5 & jhu  & 24.9 & jhu  & 30.6 & jhu  & 32.2 & jhu  &  4.8   \\
-                        &                 &          &      &      &      & pw   &  4.6    &      &      &      &      &      &   &   &     \\										
-\cmidrule{2-16}
-                    & Cross-lingual   & jhu      &  2.6 &  \multicolumn{12}{c}{}                                                             \\
+                    & {\bf Cross-lingual}   & lf       &  {\color{red} 14.3} &  \multicolumn{12}{c}{}                                                             \\
+                    &                 & jhu      &  13.7 &  \multicolumn{12}{c}{}                                                             \\
 \bottomrule
       \end{tabular}
 }
-    \caption{Evaluation results across all scenarios and languages.}
+    \caption{Evaluation results for the Trump corpus.}
+    \label{tab:eval-results}
+
+  \end{minipage}%
+%  \hfill
+\end{table}
+
+\end{frame}
+
+\begin{frame}
+ \frametitle{Evaluation Results}
+
+\begin{table}[t]
+\small 
+  \centering
+  \setlength\tabcolsep{5pt}
+  %\caption{Global caption}
+  \begin{minipage}{\linewidth}
+    \centering
+    %\tablewidth=\textwidth
+\scalebox{0.6}{
+	\begin{tabular}{@{} l  l  l r l r l r l r l r  l r l r@{}}
+
+\toprule
+{\sc ECommission}      &        & \multicolumn{14}{c}{\em Language}                                                                    \\
+\cmidrule(lr){3-16}
+{\it Phase}               & {\it Metric}          & {\bf cs}       &      & {\bf hr}   &      & {\bf pl}   &      & {\bf ru}   &      & {\bf sk}   &      & {\bf sl}   &      & {\bf ua}   &        \\
+\midrule
+\multirow{6}{*} 
+{{\bf Recognition}}       & {\bf Relaxed Partial} & lf       & 51.0 & jhu  & 45.9 & pw   & {\color{blue} 61.8} & lf   & {\color{blue} 62.8} & lf   & 50.3 & jhu  & 47.9 & lf   & {\color{red} 28.4}   \\
+                    &                 & jhu      & 47.6 & lf   & 37.8 & jhu  & 47.3 & jhu  & 46.0 & jhu  & 49.1 & lf  & 43.8 & jhu  & 18.4   \\
+                    &                 &          &      &      &      & lf   & 42.8 &      &      &      &      &      &      &      &        \\
+\cmidrule{2-16}
+                    & {\bf Relaxed Exact}   & lf       & 50.0 & jhu  & 43.1 & pw   & {\color{blue} 60.9} & lf   & {\color{blue} 60.7} & lf   & 49.3 & jhu  & 43.9 & lf   & {\color{red} 28.4}   \\
+                    &                 & jhu      & 44.4 & lf   & 37.2 & jhu  & 42.4 & jhu  & 44.1 & jhu  & 46.4 & lf   & 39.3 & jhu  & 14.7   \\
+                    &                 &          &      &      &      & lf   & 41.5 &      &      &      &      &      &      &      &        \\
+\cmidrule{2-16}
+                    & {\bf Strict}    & jhu      & 47.2 & jhu  & 46.2 & pw   & {\color{blue} 61.1} & lf   & 53.7 & jhu  & 46.1 & jhu  & 47.8 & lf  & {\color{red} 20.8}   \\
+                    &                 & lf       & 41.2 & hr   & 30.0 & jhu  & 44.8 & jhu  & 46.5 & lf   & 42.5 & lf   & 37.5 & jhu  & 10.8   \\
+                    &                 &          &      &      &      & lf   & 34.6 &      &      &      &      &      &      &      &        \\
+\midrule
+{\bf Normalization}       &                 &          &      &      &      & pw   & 48.3 &      &      &      &      &      &      &      &        \\
+\midrule
+\multirow{6}{*}
+{{\bf Entity Matching}}       & {\bf Document-level}  & lf  & 25.0 & jhu  & 16.0 & jhu  & 13.7 & lf  & 22.7 & jhu  & 13.1 & jhu  & {\color{blue} 36.8} & lf   &  {\color{red} 1.6} \\
+                        &                 & jhu &  3.0 & lf   &  6.7 & lf   & 6.7 & jhu & 13.7 & lf   & 12.7 & lf   & 25.4 & jhu  &  0.6 \\
+\cmidrule{2-16}
+                    & {\bf Single-language} & jhu & 27.3 & jhu  & 22.1 & jhu  & 17.5 & lf  & {\color{blue} 45.8} & jhu & 30.6 & jhu  & 32.2 & lf   & {\color{red} 11.4}   \\
+                    &                 & lf  & 18.0 & lf   & 12.8 & lf   & 13.0 & jhu & 24.9 & lf  & 23.9 & lf   & 15.2 & jhu  &  4.8   \\										
+\cmidrule{2-16}
+                    & {\bf Cross-lingual}   & lf      &  {\color{red} 12.0} &  \multicolumn{12}{c}{}                                                             \\
+                    &                       & jhu     &  5.3  &  \multicolumn{12}{c}{}                                                             \\
+\bottomrule
+      \end{tabular}
+}
+    \caption{Evaluation results for the European Commission corpus.}
     \label{tab:eval-results}
 
   \end{minipage}%

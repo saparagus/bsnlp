@@ -10,3 +10,6 @@
 *.blg
 *.log
 *.out
+*.nav
+*.snm
+*.vrb
